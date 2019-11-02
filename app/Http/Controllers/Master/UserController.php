@@ -37,6 +37,22 @@ class UserController extends Controller {
         ], 200);
     }
 
+    public function all(Request $request) {
+        $user = $this->user;
+
+        if($request->has('doesnt_have_school')) {
+            $user = $user->where('role', 'admin')->whereNull('sekolah_id')->get();
+            return Response::json($user, 200);
+        }
+
+        if($request->has('has_school')) {
+            $user = $user->where('role','admin')->whereNotNull('sekolah_id')->get();
+            return Response::json($user, 200);
+        }
+
+        return $user;
+    }
+
     public function recentActivity() {
         $data = $this->user->feed->get();
         return \response()->json($data, 200);
