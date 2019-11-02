@@ -16,7 +16,9 @@
 /**
  * Routes for resource user
  */
-
+$router->get('/key', function() {
+    return str_random(32);
+});
 $router->get('/', function () {
     return 'Welcome To Api visit https://master-konseling.herokuapp.com for more information';
 });
