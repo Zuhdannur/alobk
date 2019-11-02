@@ -61,11 +61,11 @@ class ScheduleController extends Controller
 
         if ($schedule->expired != 0) {
             return Response::json([
-                "message" => "Pengajuan telah kadaluarsa."
+                "message" => "Pengajuan telah kedaluwarsa."
             ], 201);
         }
 
-        $update = $this->schedule->find($id)->update([
+        $update = $schedule->update([
             'active' => 1,
             'consultant_id' => Auth::user()->id
         ]);

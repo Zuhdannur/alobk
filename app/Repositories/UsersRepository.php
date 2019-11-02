@@ -135,7 +135,7 @@ class UsersRepository
         $save = $user->save();
 
         $updateHasEver = $user->update([
-            'hasEverChangePassword' => 1
+            'ever_change_password' => 1
         ]);
 
         if (!$save || !$updateHasEver) {

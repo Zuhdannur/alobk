@@ -2,6 +2,8 @@
 
 use App\Repositories\UsersRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Response;
 
 class UsersController extends Controller
@@ -72,7 +74,34 @@ class UsersController extends Controller
     }
 
     public function changePassword(Request $request) {
-        return $this->userRepository->changePassword($request);
+        $user = $this->user->find(Auth::user()->id);
+
+        if (!Hash::check($request->oldPassword, $user->password)) {
+            return Response::json(
+                ["message" => "Kata sandi saat ini salah."],
+                201);
+        }
+
+        if (Hash::check($request->newPassword, $user->password)) {
+            return Response::json(
+                ["message" => "Kata sandi baru tidak boleh sama dengan kata sandi saat ini."],
+                201);
+        }
+
+        $user->password = Hash::make($request->newPassword);
+        $save = $user->save();
+
+        $updateHasEver = $user->update([
+            'ever_change_password' => 1
+        ]);
+
+        if (!$save || !$updateHasEver) {
+            return Response::json(
+                ["message" => "Gagal mengganti kata sandi."],
+                201);
+        }
+
+        return Response::json(["message" => "Kata sandi berhasil diubah."], 200);
     }
 
 }

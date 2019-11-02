@@ -122,23 +122,24 @@ class ScheduleRepository
             ], 200);
         } else {
             //Direct dan Realtime
-            if ($this->isExpired($request)) {
-                return Response::json(["message" => 'pengajuan telah kadaluarsa.'], 201);
+            if ($request->original_time->isPast()) {
+                return Response::json(["message" => 'Pengajuan telah kedaluwarsa.'], 201);
             }
 
-            $update = Schedule::where('id', $request->schedule_id)
+            $update = $this->schedule->where('id', $request->schedule_id)
                 ->where('requester_id', Auth::user()->id)
-                ->where('exp', 0)
-                ->where('status', 0)->update([
+                ->where('expired', 0)
+                ->where('active', 0)
+                ->where('pending', 1)->update([
                     'title' => $request->title,
                     'desc' => $request->desc,
                     'time' => $request->time
                 ]);
 
             if (!$update) {
-                return Response::json(["message" => 'pengajuan telah diterima oleh guru.'], 201);
+                return Response::json(["message" => 'Pengajuan telah diterima oleh guru lain.'], 201);
             }
-            return Response::json(["message" => 'schedule updated'], 200);
+            return Response::json(["message" => 'Pengajuan berhasil diubah.'], 200);
         }
 
         return $request;
@@ -268,7 +269,7 @@ class ScheduleRepository
 //                    $query->where('status', 0)
 //                            ->where('canceled', 1);
 //                })->orWhere(function ($query) {
-//                    //Kadaluarsa
+//                    //kedaluwarsa
 //                    $query->where('status', 0)
 //                            ->where('canceled', 0)
 //                            ->where('exp', 1)
@@ -469,7 +470,7 @@ class ScheduleRepository
 
         if ($schedule->expired != 0) {
             return Response::json([
-                "message" => "Pengajuan telah kadaluarsa."
+                "message" => "Pengajuan telah kedaluwarsa."
             ], 201);
         }
 
