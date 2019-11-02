@@ -43,7 +43,7 @@ class DiaryController extends Controller
         $insert->save();
 
         return Response::json([
-            'message' => 'Berhasil menambah catatan.',
+            'message' => 'Berhasil menambah catatans.',
             'id' => $insert->id
         ], 200);
     }
