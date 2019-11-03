@@ -65,8 +65,8 @@ class SekolahController extends Controller {
         ], 200);
     }
 
-    public function put(Request $request) {
-        $sekolah = $this->sekolah;
+    public function put(Request $request, $id) {
+        $sekolah = $this->sekolah->find($id);
 
         $update = $sekolah->update([
             'nama_sekolah' => $request->nama_sekolah,
