@@ -60,6 +60,7 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
                 $router->get('sekolah', 'SekolahController@all');
                 $router->post('sekolah', 'SekolahController@post');
                 $router->put('sekolah/{id}', 'SekolahController@put');
+                $router->delete('sekolah/{id}', 'SekolahController@remove');
                 $router->get('sekolah/count', 'SekolahController@count');
                 $router->get('user/admin/count', 'UserController@adminCount');
                 $router->get('user/recent', 'UserController@recentActivity');

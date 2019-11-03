@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers\Master;
 
+use App\Events\Event;
 use App\Events\MyEvent;
 use App\Http\Controllers\Controller;
 use App\Sekolah;
@@ -48,6 +49,23 @@ class SekolahController extends Controller {
         return Response::json($data, 200);
     }
 
+    public function post(Request $request)
+    {
+        if ($this->isSekolahExists($request->nama_sekolah)) {
+            return Response::json([
+                'message' => 'Gagal, sekolah telah terdaftar di server.'
+            ], 201);
+        }
+        $this->sekolah->nama_sekolah = $request->nama_sekolah;
+        $this->sekolah->alamat = $request->alamat;
+        $this->sekolah->save();
+
+        return Response::json([
+            'message' => 'Berhasil mendaftarkan sekolah.',
+            'id' => $this->sekolah->id
+        ], 200);
+    }
+
     public function count() {
         $total = $this->sekolah->count();
 
@@ -66,6 +84,16 @@ class SekolahController extends Controller {
         ], 200);
     }
 
+    public function remove($id)
+    {
+        $delete = $this->sekolah->find($id)->delete();
+        if ($delete) {
+            return Response::json(["message" => 'Sekolah berhasil dihapus.'], 200);
+        } else {
+            return Response::json(["message" => 'Sekolah gagal dihapus'], 201);
+        }
+    }
+
     public function put(Request $request, $id) {
         $sekolah = $this->sekolah->find($id);
 
@@ -80,7 +108,7 @@ class SekolahController extends Controller {
             ], 201);
         }
 
-        event(new MyEvent('hello world'));
+        Event::dispatch(new MyEvent('hello world'));
 
         return Response::json([
             'message' => 'Berhasil menyunting sekolah.'
