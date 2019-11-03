@@ -3,6 +3,7 @@
 
 namespace App\Http\Controllers\Master;
 
+use App\Feed;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Support\Facades\Response;
@@ -11,15 +12,16 @@ class UserController extends Controller {
 
     const MODEL = "App\User";
 
-    private $user;
+    private $user, $feed;
 
     /**
      * UserController constructor.
      * @param $user
      */
-    public function __construct(User $user)
+    public function __construct(User $user, Feed $feed)
     {
         $this->user = $user;
+        $this->feed = $feed;
     }
 
 
@@ -54,7 +56,7 @@ class UserController extends Controller {
     }
 
     public function recentActivity() {
-        $data = $this->user->with('feeds')->get();
+        $data = $this->feed->where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->get();
         return \response()->json($data, 200);
     }
 
