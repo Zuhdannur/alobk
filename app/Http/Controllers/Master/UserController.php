@@ -54,7 +54,7 @@ class UserController extends Controller {
     }
 
     public function recentActivity() {
-        $data = $this->user->feed->get();
+        $data = $this->user->feed;
         return \response()->json($data, 200);
     }
 
