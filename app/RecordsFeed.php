@@ -6,14 +6,12 @@ namespace App;
 
 use Illuminate\Support\Facades\Auth;
 
-trait RecordFeed
+trait RecordsFeed
 {
     public static function bootRecordsFeed() {
-        foreach (static::getModelEvents() as $event) {
-            static::$event(function ($model) use ($event) {
-                $model->recordFeed($event);
-            });
-        }
+        static::created(function($model) {
+            $model->recordFeed('created');
+        });
     }
 
     public function feeds() {
@@ -21,7 +19,7 @@ trait RecordFeed
     }
 
     public function recordFeed($event) {
-        Feed::create([
+        $this->feeds()->create([
             'user_id' => Auth::user()->id,
             'type' => $event . '_' . strtolower(class_basename($this))
         ]);

@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Auth;
 class Sekolah extends Model
 {
 
-    use RecordFeed;
+    use RecordsFeed;
 
     protected $fillable = [
        'id', 'nama_sekolah','alamat'

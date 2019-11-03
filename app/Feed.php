@@ -4,7 +4,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Feed extends Model {
 
-    protected $guarded = [];
+    protected $guarded=[];
 
     protected $table = "feeds";
 
@@ -12,7 +12,7 @@ class Feed extends Model {
         return $this->belongsTo('App\User');
     }
 
-    public function subject() {
+    public function feedable() {
         return $this->morphTo();
     }
 
