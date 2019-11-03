@@ -65,4 +65,24 @@ class SekolahController extends Controller {
         ], 200);
     }
 
+    public function put(Request $request) {
+        $sekolah = $this->sekolah;
+
+        $update = $sekolah->update([
+            'nama_sekolah' => $request->nama_sekolah,
+            'alamat' => $request->alamat
+        ]);
+
+        if(!$update) {
+            return Response::json([
+                'message' => 'Gagal menyunting sekolah.'
+            ], 201);
+        }
+
+        return Response::json([
+            'message' => 'Berhasil menyunting sekolah.'
+        ], 200);
+
+    }
+
 }
