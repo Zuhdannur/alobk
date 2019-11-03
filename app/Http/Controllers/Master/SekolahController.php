@@ -1,6 +1,6 @@
 <?php namespace App\Http\Controllers\Master;
 
-use App\Events\Event;
+use Event;
 use App\Events\MyEvent;
 use App\Http\Controllers\Controller;
 use App\Sekolah;
@@ -108,7 +108,7 @@ class SekolahController extends Controller {
             ], 201);
         }
 
-        Event::dispatch(new MyEvent('hello world'));
+        event(new MyEvent('hello world'));
 
         return Response::json([
             'message' => 'Berhasil menyunting sekolah.'
