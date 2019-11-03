@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Repositories\UsersRepository;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -11,14 +12,16 @@ class UsersController extends Controller
     protected static $API_ACCESS_KEY = 'AAAA_vRurwA:APA91bFvUdoT1ruL0WZC3rkvQWoK76WFOgUSAFuc3aUpN0_kjiP22y3Pf_o1TthpfN6_o_0HnHJeMGZMp8MqHzm1zTCk8zuTY4UzAByzknPDlcBlNFvz60oN6fx9Kq3gkfR373aboRy0';
 
     private $userRepository;
+    private $user;
 
     /**
      * UsersController constructor.
      * @param $userRepository
      */
-    public function __construct(UsersRepository $userRepository)
+    public function __construct(UsersRepository $userRepository, User $user)
     {
         $this->userRepository = $userRepository;
+        $this->user = $user;
     }
 
     public function getTotalAccountBySchool(Request $request) {
