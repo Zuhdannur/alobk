@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers\Master;
 
+use App\User;
 use Event;
 use App\Events\MyEvent;
 use App\Http\Controllers\Controller;
@@ -11,15 +12,16 @@ class SekolahController extends Controller {
 
     const MODEL = "App\Sekolah";
 
-    private $sekolah;
+    private $sekolah, $user;
 
     /**
      * SekolahController constructor.
      * @param $sekolah
      */
-    public function __construct(Sekolah $sekolah)
+    public function __construct(Sekolah $sekolah, User $user)
     {
         $this->sekolah = $sekolah;
+        $this->user = $user;
     }
 
     public function all(Request $request)
@@ -114,6 +116,11 @@ class SekolahController extends Controller {
             'message' => 'Berhasil menyunting sekolah.'
         ], 200);
 
+    }
+
+    public function recentActivity() {
+        $data = $this->user->feeds;
+        return \response()->json($data, 200);
     }
 
 }

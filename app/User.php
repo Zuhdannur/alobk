@@ -53,11 +53,9 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
                      ->with([$relation => $constraint]);
     }
 
-    public function feed()
+    public function feeds()
     {
-        return $this->hasMany('App\Feed')
-            ->with('user')
-            ->latest();
+        return $this->hasMany(Feed::class);
     }
 
     /**
