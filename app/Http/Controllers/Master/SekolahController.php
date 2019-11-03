@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers\Master;
 
+use App\Events\MyEvent;
 use App\Http\Controllers\Controller;
 use App\Sekolah;
 use Illuminate\Http\Request;
@@ -78,6 +79,8 @@ class SekolahController extends Controller {
                 'message' => 'Gagal menyunting sekolah.'
             ], 201);
         }
+
+        event(new MyEvent('hello world'));
 
         return Response::json([
             'message' => 'Berhasil menyunting sekolah.'
