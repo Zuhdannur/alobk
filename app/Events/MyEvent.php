@@ -9,7 +9,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class MyEvent extends Event implements ShouldBroadcast
 {
-    use Dispatchable, InteractsWithSockets;
+    use InteractsWithSockets;
 
     public $message;
     /**
