@@ -11,6 +11,7 @@ trait RecordsFeed
     protected static function bootRecordsFeed()
     {
         static::created(function($model){
+            dd($model);
             $model->recordFeed('created');
         });
     }
