@@ -52,6 +52,7 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
     $router->put('kelas/{id}', 'KelasController@put');
     $router->delete('kelas/{id}', 'KelasController@remove');
 
+
     $router->group(['middleware' => 'auth'], function () use ($router) {
 
         $router->group(['namespace' => 'Master'], function () use ($router) {
@@ -112,9 +113,9 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
 
         //profile
         $router->put('user', 'UsersController@put');
+        $router->get('user', 'UsersController@all');
         $router->get('user/teacher/student/profile/{id}','UsersController@getStudentInfo');
         $router->post('user/update/image', 'UsersController@updateImageProfile');
-        $router->get('user', 'UsersController@all');
         $router->post('user/password', 'UsersController@changePassword');
         $router->get('user/check', 'UsersController@checkUsername');
         $router->get('user/master/account', 'UsersController@getTotalAccount');

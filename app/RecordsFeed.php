@@ -24,7 +24,7 @@ trait RecordsFeed
     {
         $this->feeds()->create([
             'user_id' => Auth::user()->id,
-            'type'    => $event . '_' . strtolower(class_basename($this))
+            'type'    => strtoupper($event)
         ]);
     }
 }
