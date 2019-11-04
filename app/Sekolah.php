@@ -7,13 +7,18 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class Sekolah extends Model
 {
 
-    use RecordsFeed, LogsActivity;
+    use RecordsFeed;
 
     protected $fillable = [
        'id', 'nama_sekolah','alamat'
     ];
 
-    protected static $logAttributes = ['nama_sekolah'];
+    protected $logAttribute = "";
+
+    public function logAttribute()
+    {
+        return $this->nama_sekolah;
+    }
 
     protected $dates = [];
 
