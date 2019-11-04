@@ -2,15 +2,18 @@
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Sekolah extends Model
 {
 
-    use RecordsFeed;
+    use RecordsFeed, LogsActivity;
 
     protected $fillable = [
        'id', 'nama_sekolah','alamat'
     ];
+
+    protected static $logAttributes = ['nama_sekolah'];
 
     protected $dates = [];
 

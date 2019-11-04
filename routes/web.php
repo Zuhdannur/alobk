@@ -35,6 +35,7 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
     * Routes for resource sekolah
     */
     $router->get('sekolah', 'SekolahsController@all');
+    $router->get('recent', 'SekolahsController@recentAct');
     $router->post('sekolah', 'SekolahsController@add');
     $router->get('sekolah/{id}', 'SekolahsController@get');
     $router->put('sekolah/{id}', 'SekolahsController@put');
