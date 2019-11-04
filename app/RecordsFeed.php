@@ -11,7 +11,7 @@ trait RecordsFeed
     protected static function bootRecordsFeed()
     {
         static::created(function($model){
-            $model->recordFeed($model->logAttributes);
+            $model->recordFeed($model->fillable);
         });
     }
 
