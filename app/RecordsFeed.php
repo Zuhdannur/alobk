@@ -11,13 +11,13 @@ trait RecordsFeed
     protected static function bootRecordsFeed()
     {
         static::created(function($model){
-            $model->recordFeed('created', $model);
+            $model->recordFeed('create', $model);
         });
         static::updated(function($model){
-            $model->recordFeed('updated', $model);
+            $model->recordFeed('update', $model);
         });
         static::deleted(function($model){
-            $model->recordFeed('deleted', $model);
+            $model->recordFeed('delete', $model);
         });
     }
 
