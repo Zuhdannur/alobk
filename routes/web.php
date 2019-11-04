@@ -35,6 +35,7 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
     * Routes for resource sekolah
     */
     $router->get('sekolah', 'SekolahsController@all');
+    $router->get('recent', 'SekolahsController@recentAct');
     $router->post('sekolah', 'SekolahsController@add');
     $router->get('sekolah/{id}', 'SekolahsController@get');
     $router->put('sekolah/{id}', 'SekolahsController@put');
@@ -52,6 +53,7 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
     $router->put('kelas/{id}', 'KelasController@put');
     $router->delete('kelas/{id}', 'KelasController@remove');
 
+
     $router->group(['middleware' => 'auth'], function () use ($router) {
 
         $router->group(['namespace' => 'Master'], function () use ($router) {
@@ -63,6 +65,7 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
                 $router->delete('sekolah/{id}', 'SekolahController@remove');
                 $router->get('sekolah/count', 'SekolahController@count');
                 $router->get('user/admin/count', 'UserController@adminCount');
+                $router->get('user/admin', 'UserController@getAdmin');
                 $router->get('user/recent', 'UserController@recentActivity');
             });
 
@@ -112,9 +115,9 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
 
         //profile
         $router->put('user', 'UsersController@put');
+        $router->get('user', 'UsersController@all');
         $router->get('user/teacher/student/profile/{id}','UsersController@getStudentInfo');
         $router->post('user/update/image', 'UsersController@updateImageProfile');
-        $router->get('user', 'UsersController@all');
         $router->post('user/password', 'UsersController@changePassword');
         $router->get('user/check', 'UsersController@checkUsername');
         $router->get('user/master/account', 'UsersController@getTotalAccount');

@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Sekolah extends Model
 {
@@ -11,6 +12,11 @@ class Sekolah extends Model
     protected $fillable = [
        'id', 'nama_sekolah','alamat'
     ];
+
+    public function logAttribute()
+    {
+        return $this->nama_sekolah;
+    }
 
     protected $dates = [];
 

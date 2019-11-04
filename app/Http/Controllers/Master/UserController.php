@@ -6,6 +6,8 @@ namespace App\Http\Controllers\Master;
 use App\Feed;
 use App\Http\Controllers\Controller;
 use App\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 
 class UserController extends Controller {
@@ -39,6 +41,12 @@ class UserController extends Controller {
         ], 200);
     }
 
+    public function getAdmin(Request $request) {
+        $user = $this->user->where('role', 'admin')->with('sekolahOnlyName')->paginate($request->per_page);
+
+        return Response::json($user, 200);
+    }
+
     public function all(Request $request) {
         $user = $this->user;
 
@@ -55,9 +63,14 @@ class UserController extends Controller {
         return $user;
     }
 
-    public function recentActivity() {
-        $data = $this->feed->where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->get();
-        return \response()->json($data, 200);
+
+    public function recentActivity(Request $request) {
+        $data = $this->feed->where('user_id', Auth::user()->id)->orderBy('created_at', 'desc');
+        if($request->has('take')) {
+            $data = $data->take($request->take);
+            return Response::json($data->get(), 200);
+        }
+        return \response()->json($data->paginate($request->per_page), 200);
     }
 
 }

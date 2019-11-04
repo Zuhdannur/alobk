@@ -22,7 +22,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     protected $primaryKey = "id";
 
     protected $fillable = [
-        'username','ever_change_password'
+        'username','name','ever_change_password'
     ];
 
     /**
@@ -43,6 +43,10 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         return $this->belongsTo('\App\Sekolah');
     }
 
+    public function sekolahOnlyName() {
+        return $this->sekolah()->select(array('id', 'nama_sekolah'));
+    }
+
     public function diary() {
         return $this->hasMany('\App\Diary');
     }
@@ -53,26 +57,12 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
                      ->with([$relation => $constraint]);
     }
 
-    public function feeds()
+    public function logAttribute(): string
     {
-        return $this->hasMany(Feed::class);
-    }
-
-    /**
-     * Record new activity for the user.
-     *
-     * @param  string $name
-     * @param  mixed  $related
-     * @throws \Exception
-     * @return void
-     */
-    public function recordActivity($name, $related)
-    {
-        if (! method_exists($related, 'recordActivity')) {
-            throw new \Exception('..');
+        if($this->role == 'admin' || $this->role == 'master' || $this->role == 'supervisor') {
+            return $this->username;
+        } else {
+            return $this->name;
         }
-
-        return $related->recordActivity($name);
     }
-
 }

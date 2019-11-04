@@ -11,20 +11,29 @@ trait RecordsFeed
     protected static function bootRecordsFeed()
     {
         static::created(function($model){
-            $model->recordFeed('created');
+            $model->recordFeed('create', $model);
+        });
+        static::updated(function($model){
+            $model->recordFeed('update', $model);
+        });
+        static::deleted(function($model){
+            $model->recordFeed('delete', $model);
         });
     }
+
+    abstract public function logAttribute(): string;
 
     public function feeds()
     {
         return $this->morphMany(Feed::class, 'feedable');
     }
 
-    protected function recordFeed($event)
+    protected function recordFeed($type, $event)
     {
         $this->feeds()->create([
             'user_id' => Auth::user()->id,
-            'type'    => $event . '_' . strtolower(class_basename($this))
+            'type'    => $type,
+            'description' => $event->logAttribute()
         ]);
     }
 }

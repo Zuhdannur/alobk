@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Repositories\SekolahRepository;
+use App\Sekolah;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 
@@ -13,6 +14,12 @@ class SekolahsController extends Controller
      * SekolahsController constructor.
      * @param $sekolahRepository
      */
+    public function recentAct() {
+        $data = Sekolah::with('actions');
+
+        return Response::json($data, 200);
+    }
+
     public function __construct(SekolahRepository $sekolahRepository)
     {
         $this->sekolahRepository = $sekolahRepository;
