@@ -70,6 +70,17 @@ $app->routeMiddleware([
     'paging' => App\Http\Middleware\LinkHeaderPagination::class
 ]);
 
+$app->singleton(Illuminate\Auth\AuthManager::class, function ($app) {
+    return $app->make('auth');
+});
+$app->register(Spatie\Activitylog\ActivitylogServiceProvider::class);
+$app->configure('activitylog');
+if (! function_exists('config_path')) {
+    function config_path($path = '')
+    {
+        return app()->basePath() . '/config' . ($path ? '/' . $path : $path);
+    }
+}
 /*
 |--------------------------------------------------------------------------
 | Register Service Providers
