@@ -13,8 +13,6 @@ class Sekolah extends Model
        'id', 'nama_sekolah','alamat'
     ];
 
-    protected $logAttribute = "";
-
     public function logAttribute()
     {
         return $this->nama_sekolah;

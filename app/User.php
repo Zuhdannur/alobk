@@ -22,7 +22,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     protected $primaryKey = "id";
 
     protected $fillable = [
-        'username','ever_change_password'
+        'username','name','ever_change_password'
     ];
 
     /**
@@ -51,28 +51,6 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     {
         return $query->whereHas($relation, $constraint)
                      ->with([$relation => $constraint]);
-    }
-
-    public function feeds()
-    {
-        return $this->hasMany(Feed::class);
-    }
-
-    /**
-     * Record new activity for the user.
-     *
-     * @param  string $name
-     * @param  mixed  $related
-     * @throws \Exception
-     * @return void
-     */
-    public function recordActivity($name, $related)
-    {
-        if (! method_exists($related, 'recordActivity')) {
-            throw new \Exception('..');
-        }
-
-        return $related->recordActivity($name);
     }
 
     public function logAttribute(): string
