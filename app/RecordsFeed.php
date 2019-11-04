@@ -11,8 +11,7 @@ trait RecordsFeed
     protected static function bootRecordsFeed()
     {
         static::created(function($model){
-            dd($model);
-            $model->recordFeed('created');
+            $model->recordFeed($model->logAttributes);
         });
     }
 
@@ -25,7 +24,7 @@ trait RecordsFeed
     {
         $this->feeds()->create([
             'user_id' => Auth::user()->id,
-            'type'    => $this->logAttributes
+            'type'    => $event
         ]);
     }
 }
