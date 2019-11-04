@@ -10,7 +10,7 @@ use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 
 class User extends Model implements AuthenticatableContract, AuthorizableContract
 {
-    use Authenticatable, Authorizable;
+    use Authenticatable, Authorizable, RecordsFeed;
 
     /**
      * The attributes that are mass assignable.
@@ -75,4 +75,12 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         return $related->recordActivity($name);
     }
 
+    public function logAttribute(): string
+    {
+        if($this->role == 'admin') {
+            return $this->username;
+        } else {
+            return $this->name;
+        }
+    }
 }
