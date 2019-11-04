@@ -65,9 +65,7 @@ class UserController extends Controller {
     }
 
     public function logActivity(Request $request) {
-        $latestActivities = Activity::whereHas('user', function($query) {
-            $query->where('user_id', Auth::user()->id);
-        })->with('user');
+        $latestActivities = Activity->with('user');
 
         if($request->has('take')) {
             $data = $latestActivities->latest()->take($request->take);
