@@ -7,6 +7,7 @@ use App\Feed;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 
 class UserController extends Controller {
