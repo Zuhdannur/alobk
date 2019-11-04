@@ -65,6 +65,7 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
                 $router->delete('sekolah/{id}', 'SekolahController@remove');
                 $router->get('sekolah/count', 'SekolahController@count');
                 $router->get('user/admin/count', 'UserController@adminCount');
+                $router->get('user/admin', 'UserController@getAdmin');
                 $router->get('user/recent', 'UserController@recentActivity');
             });
 

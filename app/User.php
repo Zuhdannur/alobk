@@ -43,6 +43,10 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         return $this->belongsTo('\App\Sekolah');
     }
 
+    public function sekolahOnlyName() {
+        return $this->sekolah()->select(array('id', 'nama_sekolah'));
+    }
+
     public function diary() {
         return $this->hasMany('\App\Diary');
     }

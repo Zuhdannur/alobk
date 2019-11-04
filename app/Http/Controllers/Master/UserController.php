@@ -41,6 +41,12 @@ class UserController extends Controller {
         ], 200);
     }
 
+    public function getAdmin(Request $request) {
+        $user = $this->user->where('role', 'admin')->with('sekolahOnlyName')->paginate($request->per_page);
+
+        return Response::json($user, 200);
+    }
+
     public function all(Request $request) {
         $user = $this->user;
 
@@ -56,6 +62,7 @@ class UserController extends Controller {
 
         return $user;
     }
+
 
     public function recentActivity(Request $request) {
         $data = $this->feed->where('user_id', Auth::user()->id)->orderBy('created_at', 'desc');
