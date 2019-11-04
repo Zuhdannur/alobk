@@ -10,7 +10,7 @@ trait RecordsFeed
 {
     protected static function bootRecordsFeed()
     {
-        static::creating(function($model){
+        static::created(function($model){
             $model->recordFeed('create', $model);
         });
         static::updated(function($model){
@@ -30,17 +30,6 @@ trait RecordsFeed
 
     protected function recordFeed($type, $event)
     {
-        $changes = [];
-
-        foreach($event->getDirty() as $key => $value)
-        {
-            $original = $event->getOriginal($key);
-
-            $changes[$key] = [
-                'old' => $original,
-                'new' => $value,
-            ];
-        }
         $this->feeds()->create([
             'user_id' => Auth::user()->id,
             'type'    => $type,
