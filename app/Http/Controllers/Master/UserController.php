@@ -64,17 +64,6 @@ class UserController extends Controller {
         return $user;
     }
 
-    public function logActivity(Request $request) {
-        $latestActivities = Activity::with('user');
-
-        if($request->has('take')) {
-            $data = $latestActivities->latest()->take($request->take);
-            return Response::json($data->get(), 200);
-        }
-        return \response()->json($latestActivities->paginate($request->per_page), 200);
-    }
-
-
     public function recentActivity(Request $request) {
         $data = $this->feed->where('user_id', Auth::user()->id)->orderBy('created_at', 'desc');
         if($request->has('take')) {
