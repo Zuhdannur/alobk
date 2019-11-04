@@ -11,7 +11,13 @@ trait RecordsFeed
     protected static function bootRecordsFeed()
     {
         static::created(function($model){
-            $model->recordFeed($model->logAttribute());
+            $model->recordFeed('created', $model);
+        });
+        static::updated(function($model){
+            $model->recordFeed('updated', $model);
+        });
+        static::deleted(function($model){
+            $model->recordFeed('deleted', $model);
         });
     }
 
@@ -22,11 +28,12 @@ trait RecordsFeed
         return $this->morphMany(Feed::class, 'feedable');
     }
 
-    protected function recordFeed($event)
+    protected function recordFeed($type, $event)
     {
         $this->feeds()->create([
             'user_id' => Auth::user()->id,
-            'type'    => $event
+            'type'    => $type,
+            'description' => $event->logAttribute()
         ]);
     }
 }

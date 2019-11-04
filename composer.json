@@ -16,7 +16,6 @@
         "php-http/curl-client": "^2.0",
         "pusher/pusher-php-server": "^4.1",
         "sngrl/php-firebase-cloud-messaging": "dev-master",
-        "spatie/laravel-activitylog": "^3.9",
         "thedevsaddam/lumen-route-list": "^2.0",
         "unsplash/unsplash": "^2.4",
         "vlucas/phpdotenv": "^3.3",

@@ -16,8 +16,8 @@ class CreateFeedsTable extends Migration
         Schema::create('feeds', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedInteger('user_id');
-            $table->string('type');
-            $table->string('entity');
+            $table->enum('type', ['created','updated','deleted']);
+            $table->string('description');
             $table->unsignedInteger('feedable_id');
             $table->string('feedable_type');
             $table->timestamps();
