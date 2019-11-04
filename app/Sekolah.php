@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Spatie\Activitylog\LogsActivityInterface;
 use Spatie\Activitylog\Traits\LogsActivity;
 
-class Sekolah extends Model implements LogsActivityInterface
+class Sekolah extends Model
 {
 
     use RecordsFeed;
@@ -43,32 +43,5 @@ class Sekolah extends Model implements LogsActivityInterface
 
     public function firstAdmin() {
         return $this->hasOne('\App\User')->where('role','admin');
-    }
-
-    /**
-     * Get the message that needs to be logged for the given event.
-     *
-     * @param string $eventName
-     *
-     * @return string
-     */
-    public function getActivityDescriptionForEvent($eventName)
-    {
-        if ($eventName == 'created')
-        {
-            return 'Sekolah "' . $this->name . '" berhasil dibuat.';
-        }
-
-        if ($eventName == 'updated')
-        {
-            return 'Sekolah "' . $this->name . '" berhasil disunting.';
-        }
-
-        if ($eventName == 'deleted')
-        {
-            return 'Sekolah "' . $this->name . '" berhasil dihapus.';
-        }
-
-        return '';
     }
 }
