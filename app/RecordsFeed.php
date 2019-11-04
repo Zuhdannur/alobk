@@ -11,7 +11,7 @@ trait RecordsFeed
     protected static function bootRecordsFeed()
     {
         static::created(function($model){
-            $model->recordFeed('created');
+            $model->recordFeed('created' + $model->nama_sekolah);
         });
     }
 
