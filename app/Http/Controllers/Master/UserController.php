@@ -9,6 +9,7 @@ use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
+use Spatie\Activitylog\Models\Activity;
 
 class UserController extends Controller {
 
@@ -61,6 +62,18 @@ class UserController extends Controller {
         }
 
         return $user;
+    }
+
+    public function logActivity(Request $request) {
+        $latestActivities = Activity::whereHas('user', function($query) {
+            $query->where('user_id', Auth::user()->id);
+        })->with('user');
+
+        if($request->has('take')) {
+            $data = $latestActivities->latest()->take($request->take);
+            return Response::json($data->get(), 200);
+        }
+        return \response()->json($latestActivities->paginate($request->per_page), 200);
     }
 
 
