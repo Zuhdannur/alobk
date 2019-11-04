@@ -50,6 +50,21 @@ $app->singleton(
 
 $app->register(Flipbox\LumenGenerator\LumenGeneratorServiceProvider::class);
 
+
+
+
+/*Spatie*/
+$app->register(Spatie\Activitylog\ActivitylogServiceProvider::class);
+$app->configure('activitylog');
+if (! function_exists('config_path')) {
+    function config_path($path = '')
+    {
+        return app()->basePath() . '/config' . ($path ? '/' . $path : $path);
+    }
+}
+$app->register(Irazasyed\Larasupport\Providers\ArtisanServiceProvider::class);
+
+
 /*
 |--------------------------------------------------------------------------
 | Register Middleware
