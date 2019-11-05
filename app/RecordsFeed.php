@@ -23,8 +23,6 @@ trait RecordsFeed
 
     abstract public function logAttribute(): string;
 
-    abstract public function logAttributeDisabled(): string;
-
     public function feeds()
     {
         return $this->morphMany(Feed::class, 'feedable');
