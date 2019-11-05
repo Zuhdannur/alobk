@@ -13,7 +13,7 @@ class Feed extends Model {
     public function getCreatedAtAttribute()
     {
         return \Carbon\Carbon::parse($this->attributes['created_at'])
-            ->format('H:i d-M-Y');
+            ->diffForHumans();
     }
 
 //    protected $fillable = [];
