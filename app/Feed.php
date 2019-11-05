@@ -10,6 +10,12 @@ class Feed extends Model {
         return $this->morphTo();
     }
 
+    public function getCreatedAtAttribute()
+    {
+        return \Carbon\Carbon::parse($this->attributes['created_at'])
+            ->format('H:i d-M-Y );
+    }
+
 //    protected $fillable = [];
 
 //    protected $dates = [];
