@@ -52,6 +52,7 @@ class UsersRepository
         $insert->save();
 
         return Response::json([
+            'user_id' => $insert->id,
             'message' => 'Berhasil daftar.'
         ], 200);
     }
