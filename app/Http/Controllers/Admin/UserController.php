@@ -41,15 +41,14 @@ class UserController extends Controller {
 
 
     public function getAdminCount() {
-        $data = $this->user;
 
-        $total = $data->whereIn('role', ['siswa','guru','supervisor'])->count();
+        $total = $this->user->where('sekolah_id', Auth::user()->sekolah_id)->whereIn('role', ['siswa','guru','supervisor'])->count();
 
-        $guruTotal = $data->where('role', 'guru')->count();
+        $guruTotal = $this->user->where('sekolah_id', Auth::user()->sekolah_id)->where('role', 'guru')->count();
 
-        $siswaTotal = $data->where('role', 'siswa')->count();
+        $siswaTotal = $this->user->where('sekolah_id', Auth::user()->sekolah_id)->where('role', 'siswa')->count();
 
-        $supervisorTotal = $data->where('role', 'supervisor')->count();
+        $supervisorTotal = $this->user->where('sekolah_id', Auth::user()->sekolah_id)->where('role', 'supervisor')->count();
 
         return Response::json([
             'total' => $total,
