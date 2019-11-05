@@ -59,7 +59,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
     public function logAttribute(): string
     {
-        if($this->role == 'admin' || $this->role == 'supervisor') {
+        if($this->role == 'admin' || $this->role == 'master' || $this->role == 'supervisor') {
             return $this->username;
         } else {
             return $this->name;
