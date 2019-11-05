@@ -44,7 +44,7 @@ class UserController extends Controller {
 
     public function remove($id)
     {
-        $data = $this->user->find($id)->where('role','admin')->delete();
+        $data = $this->user->find($id)->delete();
         if(!$data) {
             return Response::json([
                 "message" => "Gagal menghapus akun admin.",
