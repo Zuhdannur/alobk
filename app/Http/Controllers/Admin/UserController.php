@@ -28,7 +28,7 @@ class UserController extends Controller {
     }
 
     public function getUsers(Request $request) {
-        $data = $this->user->where('sekolah_id', Auth::user()->sekolah_id);
+        $data = $this->user->where('sekolah_id', Auth::user()->sekolah_id)->where('role','!=','admin');
 
         if($request->has('role')) {
             $data = $data->where('role', $request->role);
