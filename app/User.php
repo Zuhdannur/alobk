@@ -65,4 +65,11 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
             return $this->name;
         }
     }
+
+    public function getCreatedAtAttribute()
+    {
+        return \Carbon\Carbon::parse($this->attributes['created_at'])
+            ->diffForHumans();
+    }
+
 }
