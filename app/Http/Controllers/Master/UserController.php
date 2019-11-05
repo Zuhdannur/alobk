@@ -42,6 +42,19 @@ class UserController extends Controller {
         ], 200);
     }
 
+    public function remove($id)
+    {
+        $data = $this->user->find($id)->where('role','admin')->delete();
+        if(!$data) {
+            return Response::json([
+                "message" => "Gagal menghapus akun admin.",
+            ], 201);
+        }
+        return Response::json([
+            "message" => "Berhasil menghapus akun admin.",
+        ], 200);
+    }
+
     public function getAdmin(Request $request) {
         $user = $this->user->where('role', 'admin')->with('sekolahOnlyName')->paginate($request->per_page);
 
