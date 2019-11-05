@@ -28,14 +28,16 @@ class UserController extends Controller {
     }
 
 
-    public function adminCount() {
-        $total = $this->user->whereIn('role', ['siswa','guru','supervisor'])->count();
+    public function getAdminCount() {
+        $data = $this->user->where('sekolah_id', Auth::user()->sekolah_id);
 
-        $guruTotal = $this->user->where('role', 'guru')->count();
+        $total = $data->whereIn('role', ['siswa','guru','supervisor'])->count();
 
-        $siswaTotal = $this->user->where('role', 'siswa')->count();
+        $guruTotal = $data->where('role', 'guru')->count();
 
-        $supervisorTotal = $this->user->where('role', 'supervisor')->count();
+        $siswaTotal = $data->where('role', 'siswa')->count();
+
+        $supervisorTotal = $data->where('role', 'supervisor')->count();
 
         return Response::json([
             'total' => $total,
