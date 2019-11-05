@@ -10,18 +10,20 @@ trait RecordsFeed
 {
     protected static function bootRecordsFeed()
     {
-        static::created(function($model){
+        static::created(function ($model) {
             $model->recordFeed('create', $model);
         });
-        static::updated(function($model){
+        static::updated(function ($model) {
             $model->recordFeed('update', $model);
         });
-        static::deleted(function($model){
+        static::deleted(function ($model) {
             $model->recordFeed('delete', $model);
         });
     }
 
     abstract public function logAttribute(): string;
+
+    abstract public function logAttributeDisabled(): string;
 
     public function feeds()
     {
@@ -30,10 +32,12 @@ trait RecordsFeed
 
     protected function recordFeed($type, $event)
     {
-        $this->feeds()->create([
-            'user_id' => Auth::user()->id,
-            'type'    => $type,
-            'description' => $event->logAttribute()
-        ]);
+        if (Auth::user() != null) {
+            $this->feeds()->create([
+                'user_id' => Auth::user()->id,
+                'type' => $type,
+                'description' => $event->logAttribute()
+            ]);
+        }
     }
 }
