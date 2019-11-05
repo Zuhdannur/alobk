@@ -77,6 +77,7 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
             $router->group(['prefix' => 'admin'], function () use ($router) {
                 $router->get('user/count', 'UserController@getAdminCount');
                 $router->get('user/recent', 'UserController@recentActivity');
+                $router->get('users', 'UserController@getUsers');
             });
 
         });

@@ -27,6 +27,18 @@ class UserController extends Controller {
         $this->feed = $feed;
     }
 
+    public function getUsers(Request $request) {
+        $data = $this->user->where('sekolah_id', Auth::user()->sekolah_id);
+
+        if($request->has('role')) {
+            $data = $data->where('role', $request->role);
+        }
+
+        $data = $data->paginate($request->per_page);
+
+        return Response::json($data, 200);
+    }
+
 
     public function getAdminCount() {
         $data = $this->user->where('sekolah_id', Auth::user()->sekolah_id);
