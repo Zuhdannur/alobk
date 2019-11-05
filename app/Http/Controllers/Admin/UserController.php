@@ -41,7 +41,7 @@ class UserController extends Controller {
 
 
     public function getAdminCount() {
-        $data = $this->user->where('sekolah_id', Auth::user()->sekolah_id);
+        $data = $this->user;
 
         $total = $data->whereIn('role', ['siswa','guru','supervisor'])->count();
 
