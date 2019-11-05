@@ -4,7 +4,6 @@ use App\Repositories\DiaryRepository;
 use http\Env\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use Pusher\Pusher;
 use App\Helpers;
 
 class DiariesController extends Controller
