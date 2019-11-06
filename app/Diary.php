@@ -10,7 +10,7 @@ class Diary extends Model
 
     public $timestamps = true;
 
-    protected $dates = [];
+    protected $dates = ['tgl'];
 
     protected $table = "diary";
 
@@ -34,6 +34,11 @@ class Diary extends Model
     {
         return \Carbon\Carbon::parse($this->attributes['created_at'])
             ->diffForHumans();
+    }
+
+    public function getTglAttribute()
+    {
+        return \Carbon\Carbon::parse($this->attributes['tgl'])->format('d, M Y');
     }
 
 }
