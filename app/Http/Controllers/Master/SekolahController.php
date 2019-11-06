@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers\Master;
 
+use App\Artikel;
 use App\User;
 use Event;
 use App\Events\MyEvent;
@@ -12,16 +13,17 @@ class SekolahController extends Controller {
 
     const MODEL = "App\Sekolah";
 
-    private $sekolah, $user;
+    private $sekolah, $user, $artikel;
 
     /**
      * SekolahController constructor.
      * @param $sekolah
      */
-    public function __construct(Sekolah $sekolah, User $user)
+    public function __construct(Sekolah $sekolah, User $user, Artikel $artikel)
     {
         $this->sekolah = $sekolah;
         $this->user = $user;
+        $this->artikel = $artikel;
     }
 
     public function all(Request $request)
@@ -70,6 +72,8 @@ class SekolahController extends Controller {
 
     public function count() {
         $total = $this->sekolah->count();
+        $totalAdmin = $this->user->where('role','admin')->count();
+        $totalArtikel = $this->artikel->count();
 
         $doesntHaveAdmin = $this->sekolah->doesntHave('user')->orWhereHas('user', function ($query) {
             $query->whereNotIn('role', ['admin']);
@@ -81,6 +85,8 @@ class SekolahController extends Controller {
 
         return Response::json([
             'total' => $total,
+            'total_admin' => $totalAdmin,
+            'total_artikel' => $totalArtikel,
             'has_admin' => $hasAdmin,
             'doesnt_have_admin' => $doesntHaveAdmin
         ], 200);
