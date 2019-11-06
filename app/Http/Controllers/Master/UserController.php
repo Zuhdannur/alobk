@@ -74,6 +74,11 @@ class UserController extends Controller {
             return Response::json($user, 200);
         }
 
+        if($request->has('take')) {
+            $data = $user->where('role','admin')->take($request->take)->get();
+            return Response::json($data, 200);
+        }
+
         return $user;
     }
 

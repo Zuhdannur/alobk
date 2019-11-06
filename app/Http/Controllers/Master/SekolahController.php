@@ -1,15 +1,16 @@
 <?php namespace App\Http\Controllers\Master;
 
 use App\Artikel;
-use App\User;
-use Event;
 use App\Events\MyEvent;
 use App\Http\Controllers\Controller;
 use App\Sekolah;
+use App\User;
+use Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 
-class SekolahController extends Controller {
+class SekolahController extends Controller
+{
 
     const MODEL = "App\Sekolah";
 
@@ -40,7 +41,12 @@ class SekolahController extends Controller {
             $data = $this->sekolah->with('firstAdmin');
         }
 
-        if($request->has('not_manage_by_admin')) {
+        if($request->has('take')) {
+            $data = $data->take($request->take)->get();
+            return Response::json($data, 200);
+        }
+
+        if ($request->has('not_manage_by_admin')) {
             $data = $this->sekolah->doesntHave('user')->orWhereHas('user', function ($query) {
                 $query->whereNotIn('role', ['admin']);
             })->get();
@@ -70,9 +76,10 @@ class SekolahController extends Controller {
         ], 200);
     }
 
-    public function count() {
+    public function count()
+    {
         $total = $this->sekolah->count();
-        $totalAdmin = $this->user->where('role','admin')->count();
+        $totalAdmin = $this->user->where('role', 'admin')->count();
         $totalArtikel = $this->artikel->count();
 
         $doesntHaveAdmin = $this->sekolah->doesntHave('user')->orWhereHas('user', function ($query) {
@@ -102,7 +109,8 @@ class SekolahController extends Controller {
         }
     }
 
-    public function put(Request $request, $id) {
+    public function put(Request $request, $id)
+    {
         $sekolah = $this->sekolah->find($id);
 
         $update = $sekolah->update([
@@ -110,7 +118,7 @@ class SekolahController extends Controller {
             'alamat' => $request->alamat
         ]);
 
-        if(!$update) {
+        if (!$update) {
             return Response::json([
                 'message' => 'Gagal menyunting sekolah.'
             ], 201);
@@ -124,7 +132,8 @@ class SekolahController extends Controller {
 
     }
 
-    public function recentActivity() {
+    public function recentActivity()
+    {
         $data = $this->user->feeds;
         return \response()->json($data, 200);
     }
