@@ -2,11 +2,13 @@
 
 use App\Artikel;
 use App\Events\MyEvent;
+use App\Feed;
 use App\Http\Controllers\Controller;
 use App\Sekolah;
 use App\User;
 use Event;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
 
 class SekolahController extends Controller
@@ -14,17 +16,18 @@ class SekolahController extends Controller
 
     const MODEL = "App\Sekolah";
 
-    private $sekolah, $user, $artikel;
+    private $sekolah, $user, $artikel, $recent;
 
     /**
      * SekolahController constructor.
      * @param $sekolah
      */
-    public function __construct(Sekolah $sekolah, User $user, Artikel $artikel)
+    public function __construct(Sekolah $sekolah, User $user, Artikel $artikel, Feed $recent)
     {
         $this->sekolah = $sekolah;
         $this->user = $user;
         $this->artikel = $artikel;
+        $this->recent = $recent;
     }
 
     public function all(Request $request)
@@ -90,10 +93,13 @@ class SekolahController extends Controller
             $query->where('role', 'admin');
         })->count();
 
+        $countRecent = $this->recent->where('user_id', Auth::user()->id)->count();
+
         return Response::json([
             'total' => $total,
             'total_admin' => $totalAdmin,
             'total_artikel' => $totalArtikel,
+            'total_activity' => $countRecent,
             'has_admin' => $hasAdmin,
             'doesnt_have_admin' => $doesntHaveAdmin
         ], 200);
