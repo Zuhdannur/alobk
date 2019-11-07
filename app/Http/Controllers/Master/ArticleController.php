@@ -6,7 +6,7 @@ namespace App\Http\Controllers\Master;
 
 use App\Artikel;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 
 class ArticleController extends Controller
