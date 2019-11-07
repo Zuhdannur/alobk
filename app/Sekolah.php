@@ -44,4 +44,11 @@ class Sekolah extends Model
     public function firstAdmin() {
         return $this->hasOne('\App\User')->where('role','admin');
     }
+
+    public function getCreatedAtAttribute()
+    {
+        return \Carbon\Carbon::parse($this->attributes['created_at'])
+            ->diffForHumans();
+    }
+
 }

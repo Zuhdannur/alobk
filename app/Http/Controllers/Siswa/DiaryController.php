@@ -24,7 +24,7 @@ class DiaryController extends Controller
     }
 
     public function all(Request $request) {
-        $data = $this->diary;
+        $data = $this->diary->where('user_id', Auth::user()->id);
 
         if($request->has('orderBy')) {
             $data = $data->orderBy($request->orderBy, 'desc');
@@ -43,7 +43,8 @@ class DiaryController extends Controller
         $insert->save();
 
         return Response::json([
-            'message' => 'Berhasil menambah catatans.',
+            'message' => 'Berhasil menambah catatan.',
+            'model' => $insert,
             'id' => $insert->id
         ], 200);
     }

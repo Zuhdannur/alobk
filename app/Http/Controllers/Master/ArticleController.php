@@ -34,4 +34,57 @@ class ArticleController extends Controller
         $data = $data->paginate($request->per_page);
         return Response::json($data, 200);
     }
+
+    public function post(Request $request)
+    {
+        $insert = $this->article;
+        $insert->title = $request->title;
+        $insert->desc = $request->desc;
+        $insert->save();
+        if ($insert) {
+            return \Illuminate\Support\Facades\Response::json([
+                "message" => 'Berhasil membuat artikel.'
+            ], 200);
+        } else {
+            return \Illuminate\Support\Facades\Response::json([
+                "message" => 'Gagal membuat artikel.'
+            ], 201);
+        }
+    }
+
+    public function delete($id)
+    {
+        $delete = $this->article->find($id)->delete();
+
+        if(!$delete) {
+            return \Illuminate\Support\Facades\Response::json([
+                "message" => 'Gagal menghapus artikel.'
+            ], 201);
+        }
+
+        return Response::json([
+            'message' => 'Berhasil menghapus artikel.'
+        ], 200);
+    }
+
+    public function put(Request $request, $id)
+    {
+        $update = $this->article->find($id);
+
+        $update = $update->update([
+            'title' => $request->title,
+            'desc' => $request->desc
+        ]);
+
+        if (!$update) {
+            return Response::json([
+                'message' => 'Gagal menyunting artikel.'
+            ], 201);
+        }
+
+        return Response::json([
+            'message' => 'Berhasil menyunting artikel.'
+        ], 200);
+    }
+
 }

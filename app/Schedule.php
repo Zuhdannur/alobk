@@ -57,4 +57,11 @@ class Schedule extends Model
     }
 
 
+    public function getCreatedAtAttribute()
+    {
+        return \Carbon\Carbon::parse($this->attributes['created_at'])
+            ->diffForHumans();
+    }
+
+>>>>>>> d75cb704a60e7d250f094ac18d6d35568949ea4f
 }

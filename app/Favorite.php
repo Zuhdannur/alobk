@@ -26,4 +26,11 @@ class Favorite extends Model {
     public function user(){
         return $this->belongsTo('\App\User')->select(array('id', 'name'));
     }
+
+    public function getCreatedAtAttribute()
+    {
+        return \Carbon\Carbon::parse($this->attributes['created_at'])
+            ->diffForHumans();
+    }
+
 }

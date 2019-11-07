@@ -64,6 +64,10 @@ class UserController extends Controller {
     public function all(Request $request) {
         $user = $this->user;
 
+        if ($request->has('orderBy')) {
+            $user = $user->orderBy($request->orderBy, 'desc');
+        }
+
         if($request->has('doesnt_have_school')) {
             $user = $user->where('role', 'admin')->whereNull('sekolah_id')->get();
             return Response::json($user, 200);
@@ -80,15 +84,6 @@ class UserController extends Controller {
         }
 
         return $user;
-    }
-
-    public function recentActivity(Request $request) {
-        $data = $this->feed->where('user_id', Auth::user()->id)->orderBy('created_at', 'desc');
-        if($request->has('take')) {
-            $data = $data->take($request->take);
-            return Response::json($data->get(), 200);
-        }
-        return \response()->json($data->paginate($request->per_page), 200);
     }
 
 }
