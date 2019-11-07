@@ -24,7 +24,7 @@ class DiaryController extends Controller
     }
 
     public function all(Request $request) {
-        $data = $this->diary;
+        $data = $this->diary->where('user_id', Auth::user()->id);
 
         if($request->has('orderBy')) {
             $data = $data->orderBy($request->orderBy, 'desc');
