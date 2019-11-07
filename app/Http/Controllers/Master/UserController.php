@@ -64,6 +64,10 @@ class UserController extends Controller {
     public function all(Request $request) {
         $user = $this->user;
 
+        if ($request->has('orderBy')) {
+            $data = $user->orderBy($request->orderBy, 'desc');
+        }
+
         if($request->has('doesnt_have_school')) {
             $user = $user->where('role', 'admin')->whereNull('sekolah_id')->get();
             return Response::json($user, 200);

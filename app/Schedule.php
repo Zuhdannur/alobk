@@ -49,4 +49,11 @@ class Schedule extends Model
     {
         return $this->hasOne('\App\User', 'id', 'consultant_id');
     }
+
+    public function getCreatedAtAttribute()
+    {
+        return \Carbon\Carbon::parse($this->attributes['created_at'])
+            ->diffForHumans();
+    }
+
 }

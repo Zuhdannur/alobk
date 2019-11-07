@@ -21,4 +21,11 @@ class CatatanKonseling extends Model
     {
         return $this->hasOne('\App\Schedule', 'id', 'schedule_id');
     }
+
+    public function getCreatedAtAttribute()
+    {
+        return \Carbon\Carbon::parse($this->attributes['created_at'])
+            ->diffForHumans();
+    }
+
 }
