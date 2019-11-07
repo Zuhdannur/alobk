@@ -65,7 +65,7 @@ class UserController extends Controller {
         $user = $this->user;
 
         if ($request->has('orderBy')) {
-            $data = $user->orderBy($request->orderBy, 'desc');
+            $user = $user->orderBy($request->orderBy, 'desc');
         }
 
         if($request->has('doesnt_have_school')) {
