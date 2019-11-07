@@ -49,4 +49,12 @@ class Schedule extends Model
     {
         return $this->hasOne('\App\User', 'id', 'consultant_id');
     }
+
+    public function getTimeAttribute()
+    {
+        return \Carbon\Carbon::parse($this->attributes['time'])
+            ->format('d, M Y H:i');
+    }
+
+
 }
