@@ -43,7 +43,7 @@ class FeedController
 
     public function count() {
         $count = $this->feed->where('user_id', Auth::user()->id)->count();
-        return REsponse::json($count, 200);
+        return Response::json($count, 200);
     }
 
 }
