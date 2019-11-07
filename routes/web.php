@@ -73,6 +73,7 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
                 $router->get('user/recent', 'UserController@recentActivity');
 
                 $router->get('article/recent', 'ArticleController@all');
+                $router->get('feed/count', 'FeedController@count');
             });
 
         });
