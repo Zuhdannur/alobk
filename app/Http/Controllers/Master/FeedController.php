@@ -5,10 +5,9 @@ namespace App\Http\Controllers\Master;
 use App\Feed;
 use App\Http\Controllers\Controller;
 use App\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
-
 
 class FeedController
 {
