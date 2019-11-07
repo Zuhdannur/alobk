@@ -70,10 +70,15 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
                 $router->get('user/admin', 'UserController@getAdmin');
                 $router->delete('user/admin/{id}', 'UserController@remove');
                 $router->get('user/admin/recent', 'UserController@all');
-                $router->get('user/recent', 'UserController@recentActivity');
 
                 $router->get('article/recent', 'ArticleController@all');
+                $router->post('article', 'ArticleController@post');
+                $router->put('article/{id}', 'ArticleController@put');
+                $router->delete('article/{id}', 'ArticleController@delete');
+                $router->get('article/recent', 'ArticleController@all');
+
                 $router->get('feed/count', 'FeedController@count');
+                $router->get('feed', 'FeedController@all');
             });
 
         });
