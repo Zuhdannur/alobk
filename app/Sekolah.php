@@ -11,7 +11,7 @@ class Sekolah extends Model
     use RecordsFeed;
 
     protected $fillable = [
-       'id', 'nama_sekolah','alamat'
+       'id', 'nama_sekolah','alamat','type'
     ];
 
     public function logAttribute()
