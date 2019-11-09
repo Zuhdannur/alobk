@@ -16,5 +16,11 @@ class Artikel extends Model
         // Validation rules
     ];
 
+    public function getCreatedAtAttribute()
+    {
+        return \Carbon\Carbon::parse($this->attributes['created_at'])
+            ->diffForHumans();
+    }
+
     // Relationships
 }
