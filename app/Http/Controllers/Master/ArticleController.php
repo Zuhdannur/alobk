@@ -48,7 +48,8 @@ class ArticleController extends Controller
         $insert->save();
         if ($insert) {
             return \Illuminate\Support\Facades\Response::json([
-                "message" => 'Berhasil membuat artikel.'
+                "message" => 'Berhasil membuat artikel.',
+                'model' => $insert
             ], 200);
         } else {
             return \Illuminate\Support\Facades\Response::json([
