@@ -56,10 +56,20 @@ class SekolahController extends Controller
             return Response::json($data, 200);
         }
 
+        $smaCount = $data->where('type','SMA')->count();
+        $smkCount = $data->where('type','SMK')->count();
+        $maCount = $data->where('type','MA')->count();
+        $makCount = $data->where('type','MAK')->count();
 
         $data = $data->paginate($per_page);
 
-        return Response::json($data, 200);
+        return Response::json([
+            'data' => $data,
+            'smk_count' => $smkCount,
+            'sma_count' => $smaCount,
+            'ma_count' => $maCount,
+            'mak_count' => $makCount
+        ], 200);
     }
 
     public function post(Request $request)
@@ -76,6 +86,22 @@ class SekolahController extends Controller
         return Response::json([
             'message' => 'Berhasil mendaftarkan sekolah.',
             'id' => $this->sekolah->id
+        ], 200);
+    }
+
+    public function countSchool() {
+        $school = $this->sekolah;
+
+        $sma = $school->where('type','SMA')->count();
+        $smk = $school->where('type','SMK')->count();
+        $ma = $school->where('type','MA')->count();
+        $mak = $school->where('type','MAK')->count();
+
+        return Response::json([
+            'total_sma' => $sma,
+            'total_smk' => $smk,
+            'total_ma' => $ma,
+            'total_mak' => $mak
         ], 200);
     }
 

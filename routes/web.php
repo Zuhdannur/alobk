@@ -64,12 +64,14 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
                 $router->put('sekolah/{id}', 'SekolahController@put');
                 $router->delete('sekolah/{id}', 'SekolahController@remove');
                 $router->get('sekolah/count', 'SekolahController@count');
+                $router->get('sekolah/count/type', 'SekolahController@countSchool');
                 $router->get('sekolah/recent', 'SekolahController@all');
 
                 $router->get('user/admin/count', 'UserController@adminCount');
                 $router->get('user/admin', 'UserController@getAdmin');
                 $router->delete('user/admin/{id}', 'UserController@remove');
                 $router->get('user/admin/recent', 'UserController@all');
+                $router->get('user/admin/school/count/type', 'SekolahController@countSchool');
 
                 $router->get('article/recent', 'ArticleController@all');
                 $router->post('article', 'ArticleController@post');

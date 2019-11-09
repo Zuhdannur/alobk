@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Master;
 
 use App\Feed;
 use App\Http\Controllers\Controller;
+use App\Sekolah;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -15,16 +16,17 @@ class UserController extends Controller {
 
     const MODEL = "App\User";
 
-    private $user, $feed;
+    private $user, $feed, $sekolah;
 
     /**
      * UserController constructor.
      * @param $user
      */
-    public function __construct(User $user, Feed $feed)
+    public function __construct(User $user, Feed $feed, Sekolah $sekolah)
     {
         $this->user = $user;
         $this->feed = $feed;
+        $this->sekolah = $sekolah;
     }
 
 
@@ -39,6 +41,33 @@ class UserController extends Controller {
             'total' => $total,
             'has_school' => $hasSchool,
             'doesnt_have_school' => $doesntHaveSchool
+        ], 200);
+    }
+
+    public function countAdminInEverySchool() {
+        $school = $this->user->where('role','admin')->whereNotNull('sekolah_id');
+
+        $smaCount = $school->whereHas('sekolah', function($query) {
+            $query->where('type','SMA');
+        })->count();
+
+        $smkCount = $school->whereHas('sekolah', function($query) {
+            $query->where('type','SMK');
+        })->count();
+
+        $maCount = $school->whereHas('sekolah', function($query) {
+            $query->where('type','MA');
+        })->count();
+
+        $makCount = $school->whereHas('sekolah', function($query) {
+            $query->where('type','MAK');
+        })->count();
+
+        return Response::json([
+            'total_sma' => $smaCount,
+            'total_smk' => $smkCount,
+            'total_ma' => $maCount,
+            'total_mak' => $makCount
         ], 200);
     }
 

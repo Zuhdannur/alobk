@@ -18,6 +18,7 @@ class CreateTblSekolah extends Migration
 
             $table->string('nama_sekolah')->nullable();
             $table->text('alamat');
+            $table->enum('type', ['SMA','SMK','MA','MAK']);
             $table->timestamps();
         });
     }
