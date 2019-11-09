@@ -75,7 +75,6 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
                 $router->post('article', 'ArticleController@post');
                 $router->put('article/{id}', 'ArticleController@put');
                 $router->delete('article/{id}', 'ArticleController@delete');
-                $router->get('article/recent', 'ArticleController@all');
 
                 $router->get('feed/count', 'FeedController@count');
                 $router->get('feed', 'FeedController@all');
