@@ -29,6 +29,9 @@ class FeedController extends Controller
      */
     public function all(Request $request) {
         $data = $this->feed->where('user_id', Auth::user()->id);
+        if($request->has('orderBy')) {
+            $data = $data->orderBy($request->orderBy, 'desc');
+        }
         if($request->has('take')) {
             $data = $data->take($request->take);
             return Response::json($data->get(), 200);
