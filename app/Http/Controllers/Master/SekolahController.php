@@ -56,11 +56,6 @@ class SekolahController extends Controller
             return Response::json($data, 200);
         }
 
-        $smaCount = $data->where('type','SMA')->count();
-        $smkCount = $data->where('type','SMK')->count();
-        $maCount = $data->where('type','MA')->count();
-        $makCount = $data->where('type','MAK')->count();
-
         $data = $data->paginate($per_page);
 
         return Response::json($data, 200);
