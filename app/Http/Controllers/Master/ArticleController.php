@@ -31,6 +31,10 @@ class ArticleController extends Controller
             return Response::json($data, 200);
         }
 
+        if($request->has('orderBy')) {
+            $data = $data->orderBy($request->orderBy, 'desc');
+        }
+
         $data = $data->paginate($request->per_page);
         return Response::json($data, 200);
     }
