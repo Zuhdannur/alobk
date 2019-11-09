@@ -63,13 +63,7 @@ class SekolahController extends Controller
 
         $data = $data->paginate($per_page);
 
-        return Response::json([
-            'data' => $data,
-            'smk_count' => $smkCount,
-            'sma_count' => $smaCount,
-            'ma_count' => $maCount,
-            'mak_count' => $makCount
-        ], 200);
+        return Response::json($data, 200);
     }
 
     public function post(Request $request)
