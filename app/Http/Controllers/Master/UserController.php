@@ -9,6 +9,7 @@ use App\Sekolah;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Response;
 use Spatie\Activitylog\Models\Activity;
 
@@ -113,6 +114,46 @@ class UserController extends Controller {
         }
 
         return $user;
+    }
+
+    private function isUsernameExists($username)
+    {
+        $check = $this->user->where('username', $username)->first();
+        if (!$check) {
+            return null;
+        }
+        return $check;
+    }
+
+
+    public function register(Request $request){
+        if ($this->isUsernameExists($request->username)) {
+            return Response::json([
+                'message' => 'Duplicate Username'
+            ], 201);
+        }
+
+        $insert = $this->user;
+        $insert->name = $request->name;
+        $insert->username = $request->username;
+        $insert->password = Hash::make($request->password);
+        $insert->role = $request->role;
+        $insert->avatar = $request->avatar;
+
+        $insert->jenkel = $request->jenkel;
+        $insert->alamat = $request->alamat;
+        $insert->nomor_hp = $request->nomor_hp;
+        $insert->kelas = $request->kelas;
+        $insert->sekolah_id = $request->sekolah_id;
+        $insert->kota = $request->kota;
+        $insert->tanggal_lahir = $request->tanggal_lahir;
+        $insert->kota_lahir = $request->kota_lahir;
+        $insert->save();
+
+        return Response::json([
+            'user_id' => $insert->id,
+            'message' => 'Berhasil daftar.'
+        ], 200);
     }
 
 }

@@ -25,6 +25,15 @@ class UsersRepository
         $this->user = $user;
     }
 
+    private function isUsernameExists($username)
+    {
+        $check = $this->user->where('username', $username)->first();
+        if (!$check) {
+            return null;
+        }
+        return $check;
+    }
+
 
     public function register(Request $request)
     {
@@ -197,15 +206,6 @@ class UsersRepository
         return Response::json(['message' => 'Username dapat digunakan.'], 200);
     }
 
-
-    private function isUsernameExists($username)
-    {
-        $check = $this->user->where('username', $username)->first();
-        if (!$check) {
-            return null;
-        }
-        return $check;
-    }
 
     public function all()
     {
