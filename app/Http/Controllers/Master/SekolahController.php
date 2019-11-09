@@ -92,6 +92,15 @@ class SekolahController extends Controller
         ], 200);
     }
 
+    private function isSekolahExists($namaSekolah)
+    {
+        $check = $this->sekolah->where('nama_sekolah', $namaSekolah)->first();
+        if (!$check) {
+            return null;
+        }
+        return $check;
+    }
+
     public function countSchool() {
         $school = $this->sekolah;
 
