@@ -79,13 +79,16 @@ class SekolahController extends Controller
                 'message' => 'Gagal, sekolah telah terdaftar di server.'
             ], 201);
         }
-        $this->sekolah->nama_sekolah = $request->nama_sekolah;
-        $this->sekolah->alamat = $request->alamat;
-        $this->sekolah->save();
+        $insert = $this->sekolah;
+        $insert->nama_sekolah = $request->nama_sekolah;
+        $insert->alamat = $request->alamat;
+        $insert->type = $request->type;
+        $insert->save();
 
         return Response::json([
             'message' => 'Berhasil mendaftarkan sekolah.',
-            'id' => $this->sekolah->id
+            'id' => $this->sekolah->id,
+            'model' => $insert
         ], 200);
     }
 
@@ -147,7 +150,8 @@ class SekolahController extends Controller
 
         $update = $sekolah->update([
             'nama_sekolah' => $request->nama_sekolah,
-            'alamat' => $request->alamat
+            'alamat' => $request->alamat,
+            'type' => $request->type
         ]);
 
         if (!$update) {
@@ -155,8 +159,6 @@ class SekolahController extends Controller
                 'message' => 'Gagal menyunting sekolah.'
             ], 201);
         }
-
-        event(new MyEvent('hello world'));
 
         return Response::json([
             'message' => 'Berhasil menyunting sekolah.'
