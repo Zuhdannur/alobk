@@ -46,21 +46,19 @@ class UserController extends Controller {
     }
 
     public function countAdminInEverySchool() {
-        $school = $this->user->where('role','admin')->whereNotNull('sekolah_id');
-
-        $smaCount = $school->whereHas('sekolah', function($query) {
+        $smaCount = User::where('role','admin')->whereHas('sekolah', function($query) {
             $query->where('type','SMA');
         })->count();
 
-        $smkCount = $school->whereHas('sekolah', function($query) {
+        $smkCount = User::where('role','admin')->whereHas('sekolah', function($query) {
             $query->where('type','SMK');
         })->count();
 
-        $maCount = $school->whereHas('sekolah', function($query) {
+        $maCount = User::where('role','admin')->whereHas('sekolah', function($query) {
             $query->where('type','MA');
         })->count();
 
-        $makCount = $school->whereHas('sekolah', function($query) {
+        $makCount = User::where('role','admin')->whereHas('sekolah', function($query) {
             $query->where('type','MAK');
         })->count();
 
