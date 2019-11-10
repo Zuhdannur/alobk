@@ -34,7 +34,7 @@ class SekolahController extends Controller
     {
         $per_page = $request->per_page;
 
-        $data = $this->sekolah->orderBy('created_at', 'desc');
+        $data = $this->sekolah;
 
         if ($request->has('get_with_admin')) {
             $data = $this->sekolah->with('firstAdmin');
@@ -52,7 +52,7 @@ class SekolahController extends Controller
             return Response::json($data, 200);
         }
 
-        $data = $data->paginate($per_page);
+        $data = $data->orderBy('created_at', 'desc')->paginate($per_page);
 
         return Response::json($data, 200);
     }
