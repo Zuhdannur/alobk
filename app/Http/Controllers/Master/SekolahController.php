@@ -34,11 +34,7 @@ class SekolahController extends Controller
     {
         $per_page = $request->per_page;
 
-        $data = $this->sekolah;
-
-        if ($request->has('orderBy')) {
-            $data = $data->orderBy($request->orderBy, 'desc');
-        }
+        $data = $this->sekolah->orderBy('created_at', 'desc');
 
         if ($request->has('get_with_admin')) {
             $data = $this->sekolah->with('firstAdmin');
