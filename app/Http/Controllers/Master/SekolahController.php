@@ -87,12 +87,10 @@ class SekolahController extends Controller
     }
 
     public function countSchool() {
-        $school = $this->sekolah;
-
-        $sma = $school->where('type','SMA')->count();
-        $smk = $school->where('type','SMK')->count();
-        $ma = $school->where('type','MA')->count();
-        $mak = $school->where('type','MAK')->count();
+        $sma = $this->sekolah->where('type','SMA')->count();
+        $smk = $this->sekolah->where('type','SMK')->count();
+        $ma = $this->sekolah->where('type','MA')->count();
+        $mak = $this->sekolah->where('type','MAK')->count();
 
         return Response::json([
             'total_sma' => $sma,
