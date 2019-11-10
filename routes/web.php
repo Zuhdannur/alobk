@@ -81,6 +81,7 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
 
                 $router->get('feed/count', 'FeedController@count');
                 $router->get('feed', 'FeedController@all');
+                $router->delete('feed', 'FeedController@deleteAll');
             });
 
         });

@@ -44,6 +44,18 @@ class FeedController extends Controller
         return \response()->json($data, 200);
     }
 
+    public function deleteAll() {
+        $deleteAll = $this->feed->truncate();
+        if(!$deleteAll) {
+            return Response::json([
+                'message' => 'Gagal mengosongkan aktivitas.'
+            ], 201);
+        }
+        return Response::json([
+            'message' => 'Berhasil menghapus seluruh aktivitas.'
+        ], 200);
+    }
+
     public function count() {
         $count = $this->feed->where('user_id', Auth::user()->id)->count();
         return Response::json($count, 200);
