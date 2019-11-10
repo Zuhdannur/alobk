@@ -153,7 +153,7 @@ class UserController extends Controller {
         return Response::json([
             'user_id' => $insert->id,
             'message' => 'Berhasil daftar.',
-            'model' => $insert
+            'model' => $insert->with('sekolahOnlyName')->first()
         ], 200);
     }
 
