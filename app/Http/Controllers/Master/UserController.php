@@ -129,7 +129,7 @@ class UserController extends Controller {
     public function register(Request $request){
         if ($this->isUsernameExists($request->username)) {
             return Response::json([
-                'message' => 'Duplicate Username'
+                'message' => 'Username talah digunakan oleh user lain.'
             ], 201);
         }
 
