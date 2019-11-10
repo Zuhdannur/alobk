@@ -72,7 +72,7 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
                 $router->post('user/register', 'UserController@register');
                 $router->delete('user/admin/{id}', 'UserController@remove');
                 $router->get('user/admin/recent', 'UserController@all');
-                $router->get('user/admin/school/count/type', 'SekolahController@countSchool');
+                $router->get('user/admin/school/count', 'UserController@countAdminInEverySchool');
 
                 $router->get('article/recent', 'ArticleController@all');
                 $router->post('article', 'ArticleController@post');
