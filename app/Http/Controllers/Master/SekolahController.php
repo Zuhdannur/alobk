@@ -41,7 +41,7 @@ class SekolahController extends Controller
         }
 
         if($request->has('take')) {
-            $data = $data->take($request->take)->get();
+            $data = $data->orderBy('created_at', 'desc')->take($request->take)->get();
             return Response::json($data, 200);
         }
 
