@@ -44,7 +44,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     }
 
     public function sekolahOnlyName() {
-        return $this->sekolah()->select(array('id', 'nama_sekolah'));
+        return $this->sekolah()->select(array('id', 'nama_sekolah','type'));
     }
 
     public function diary() {
