@@ -45,7 +45,7 @@ class FeedController extends Controller
     }
 
     public function deleteAll() {
-        $deleteAll = $this->feed->truncate();
+        $deleteAll = $this->feed->where('user_id', Auth::user()->id)->truncate();
         if(!$deleteAll) {
             return Response::json([
                 'message' => 'Gagal mengosongkan aktivitas.'
