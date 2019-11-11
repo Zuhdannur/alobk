@@ -50,11 +50,14 @@ class UserController extends Controller {
 
         $supervisorTotal = $this->user->where('sekolah_id', Auth::user()->sekolah_id)->where('role', 'supervisor')->count();
 
+        $aktivitasTotal = $this->feed->where('user_id', Auth::user()->id)->count();
+
         return Response::json([
             'total' => $total,
             'total_siswa' => $siswaTotal,
             'total_guru' => $guruTotal,
-            'total_supervisor' => $supervisorTotal
+            'total_supervisor' => $supervisorTotal,
+            'total_feed' => $aktivitasTotal
         ], 200);
     }
 
