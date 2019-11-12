@@ -142,27 +142,39 @@ class ArtikelsController extends Controller
 //         ], 200);
 //     }
 
-    public function storeFavorite(Request $request)
+    public function storeFavorite(Request $request, $id)
     {
-        // if ($this->checkingArtikel($request->id_artikel)) {
-        //     return \response()->json([
-        //         "message" => "duplicate artikel"
-        //     ], 201);
-        // }
-        $insert = new \App\Favorite;
-        $insert->id_artikel = $request->id_artikel;
-        $insert->user_id = Auth::user()->id;
-        $insert->save();
+        $bookmark = User::find(Auth::user()->id)->artikel()->where('artikel_id', '=', $id)->first();
 
-        if ($insert) {
-            return \response()->json([
-                "message" => "success"
-            ], 200);
+        if(empty($bookmark)) {
+            $insert = new \App\Favorite;
+            $insert->id_artikel = $id;
+            $insert->user_id = Auth::user()->id;
+            $insert->save();
+
+            if ($insert) {
+                return \response([
+                    "message" => "Berhasil menambahkan ke favorit."
+                ], 200);
+            } else {
+                return \response([
+                    "message" => "Gagal menambahkan ke favorit."
+                ], 201);
+            }
         } else {
-            return \response()->json([
-                "message" => "failed"
-            ], 201);
+            $delete = \App\Favorite::where('artikel_id', $id)->where('id_favorit', $request->favorite_id)->delete();
+            if ($delete) {
+                return \response([
+                    "message" => "Berhasil menghapus favorit."
+                ], 200);
+            } else {
+                return \response([
+                    "message" => "Gagal menghapus favorit."
+                ], 201);
+            }
         }
+
+
     }
 
     public function removeMyFavorit($id, $id_favorit)
