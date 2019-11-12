@@ -30,7 +30,7 @@ class ArticleController extends Controller
     }
 
     public function getFavorite(Request $request) {
-        $favorite = $this->favorite->where('user_id', Auth::user()->id)->paginate($request->per_page);
+        $favorite = $this->favorite->where('user_id', Auth::user()->id)->with('artikel')->paginate($request->per_page);
 
         return Response::json($favorite, 200);
     }
