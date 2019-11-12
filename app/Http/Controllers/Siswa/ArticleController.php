@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Siswa;
 use App\Artikel;
 use App\Favorite;
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;

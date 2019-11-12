@@ -1,6 +1,5 @@
 <?php namespace App\Http\Controllers;
 
-use App\Favorite;
 use http\Env\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Paginator;
@@ -143,42 +142,32 @@ class ArtikelsController extends Controller
 //         ], 200);
 //     }
 
-    public function storeFavorite(Request $request, $id)
+    public function storeFavorite(Request $request)
     {
-        $bookmark = User::find(Auth::user()->id)->artikel()->where('artikel_id', '=', $id)->first();
+        // if ($this->checkingArtikel($request->id_artikel)) {
+        //     return \response()->json([
+        //         "message" => "duplicate artikel"
+        //     ], 201);
+        // }
+        $insert = new \App\Favorite;
+        $insert->id_artikel = $request->id_artikel;
+        $insert->user_id = Auth::user()->id;
+        $insert->save();
 
-        if(empty($bookmark)) {
-            $insert = new Favorite;
-            $insert->id_artikel = $id;
-            $insert->user_id = Auth::user()->id;
-            $insert->save();
-
-            if ($insert) {
-                return \response([
-                    "message" => "Berhasil menambahkan ke favorit."
-                ], 200);
-            } else {
-                return \response([
-                    "message" => "Gagal menambahkan ke favorit."
-                ], 201);
-            }
+        if ($insert) {
+            return \response()->json([
+                "message" => "success"
+            ], 200);
         } else {
-            $delete = Favorite::where('artikel_id', $id)->where('id', $request->favorite_id)->delete();
-            if ($delete) {
-                return \response([
-                    "message" => "Berhasil menghapus favorit."
-                ], 200);
-            } else {
-                return \response([
-                    "message" => "Gagal menghapus favorit."
-                ], 201);
-            }
+            return \response()->json([
+                "message" => "failed"
+            ], 201);
         }
     }
 
     public function removeMyFavorit($id, $id_favorit)
     {
-        $delete = Favorite::where('id_artikel', $id)->where('id_favorit', $id_favorit)->delete();
+        $delete = \App\Favorite::where('id_artikel', $id)->where('id_favorit', $id_favorit)->delete();
         if ($delete) {
             return \response([
                 "message" => "succsess"
@@ -191,7 +180,7 @@ class ArtikelsController extends Controller
     }
 
     private function getFavorite(Request $request) {
-        $datas = Favorite::where('user_id', Auth::user()->id)->with('artikel');
+        $datas = \App\Favorite::where('user_id', Auth::user()->id)->with('artikel');
         $paginate = $datas->paginate($request->per_page);
 
         return $paginate;
@@ -221,7 +210,7 @@ class ArtikelsController extends Controller
 
     public function checkingArtikel($id)
     {
-        $check = Favorite::where([['id_user',Auth::user()->id],['id_favorit',$id]])->get();
+        $check = \App\Favorite::where([['id_user',Auth::user()->id],['id_favorit',$id]])->get();
         if (count($check) > 0) {
             return true;
         } else {

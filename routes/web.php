@@ -131,7 +131,7 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
                 $router->delete('diary/{id}', 'DiaryController@remove');
 
                 $router->get('article', 'ArticleController@all');
-                $router->post('article/{id}', 'ArticleController@storeFavorite');
+                $router->post('article', 'ArticleController@storeFavorite');
             });
 
         });
