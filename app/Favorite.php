@@ -20,7 +20,7 @@ class Favorite extends Model {
 
     // Relationships
     public function artikel(){
-        return $this->hasMany('\App\Artikel')->select(array('id','title','desc','created_at'));
+        return $this->hasOne('\App\Artikel')->select(array('id','title','desc','created_at'));
     }
 
     public function user(){

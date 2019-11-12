@@ -30,15 +30,11 @@ class ArticleController extends Controller
 
     public function all(Request $request) {
         $isBookmarked = Favorite::with('artikel')->with('user')->exists();
-        $data = DB::selectOne('SELECT EXISTS(SELECT 1 FROM fav_artikel WHERE fav_artikel.artikel_id = artikel.id AND fav_artikel.user_id = user.id limit 1) AS hasBookmark')
-            ->select('select fav_artikel.id from fav_artikel where fav_artikel.artikel_id = artikel.id and fav_artikel.user_id = user.id limit 1) as id_favorit
-            ,user.name
-            ,artikel.id
-           ,artikel.title
-           ,artikel.desc
-           ,artikel.created_at
-           ,user.id as user_id')
-            ->where('user.id =:id AND LOWER(artikel.title) LIKE :q", [\'id\' => Auth::user()->id, \'q\' => \'%\'.strtolower($request->title).\'%\']')->paginate(30);
+        $data = DB::table('artikel')->leftJoin('fav_artikel', function($join) {
+            $join->on('artikel.id', '=', 'fav_artikel.artikel_id');
+            $join->on('fav_artikel.user_id', '=', DB::raw(Auth::user()->id);
+        })->select('artikel.*', 'fav_artikel.id as bookmarked')
+            ->get();
 
 //        $data = DB::select("
 //            SELECT
