@@ -49,7 +49,6 @@ class ScheduleController extends Controller
     }
 
     public function getTotalToday() {
-        dd(Carbon::now());
         $total = Schedule::whereHas('requester', function($query) {
             $query->where('sekolah_id',Auth::user()->sekolah_id);
         })->whereDate('created_at', Carbon::today());
