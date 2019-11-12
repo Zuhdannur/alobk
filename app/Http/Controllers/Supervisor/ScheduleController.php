@@ -53,9 +53,13 @@ class ScheduleController extends Controller
             $query->where('sekolah_id',Auth::user()->sekolah_id);
         })->where('created_at', Carbon::today());
 
-        $schedule = $total->count();
+        $schedule = Schedule::whereHas('requester', function($query) {
+            $query->where('sekolah_id',Auth::user()->sekolah_id);
+        })->where('created_at', Carbon::today())->count();
 
-        $totalPending = $total->where([
+        $totalPending = Schedule::whereHas('requester', function($query) {
+            $query->where('sekolah_id',Auth::user()->sekolah_id);
+        })->where('created_at', Carbon::today())->where([
             ['pending','=',1],
             ['expired','=',0],
             ['canceled','=',0],
@@ -64,7 +68,9 @@ class ScheduleController extends Controller
             ['start','=',0],
         ])->count();
 
-        $totalActive = $total->where([
+        $totalActive = Schedule::whereHas('requester', function($query) {
+            $query->where('sekolah_id',Auth::user()->sekolah_id);
+        })->where('created_at', Carbon::today())->where([
             ['pending','=',1],
             ['expired','=',0],
             ['canceled','=',0],
@@ -73,7 +79,9 @@ class ScheduleController extends Controller
             // ['start','=',0], START CAN BE 0 OR 1
         ])->count();
 
-        $totalSelesai = $total->where([
+        $totalSelesai = Schedule::whereHas('requester', function($query) {
+            $query->where('sekolah_id',Auth::user()->sekolah_id);
+        })->where('created_at', Carbon::today())->where([
             ['pending','=',1],
             ['expired','=',0],
             ['canceled','=',0],
@@ -82,9 +90,15 @@ class ScheduleController extends Controller
             ['start','=',1],
         ])->count();
 
-        $countDaring = $total->where('type_schedule','daring')->count();
-        $countDirect = $total->where('type_schedule','direct')->count();
-        $countRealtime = $total->where('type_schedule','realtime')->count();
+        $countDaring = Schedule::whereHas('requester', function($query) {
+            $query->where('sekolah_id',Auth::user()->sekolah_id);
+        })->where('created_at', Carbon::today())->where('type_schedule','daring')->count();
+        $countDirect = Schedule::whereHas('requester', function($query) {
+            $query->where('sekolah_id',Auth::user()->sekolah_id);
+        })->where('created_at', Carbon::today())->where('type_schedule','direct')->count();
+        $countRealtime = Schedule::whereHas('requester', function($query) {
+            $query->where('sekolah_id',Auth::user()->sekolah_id);
+        })->where('created_at', Carbon::today())->where('type_schedule','realtime')->count();
 
         return Response::json([
             'total_schedule' => $schedule,
