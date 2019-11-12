@@ -72,7 +72,7 @@ class ArticleController extends Controller
 
 //        if(empty($bookmark)) {
             $insert = new Favorite;
-            $insert->id_artikel = $request->id;
+            $insert->artikel_id = $request->id;
             $insert->user_id = Auth::user()->id;
             $insert->save();
 
