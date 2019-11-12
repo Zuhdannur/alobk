@@ -63,6 +63,39 @@ class ArticleController extends Controller
         return \Illuminate\Support\Facades\Response::json($data, 200);
     }
 
+    public function storeFavorite(Request $request, $id)
+    {
+        $bookmark = User::find(Auth::user()->id)->artikel()->where('artikel_id', '=', $id)->first();
+
+        if(empty($bookmark)) {
+            $insert = new Favorite;
+            $insert->id_artikel = $id;
+            $insert->user_id = Auth::user()->id;
+            $insert->save();
+
+            if ($insert) {
+                return \response([
+                    "message" => "Berhasil menambahkan ke favorit."
+                ], 200);
+            } else {
+                return \response([
+                    "message" => "Gagal menambahkan ke favorit."
+                ], 201);
+            }
+        } else {
+            $delete = Favorite::where('artikel_id', $id)->where('id', $request->favorite_id)->delete();
+            if ($delete) {
+                return \response([
+                    "message" => "Berhasil menghapus favorit."
+                ], 200);
+            } else {
+                return \response([
+                    "message" => "Gagal menghapus favorit."
+                ], 201);
+            }
+        }
+    }
+
     public function post(Request $request)
     {
         $insert = $this->article;
