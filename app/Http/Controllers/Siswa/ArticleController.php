@@ -29,7 +29,7 @@ class ArticleController extends Controller
 
 
     public function all(Request $request) {
-        $isBookmarked = Favorite::artikel()->user()->exists();
+        $isBookmarked = Favorite::with('artikel')->with('user')->exists();
 //        $data = DB::select("
 //            SELECT
 //            exists(select 1 from fav_artikel where fav_artikel.artikel_id = artikel.id and fav_artikel.user_id = user.id limit 1) as hasBookmark,
