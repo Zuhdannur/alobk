@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 
+use App\Favorite;
 use http\Env\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Paginator;
@@ -147,7 +148,7 @@ class ArtikelsController extends Controller
         $bookmark = User::find(Auth::user()->id)->artikel()->where('artikel_id', '=', $id)->first();
 
         if(empty($bookmark)) {
-            $insert = new \App\Favorite;
+            $insert = new Favorite;
             $insert->id_artikel = $id;
             $insert->user_id = Auth::user()->id;
             $insert->save();
@@ -162,7 +163,7 @@ class ArtikelsController extends Controller
                 ], 201);
             }
         } else {
-            $delete = \App\Favorite::where('artikel_id', $id)->where('id_favorit', $request->favorite_id)->delete();
+            $delete = Favorite::where('artikel_id', $id)->where('id', $request->favorite_id)->delete();
             if ($delete) {
                 return \response([
                     "message" => "Berhasil menghapus favorit."
@@ -173,13 +174,11 @@ class ArtikelsController extends Controller
                 ], 201);
             }
         }
-
-
     }
 
     public function removeMyFavorit($id, $id_favorit)
     {
-        $delete = \App\Favorite::where('id_artikel', $id)->where('id_favorit', $id_favorit)->delete();
+        $delete = Favorite::where('id_artikel', $id)->where('id_favorit', $id_favorit)->delete();
         if ($delete) {
             return \response([
                 "message" => "succsess"
@@ -192,7 +191,7 @@ class ArtikelsController extends Controller
     }
 
     private function getFavorite(Request $request) {
-        $datas = \App\Favorite::where('user_id', Auth::user()->id)->with('artikel');
+        $datas = Favorite::where('user_id', Auth::user()->id)->with('artikel');
         $paginate = $datas->paginate($request->per_page);
 
         return $paginate;
@@ -222,7 +221,7 @@ class ArtikelsController extends Controller
 
     public function checkingArtikel($id)
     {
-        $check = \App\Favorite::where([['id_user',Auth::user()->id],['id_favorit',$id]])->get();
+        $check = Favorite::where([['id_user',Auth::user()->id],['id_favorit',$id]])->get();
         if (count($check) > 0) {
             return true;
         } else {
