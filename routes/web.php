@@ -132,6 +132,7 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
 
                 $router->get('article', 'ArticleController@all');
                 $router->post('article', 'ArticleController@storeFavorite');
+                $router->post('favorite', 'ArticleController@getFavorite');
             });
 
         });

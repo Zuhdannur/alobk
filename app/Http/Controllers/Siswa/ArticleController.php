@@ -17,15 +17,22 @@ use Illuminate\Support\Facades\Response;
 class ArticleController extends Controller
 {
 
-    private $article;
+    private $article, $favorite;
 
     /**
      * ArticleController constructor.
      * @param $article
      */
-    public function __construct(Artikel $article)
+    public function __construct(Artikel $article, Favorite $favorite)
     {
         $this->article = $article;
+        $this->favorite = $favorite;
+    }
+
+    public function getFavorite(Request $request) {
+        $favorite = $this->favorite->where('user_id', Auth::user()->id)->paginate($request->per_page);
+
+        return Response::json($favorite, 200);
     }
 
 
