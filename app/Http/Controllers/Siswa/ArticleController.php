@@ -66,11 +66,11 @@ class ArticleController extends Controller
 
     public function storeFavorite(Request $request)
     {
-        $bookmark = User::find(Auth::user()->id)->withAndWhereHas('artikel', function($query) use ($request) {
-            $query->where('artikel_id', '=', $request->id);
-        })->first();
+//        $bookmark = User::find(Auth::user()->id)->withAndWhereHas('artikel', function($query) use ($request) {
+//            $query->where('artikel_id', '=', $request->id);
+//        })->first();
 
-        if(empty($bookmark)) {
+//        if(empty($bookmark)) {
             $insert = new Favorite;
             $insert->id_artikel = $request->id;
             $insert->user_id = Auth::user()->id;
@@ -85,18 +85,18 @@ class ArticleController extends Controller
                     "message" => "Gagal menambahkan ke favorit."
                 ], 201);
             }
-        } else {
-            $delete = Favorite::where('artikel_id', $request->id)->where('id', $request->favorite_id)->delete();
-            if ($delete) {
-                return \response([
-                    "message" => "Berhasil menghapus favorit."
-                ], 200);
-            } else {
-                return \response([
-                    "message" => "Gagal menghapus favorit."
-                ], 201);
-            }
-        }
+//        } else {
+//            $delete = Favorite::where('artikel_id', $request->id)->where('id', $request->favorite_id)->delete();
+//            if ($delete) {
+//                return \response([
+//                    "message" => "Berhasil menghapus favorit."
+//                ], 200);
+//            } else {
+//                return \response([
+//                    "message" => "Gagal menghapus favorit."
+//                ], 201);
+//            }
+//        }
     }
 
     public function post(Request $request)
