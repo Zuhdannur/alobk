@@ -66,7 +66,9 @@ class ArticleController extends Controller
 
     public function storeFavorite(Request $request)
     {
-        $bookmark = User::find(Auth::user()->id)->artikel()->where('artikel_id', '=', $request->id)->first();
+        $bookmark = User::find(Auth::user()->id)->withAndWhereHas('artikel', function($query) use ($request) {
+            $query->where('artikel_id', '=', $request->id);
+        })->first();
 
         if(empty($bookmark)) {
             $insert = new Favorite;
