@@ -84,9 +84,9 @@ class ScheduleController extends Controller
 
     public function all(Request $request)
     {
-        $data = $this->schedule->withAndWhereHas('requester', function ($query) {
+        $data = $this->schedule->orderBy('created_at','desc')->withAndWhereHas('requester', function ($query) {
             $query->where('role', 'siswa')->where('sekolah_id', Auth::user()->sekolah_id);
-        })->orderBy('created_at','desc');
+        });
 
         if ($request->has('type_schedule')) {
             if ($request->type_schedule == 'online') {
