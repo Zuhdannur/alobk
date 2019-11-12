@@ -34,7 +34,7 @@ class ArticleController extends Controller
             $join->on('artikel.id', '=', 'fav_artikel.artikel_id');
             $join->on('fav_artikel.user_id', '=', DB::raw(Auth::user()->id));
         })->select('artikel.*', 'fav_artikel.id as bookmarked')
-            ->get();
+            ->paginate($request->per_page);
 
 //        $data = DB::select("
 //            SELECT
