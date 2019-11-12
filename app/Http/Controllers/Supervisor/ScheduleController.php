@@ -29,16 +29,51 @@ class ScheduleController extends Controller
     public function getTotalSchedule() {
         $schedule = Schedule::whereHas('requester', function($query) {
             $query->where('sekolah_id',Auth::user()->sekolah_id);
-        })->count();
+        })->where([
+            ['pending','=',1],
+            ['expired','=',0],
+            ['canceled','=',0],
+            ['finish','=',1],
+            ['active','=',1],
+            ['start','=',1],
+        ])->where([
+            ['pending','=',1],
+            ['expired','=',0],
+            ['canceled','=',0],
+            ['finish','=',1],
+            ['active','=',1],
+            ['start','=',1],
+        ])->count();
         $countDaring = Schedule::whereHas('requester', function($query) {
             $query->where('sekolah_id',Auth::user()->sekolah_id);
-        })->where('type_schedule','daring')->count();
+        })->where('type_schedule','daring')->where([
+            ['pending','=',1],
+            ['expired','=',0],
+            ['canceled','=',0],
+            ['finish','=',1],
+            ['active','=',1],
+            ['start','=',1],
+        ])->count();
         $countDirect = Schedule::whereHas('requester', function($query) {
             $query->where('sekolah_id',Auth::user()->sekolah_id);
-        })->where('type_schedule','direct')->count();
+        })->where('type_schedule','direct')->where([
+            ['pending','=',1],
+            ['expired','=',0],
+            ['canceled','=',0],
+            ['finish','=',1],
+            ['active','=',1],
+            ['start','=',1],
+        ])->count();
         $countRealtime = Schedule::whereHas('requester', function($query) {
             $query->where('sekolah_id',Auth::user()->sekolah_id);
-        })->where('type_schedule','realtime')->count();
+        })->where('type_schedule','realtime')->where([
+            ['pending','=',1],
+            ['expired','=',0],
+            ['canceled','=',0],
+            ['finish','=',1],
+            ['active','=',1],
+            ['start','=',1],
+        ])->count();
 
         return Response::json([
             'total_schedule' => $schedule,
