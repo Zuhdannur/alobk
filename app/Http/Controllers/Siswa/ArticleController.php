@@ -30,18 +30,18 @@ class ArticleController extends Controller
     public function all(Request $request) {
         $data = DB::select("
             SELECT
-            exists(select 1 from tbl_fav_artikel where tbl_fav_artikel.id_artikel = tbl_artikel.id and tbl_fav_artikel.id_user = tbl_user.id limit 1) as hasBookmark,
-            (select tbl_fav_artikel.id_favorit from tbl_fav_artikel where tbl_fav_artikel.id_artikel = tbl_artikel.id and tbl_fav_artikel.id_user = tbl_user.id limit 1) as id_favorit
-            ,tbl_user.name
-            ,tbl_artikel.id
-            ,tbl_artikel.title
-            ,tbl_artikel.desc
-            ,tbl_artikel.created_at
-            ,tbl_user.id as user_id
+            exists(select 1 from fav_artikel where fav_artikel.id_artikel = artikel.id and fav_artikel.id_user = user.id limit 1) as hasBookmark,
+            (select fav_artikel.id_favorit from fav_artikel where fav_artikel.id_artikel = artikel.id and fav_artikel.id_user = user.id limit 1) as id_favorit
+            ,user.name
+            ,artikel.id
+            ,artikel.title
+            ,artikel.desc
+            ,artikel.created_at
+            ,user.id as user_id
             FROM
-            tbl_artikel,
-            tbl_user
-            WHERE tbl_user.id =:id AND LOWER(tbl_artikel.title) LIKE :q", ['id' => Auth::user()->id, 'q' => '%'.strtolower($request->title).'%']);
+            artikel,
+            user
+            WHERE user.id =:id AND LOWER(artikel.title) LIKE :q", ['id' => Auth::user()->id, 'q' => '%'.strtolower($request->title).'%']);
 
         $datas = collect($data);
 
