@@ -129,6 +129,8 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
                 $router->get('diary', 'DiaryController@all');
                 $router->post('diary', 'DiaryController@post');
                 $router->delete('diary/{id}', 'DiaryController@remove');
+
+                $router->get('article', 'ArticleController@all');
             });
 
         });

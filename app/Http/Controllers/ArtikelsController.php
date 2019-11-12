@@ -113,20 +113,6 @@ class ArtikelsController extends Controller
         $currentResults = $datas->slice(($currentPage - 1) * $perPage, $perPage)->all();
         $results = new LengthAwarePaginator($currentResults, $datas->count(), $perPage);
 
-        // ->whereRaw('tbl_user.id:=id', ['id' => 1]);
-        // ->whereRaw('tbl_artikel.title LIKE ? ', '%' . strtolower($request->title) . '%');
-        // WHERE
-        // u.id=:id AND
-        // p.title LIKE '%gurindam%'
-        // ORDER BY p.created_at DESC", ['id' => 1]);
-
-        // $data = DB::select("SELECT * FROM tbl_user WHERE tbl_user.id =:id", ['id' => 1]);
-
-        // $data = $datas
-        // ->skip($skip)
-        // ->take($limit)
-        // ->get();
-        // $pagination = new \Illuminate\Pagination\Paginator($data, $request->per_page);
         return \Illuminate\Support\Facades\Response::json($results, 200);
     }
 
