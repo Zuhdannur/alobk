@@ -64,13 +64,13 @@ class ArticleController extends Controller
         return \Illuminate\Support\Facades\Response::json($data, 200);
     }
 
-    public function storeFavorite(Request $request, $id)
+    public function storeFavorite(Request $request)
     {
-        $bookmark = User::find(Auth::user()->id)->artikel()->where('artikel_id', '=', $id)->first();
+        $bookmark = User::find(Auth::user()->id)->artikel()->where('artikel_id', '=', $request->id)->first();
 
         if(empty($bookmark)) {
             $insert = new Favorite;
-            $insert->id_artikel = $id;
+            $insert->id_artikel = $request->id;
             $insert->user_id = Auth::user()->id;
             $insert->save();
 
@@ -84,7 +84,7 @@ class ArticleController extends Controller
                 ], 201);
             }
         } else {
-            $delete = Favorite::where('artikel_id', $id)->where('id', $request->favorite_id)->delete();
+            $delete = Favorite::where('artikel_id', $request->id)->where('id', $request->favorite_id)->delete();
             if ($delete) {
                 return \response([
                     "message" => "Berhasil menghapus favorit."
