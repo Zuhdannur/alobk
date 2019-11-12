@@ -32,7 +32,7 @@ class ArticleController extends Controller
         $isBookmarked = Favorite::with('artikel')->with('user')->exists();
         $data = DB::table('artikel')->leftJoin('fav_artikel', function($join) {
             $join->on('artikel.id', '=', 'fav_artikel.artikel_id');
-            $join->on('fav_artikel.user_id', '=', DB::raw(Auth::user()->id);
+            $join->on('fav_artikel.user_id', '=', DB::raw(Auth::user()->id));
         })->select('artikel.*', 'fav_artikel.id as bookmarked')
             ->get();
 
