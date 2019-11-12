@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Http\Controllers\Siswa;
+namespace App\Http\Controllers\Supervisor;
 
 
 use App\Schedule;
