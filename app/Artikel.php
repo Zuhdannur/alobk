@@ -25,6 +25,10 @@ class Artikel extends Model
             ->diffForHumans();
     }
 
+    public function favorite() {
+        return $this->belongsTo('\App\Favorite');
+    }
+
     // Relationships
     public function logAttribute(): string
     {

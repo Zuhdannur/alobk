@@ -6,10 +6,10 @@ class Favorite extends Model {
 
     protected $table = "fav_artikel";
 
-    protected $primaryKey = "id_favorit";
+    protected $primaryKey = "id";
 
     protected $fillable = [
-        'id','id_artikel','user_id'
+        'id','artikel_id','user_id'
     ];
 
     protected $dates = [];
@@ -20,7 +20,7 @@ class Favorite extends Model {
 
     // Relationships
     public function artikel(){
-        return $this->hasOne('\App\Artikel','id','id_artikel')->select(array('id','title','desc','created_at'));
+        return $this->hasMany('\App\Artikel')->select(array('id','title','desc','created_at'));
     }
 
     public function user(){

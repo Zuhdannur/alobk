@@ -30,8 +30,8 @@ class ArticleController extends Controller
     public function all(Request $request) {
         $data = DB::select("
             SELECT
-            exists(select 1 from fav_artikel where fav_artikel.id_artikel = artikel.id and fav_artikel.id_user = user.id limit 1) as hasBookmark,
-            (select fav_artikel.id_favorit from fav_artikel where fav_artikel.id_artikel = artikel.id and fav_artikel.id_user = user.id limit 1) as id_favorit
+            exists(select 1 from fav_artikel where fav_artikel.artikel_id = artikel.id and fav_artikel.user_id = user.id limit 1) as hasBookmark,
+            (select fav_artikel.id_favorit from fav_artikel where fav_artikel.artikel_id = artikel.id and fav_artikel.user_id = user.id limit 1) as id_favorit
             ,user.name
             ,artikel.id
             ,artikel.title
@@ -52,7 +52,7 @@ class ArticleController extends Controller
         $currentResults = $datas->slice(($currentPage - 1) * $perPage, $perPage)->all();
         $results = new LengthAwarePaginator($currentResults, $datas->count(), $perPage);
 
-        return Response::json($results, 200);
+        return \Illuminate\Support\Facades\Response::json($results, 200);
     }
 
     public function post(Request $request)
