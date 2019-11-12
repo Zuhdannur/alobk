@@ -34,7 +34,7 @@ class ArticleController extends Controller
         $data = DB::table('artikel')->leftJoin('fav_artikel', function($join) {
             $join->on('artikel.id', '=', 'fav_artikel.artikel_id');
             $join->on('fav_artikel.user_id', '=', DB::raw(Auth::user()->id));
-        })->select('artikel.*', 'fav_artikel.id as bookmarked')
+        })->select('artikel.*', 'fav_artikel.id as bookmarked')->where('artikel.title',$request->title)
             ->paginate($request->per_page);
 
 //        $data = DB::select("
@@ -86,7 +86,7 @@ class ArticleController extends Controller
                 ], 201);
             }
         } else {
-            $delete = Favorite::where('artikel_id', $request->id)->where('id', $request->favorite_id)->delete();
+            $delete = Favorite::where('artikel_id', $request->id)->delete();
             if ($delete) {
                 return \response([
                     "message" => "Berhasil menghapus favorit."
