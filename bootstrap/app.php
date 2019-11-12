@@ -69,8 +69,7 @@ $app->middleware([
 ]);
 
 $app->routeMiddleware([
-    'auth' => App\Http\Middleware\Authenticate::class,
-    'paging' => App\Http\Middleware\LinkHeaderPagination::class
+    'auth' => App\Http\Middleware\Authenticate::class
 ]);
 
 /*
