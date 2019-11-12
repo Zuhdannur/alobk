@@ -27,7 +27,7 @@ class ScheduleController extends Controller
 
 
     public function getTotalSchedule() {
-        $total = Schedule::whereHas('user', function($query) {
+        $total = Schedule::whereHas('requester', function($query) {
            $query->where('sekolah_id',Auth::user()->sekolah_id);
         });
 
@@ -45,7 +45,7 @@ class ScheduleController extends Controller
     }
 
     public function getTotalToday() {
-        $total = Schedule::whereHas('user', function($query) {
+        $total = Schedule::whereHas('requester', function($query) {
             $query->where('sekolah_id',Auth::user()->sekolah_id);
         });
 
