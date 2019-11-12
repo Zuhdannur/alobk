@@ -30,6 +30,10 @@ class ArticleController extends Controller
 
     public function all(Request $request) {
         $isBookmarked = Favorite::with('artikel')->with('user')->exists();
+        $data = $this->article
+            ->selectOne('SELECT EXISTS(SELECT 1 FROM fav_artikel WHERE fav_artikel.artikel_id = artikel.id AND fav_artikel.user_id = user.id limit 1) AS hasBookmark')
+            ->where('title', 'like', '%' . $request->title . '%')->paginate(30);
+
 //        $data = DB::select("
 //            SELECT
 //            exists(select 1 from fav_artikel where fav_artikel.artikel_id = artikel.id and fav_artikel.user_id = user.id limit 1) as hasBookmark,
@@ -54,7 +58,7 @@ class ArticleController extends Controller
 //        $currentResults = $datas->slice(($currentPage - 1) * $perPage, $perPage)->all();
 //        $results = new LengthAwarePaginator($currentResults, $datas->count(), $perPage);
 
-        return \Illuminate\Support\Facades\Response::json($isBookmarked, 200);
+        return \Illuminate\Support\Facades\Response::json($data, 200);
     }
 
     public function post(Request $request)
