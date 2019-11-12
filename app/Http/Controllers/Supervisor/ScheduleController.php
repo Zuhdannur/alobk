@@ -27,14 +27,18 @@ class ScheduleController extends Controller
 
 
     public function getTotalSchedule() {
-        $total = Schedule::whereHas('requester', function($query) {
-           $query->where('sekolah_id',Auth::user()->sekolah_id);
-        });
-
-        $schedule = $total->count();
-        $countDaring = $total->where('type_schedule','daring')->count();
-        $countDirect = $total->where('type_schedule','direct')->count();
-        $countRealtime = $total->where('type_schedule','realtime')->count();
+        $schedule = Schedule::whereHas('requester', function($query) {
+            $query->where('sekolah_id',Auth::user()->sekolah_id);
+        })->count();
+        $countDaring = Schedule::whereHas('requester', function($query) {
+            $query->where('sekolah_id',Auth::user()->sekolah_id);
+        })->where('type_schedule','daring')->count();
+        $countDirect = Schedule::whereHas('requester', function($query) {
+            $query->where('sekolah_id',Auth::user()->sekolah_id);
+        })->where('type_schedule','direct')->count();
+        $countRealtime = Schedule::whereHas('requester', function($query) {
+            $query->where('sekolah_id',Auth::user()->sekolah_id);
+        })->where('type_schedule','realtime')->count();
 
         return Response::json([
             'total_schedule' => $schedule,
