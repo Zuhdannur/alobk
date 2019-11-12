@@ -47,9 +47,9 @@ class ScheduleController extends Controller
     public function getTotalToday() {
         $total = Schedule::whereHas('requester', function($query) {
             $query->where('sekolah_id',Auth::user()->sekolah_id);
-        });
+        })->where('created_at', Carbon::today());
 
-        $schedule = $total->where('created_at', Carbon::today())->count();
+        $schedule = $total->count();
 
         $totalPending = $total->where([
             ['pending','=',1],
@@ -78,9 +78,9 @@ class ScheduleController extends Controller
             ['start','=',1],
         ])->count();
 
-        $countDaring = $total->where('type_schedule','daring')->where('created_at',Carbon::today())->count();
-        $countDirect = $total->where('type_schedule','direct')->where('created_at',Carbon::today())->count();
-        $countRealtime = $total->where('type_schedule','realtime')->where('created_at',Carbon::today())->count();
+        $countDaring = $total->where('type_schedule','daring')->count();
+        $countDirect = $total->where('type_schedule','direct')->count();
+        $countRealtime = $total->where('type_schedule','realtime')->count();
 
         return Response::json([
             'total_schedule' => $schedule,
