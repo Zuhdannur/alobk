@@ -82,8 +82,8 @@ $app->routeMiddleware([
 | totally optional, so you are not required to uncomment this line.
 |
 */
-if (!class_exists('OneSignal')) {
-    class_alias('Berkayk\OneSignal\OneSignalFacade', 'OneSignal');
+if (!class_exists('OneSignals')) {
+    class_alias('Berkayk\OneSignal\OneSignalFacade', 'OneSignals');
 }
 
 $app->register(App\Providers\AppServiceProvider::class);
