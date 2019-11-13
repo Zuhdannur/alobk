@@ -25,16 +25,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-
-        $schedule->command('command:updateschedule')
-        ->everyMinute()
-        ->when(function() {
-            return TRUE;
+        $schedule->command('command:updateschedule')->everyMinute()->when(function() {
+            return Cron::shouldIRun('command:updateschedule', 1);
+            //returns true every hour
         });
-
-//        $schedule->command('command:updateschedule')->everyMinute()->when(function() {
-//            return Cron::shouldIRun('command:updateschedule', 1);
-//            //returns true every hour
-//        });
     }
 }
