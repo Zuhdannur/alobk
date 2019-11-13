@@ -35,11 +35,8 @@ class ScheduleController extends Controller
         $data->time = $request->time;
         $data->save();
 
-        OneSignalFacade::sendNotificationUsingTags(
-            "Mendapatkan pengajuan baru dari siswa.",
-            array(
-                ["field"=>"tag","key" => "user_type", "relation" => "=", "value" => "guru"]
-            ),
+        \OneSignals::sendNotificationToAll(
+            "Some Message",
             $url = null,
             $data = null,
             $buttons = null,
