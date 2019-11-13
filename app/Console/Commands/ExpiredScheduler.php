@@ -39,16 +39,15 @@ class ExpiredScheduler extends Command
      */
     public function handle()
     {
-//        DB::table('schedule')
-//            ->where('type_schedule','!=','daring')
-//            ->where('expired', 0)
-//            ->where('canceled', 0)
-//            ->where('pending', 1)
-//            ->where('finish', 0)
-//            ->where('active', 0)
-//            ->where('start', 0)
-//            ->whereDate('time', '>', Carbon::now())
-//            ->update(['expired' => 1]);
-        DB::table('schedule')->update(['expired' => 1]);
+        DB::table('schedule')
+            ->where('type_schedule','!=','daring')
+            ->where('expired', 0)
+            ->where('canceled', 0)
+            ->where('pending', 1)
+            ->where('finish', 0)
+            ->where('active', 0)
+            ->where('start', 0)
+            ->whereDate('time', '>', Carbon::now())
+            ->update(['expired' => 1]);
     }
 }

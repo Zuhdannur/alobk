@@ -22,7 +22,7 @@ class CreateTblSchedule extends Migration
             $table->text('desc');
             $table->string('type_schedule');
             $table->string('channel_url')->nullable();
-            $table->date('time')->nullable();
+            $table->dateTime('time')->nullable();
             $table->string('location')->nullable();
 
             /*Saat konseling tidak diterima sama sekali*/
