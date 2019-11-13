@@ -38,7 +38,7 @@ class ScheduleController extends Controller
         OneSignalFacade::sendNotificationUsingTags(
             "Mendapatkan pengajuan baru dari siswa.",
             array(
-                ["key" => "user_type", "relation" => "=", "value" => 'guru']
+                ["field"=>"tag","key" => "user_type", "relation" => "=", "value" => "guru"]
             ),
             $url = null,
             $data = null,
