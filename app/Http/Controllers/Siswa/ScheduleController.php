@@ -88,7 +88,13 @@ class ScheduleController extends Controller
             $query->where('role', 'siswa')->where('sekolah_id', Auth::user()->sekolah_id);
         });
 
-        $update = $data->update(['expired' => 1]);
+        if($request->has('type_schedule')) {
+            if ($request->type_schedule == 'online') {
+                $data = $data->where('type_schedule', 'daring')->orWhere('type_schedule', 'realtime');
+            } else {
+                $data = $data->where('type_schedule', $request->type_schedule);
+            }
+        }
 
         if($request->has('status')) {
             if($request->status == 'pending') {
@@ -108,14 +114,6 @@ class ScheduleController extends Controller
                     ->where('finish', 0)
                     ->where('active', 1)
                     ->where('start', 1);
-            }
-        }
-
-        if($request->has('type_schedule')) {
-            if ($request->type_schedule == 'online') {
-                $data = $data->where('type_schedule', 'daring')->orWhere('type_schedule', 'realtime');
-            } else {
-                $data = $data->where('type_schedule', $request->type_schedule);
             }
         }
 
