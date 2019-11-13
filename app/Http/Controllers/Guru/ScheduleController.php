@@ -41,6 +41,27 @@ class ScheduleController extends Controller
             }
         }
 
+        if($request->has('status')) {
+            if($request->status == 'pending') {
+                $schedule = $schedule
+                    ->where('canceled', 0)
+                    ->where('expired', 0)
+                    ->where('pending', 1)
+                    ->where('finish', 0)
+                    ->where('active', 0)
+                    ->where('start', 0);
+            }
+            else if($request->status == 'aktif') {
+                $schedule = $schedule
+                    ->where('canceled', 0)
+                    ->where('expired', 0)
+                    ->where('pending', 1)
+                    ->where('finish', 0)
+                    ->where('active', 1)
+                    ->where('start', 1);
+            }
+        }
+
         $data = $schedule->paginate($request->per_page);
 
         return Response::json($data, 200);
