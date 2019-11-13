@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Siswa;
 
 use App\Http\Controllers\Controller;
 use App\Schedule;
+use Berkayk\OneSignal\OneSignalFacade;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
@@ -34,7 +35,7 @@ class ScheduleController extends Controller
         $data->time = $request->time;
         $data->save();
 
-        \OneSignal::sendNotificationUsingTags(
+        OneSignalFacade::sendNotificationUsingTags(
             "Mendapatkan pengajuan baru dari siswa.",
             array(
                 ["key" => "user_type", "relation" => "=", "value" => 'guru']
