@@ -38,7 +38,7 @@ class Diary extends Model
 
     public function getTglAttribute()
     {
-        return \Carbon\Carbon::parse($this->attributes['tgl'])->format('l, d F Y');
+        return \Carbon\Carbon::parse($this->attributes['tgl'])->format('dddd, d F Y');
     }
 
 }
