@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Cron extends Model
 {
     protected $primaryKey = 'command';
+    public $incrementing = false;
     /**
      * The attributes that are mass assignable.
      *

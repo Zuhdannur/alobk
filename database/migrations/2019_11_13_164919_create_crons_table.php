@@ -13,12 +13,12 @@ class CreateCronsTable extends Migration
      */
     public function up()
     {
+
         Schema::create('crons', function (Blueprint $table) {
-            $table->string('command');
+            $table->string('command')->primary();
             $table->integer('next_run');
             $table->integer('last_run');
             $table->timestamps();
-            $table->primary('command');
             $table->index('next_run');
         });
 
