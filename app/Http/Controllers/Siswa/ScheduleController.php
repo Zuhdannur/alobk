@@ -88,7 +88,7 @@ class ScheduleController extends Controller
             $query->where('role', 'siswa')->where('sekolah_id', Auth::user()->sekolah_id);
         });
 
-        $data = $data->update(['expired' => 1]);
+        $update = $data->update(['expired' => 1]);
 
         if($request->has('status')) {
             if($request->status == 'pending') {
@@ -121,7 +121,10 @@ class ScheduleController extends Controller
 
         $data = $data->paginate($request->per_page);
 
-        return Response::json($data, 200);
+        return Response::json([
+            'data' => $data,
+            'update' => $update
+        ], 200);
     }
 
     public function cancel($id)
