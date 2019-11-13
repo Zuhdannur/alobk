@@ -88,6 +88,8 @@ class ScheduleController extends Controller
             $query->where('role', 'siswa')->where('sekolah_id', Auth::user()->sekolah_id);
         });
 
+        $data = $data->update(['expired' => 1]);
+
         if($request->has('status')) {
             if($request->status == 'pending') {
                 $data = $data
