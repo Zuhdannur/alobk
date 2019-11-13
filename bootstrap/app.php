@@ -89,6 +89,7 @@ if (!class_exists('OneSignal')) {
 $app->register(App\Providers\AppServiceProvider::class);
 $app->register(Berkayk\OneSignal\OneSignalServiceProvider::class);
 $app->register(App\Providers\AuthServiceProvider::class);
+$app->register(Orumad\ConfigCache\ServiceProviders\ConfigCacheServiceProvider::class);
 $app->register(App\Providers\EventServiceProvider::class);
 $app->register(\Thedevsaddam\LumenRouteList\LumenRouteListServiceProvider::class);
 $app->register(Barryvdh\Cors\ServiceProvider::class);
