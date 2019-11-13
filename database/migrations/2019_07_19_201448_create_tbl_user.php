@@ -36,6 +36,8 @@ class CreateTblUser extends Migration
             $table->date('tanggal_lahir')->nullable();
             $table->string('kota_lahir', 50)->nullable();
 
+            $table->string('perguruan_tinggi', 50)->nullable();
+
             $table->timestamps();
         });
     }
