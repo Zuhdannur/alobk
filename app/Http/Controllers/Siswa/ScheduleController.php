@@ -121,10 +121,7 @@ class ScheduleController extends Controller
 
         $data = $data->paginate($request->per_page);
 
-        return Response::json([
-            'data' => $data,
-            'update' => $update
-        ], 200);
+        return Response::json($data, 200);
     }
 
     public function cancel($id)
