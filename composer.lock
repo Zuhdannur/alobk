@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "76d7c988c0bf6e9e22571831c1641c4a",
+    "content-hash": "5473f12daccfb230d1dbe363e2010def",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -5045,50 +5045,6 @@
                 "dump"
             ],
             "time": "2019-10-13T12:02:04+00:00"
-        },
-        {
-            "name": "thedevsaddam/lumen-route-list",
-            "version": "2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/thedevsaddam/lumen-route-list.git",
-                "reference": "198633b7e9c23a12290dbee80f4a4d011b855207"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/thedevsaddam/lumen-route-list/zipball/198633b7e9c23a12290dbee80f4a4d011b855207",
-                "reference": "198633b7e9c23a12290dbee80f4a4d011b855207",
-                "shasum": ""
-            },
-            "type": "package",
-            "autoload": {
-                "psr-4": {
-                    "Thedevsaddam\\LumenRouteList\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Saddam Hossain",
-                    "email": "thedevsaddam@gmail.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Display all the registered route list like laravel",
-            "homepage": "https://github.com/thedevsaddam/lumen-route-list",
-            "keywords": [
-                "lumen",
-                "lumen routes list",
-                "lumen-route-list",
-                "route-list",
-                "routes",
-                "thedevsaddam"
-            ],
-            "abandoned": true,
-            "time": "2017-09-24T05:18:44+00:00"
         },
         {
             "name": "unsplash/unsplash",

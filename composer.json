@@ -17,7 +17,6 @@
         "orumad/lumen-config-cache": "^1.0",
         "php-http/curl-client": "^2.0",
         "sngrl/php-firebase-cloud-messaging": "dev-master",
-        "thedevsaddam/lumen-route-list": "^2.0",
         "unsplash/unsplash": "^2.4",
         "vlucas/phpdotenv": "^3.3",
         "wn/lumen-generators": "^1.3"
