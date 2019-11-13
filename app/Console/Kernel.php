@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Cron;
 use Illuminate\Console\Scheduling\Schedule;
 use Laravel\Lumen\Console\Kernel as ConsoleKernel;
 
