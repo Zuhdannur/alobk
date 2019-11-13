@@ -82,8 +82,12 @@ $app->routeMiddleware([
 | totally optional, so you are not required to uncomment this line.
 |
 */
+if (!class_exists('OneSignal')) {
+    class_alias('Berkayk\OneSignal\OneSignalFacade', 'OneSignal');
+}
 
 $app->register(App\Providers\AppServiceProvider::class);
+$app->register(Berkayk\OneSignal\OneSignalServiceProvider::class);
 $app->register(App\Providers\AuthServiceProvider::class);
 $app->register(App\Providers\EventServiceProvider::class);
 $app->register(\Thedevsaddam\LumenRouteList\LumenRouteListServiceProvider::class);

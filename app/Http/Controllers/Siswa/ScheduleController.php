@@ -34,6 +34,17 @@ class ScheduleController extends Controller
         $data->time = $request->time;
         $data->save();
 
+        \OneSignal::sendNotificationUsingTags(
+            "Mendapatkan pengajuan baru dari siswa.",
+            array(
+                ["key" => "user_type", "relation" => "=", "value" => 'guru']
+            ),
+            $url = null,
+            $data = null,
+            $buttons = null,
+            $schedule = null
+        );
+
         return Response::json($data, 200);
     }
 
