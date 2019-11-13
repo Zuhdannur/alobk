@@ -1,16 +1,17 @@
 <?php
 namespace App;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 class Cron extends Model
 {
-    protected $primaryKey = ‘command’;
+    protected $primaryKey = 'command';
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = [‘command’, ‘next_run’, ‘last_run’];
+    protected $fillable = ['command', 'next_run', 'last_run'];
 
     public static function shouldIRun($command, $minutes) {
         $cron = Cron::find($command);
