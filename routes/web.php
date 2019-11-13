@@ -29,6 +29,7 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
     $router->post('register', 'UsersController@register');
 
     $router->get('title', 'ArtikelsController@getTitle');
+    $router->get('cron', 'MastersController@cronJob');
     $router->post('artikel', 'ArtikelsController@create');
 
     /**
