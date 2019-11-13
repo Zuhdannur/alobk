@@ -36,7 +36,7 @@ class ScheduleController extends Controller
         $data->save();
 
         \OneSignals::sendNotificationToAll(
-            "Some Message",
+            "Some Messages",
             $url = null,
             $data = null,
             $buttons = null,
