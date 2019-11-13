@@ -49,7 +49,6 @@ class ExpiredScheduler extends Command
 //            ->where('start', 0)
 //            ->whereDate('time', '>', Carbon::now())
 //            ->update(['expired' => 1]);
-        DB::table('schedule')
-            ->update(['expired' => 1]);
+        DB::table('schedule')->update(['expired' => 1]);
     }
 }
