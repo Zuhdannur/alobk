@@ -117,7 +117,7 @@ class ScheduleController extends Controller
 
         $client->sendNotificationToExternalUser(
             "Pengajuanmu diterima",
-            $schedule->consultant_id,
+            3,
             $url = null,
             $data = null,
             $buttons = null,
