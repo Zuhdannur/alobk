@@ -30,18 +30,6 @@ class ScheduleController extends Controller
             $query->where('sekolah_id', Auth::user()->sekolah_id);
         })->with('consultant');
 
-        if($request->has('orderBy')) {
-            $schedule = $schedule->orderBy('id', 'desc');
-        }
-
-        if($request->has('type_schedule')) {
-            if($request->type_schedule == 'online') {
-                $schedule = $schedule->where('type_schedule', 'daring')->orWhere('type_schedule', 'realtime');
-            } else {
-                $schedule = $schedule->where('type_schedule', $request->type_schedule);
-            }
-        }
-
         if($request->has('status')) {
             if($request->status == 'pending') {
                 $schedule = $schedule
@@ -62,6 +50,20 @@ class ScheduleController extends Controller
                     ->where('start', 1);
             }
         }
+
+        if($request->has('orderBy')) {
+            $schedule = $schedule->orderBy('id', 'desc');
+        }
+
+        if($request->has('type_schedule')) {
+            if($request->type_schedule == 'online') {
+                $schedule = $schedule->where('type_schedule', 'daring')->orWhere('type_schedule', 'realtime');
+            } else {
+                $schedule = $schedule->where('type_schedule', $request->type_schedule);
+            }
+        }
+
+
 
         $data = $schedule->paginate($request->per_page);
 
