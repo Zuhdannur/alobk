@@ -103,9 +103,9 @@ class ScheduleController extends Controller
 
     public function all(Request $request)
     {
-        $data = $this->schedule->orderBy('created_at', 'desc')->withAndWhereHas('requester', function ($query) {
+        $data = $this->schedule->orderBy('created_at', 'desc')->whereHas('requester', function ($query) {
             $query->where('role', 'siswa')->where('sekolah_id', Auth::user()->sekolah_id);
-        });
+        })->with('consultant');
 
         if ($request->has('status')) {
             if ($request->status == 'pending') {
