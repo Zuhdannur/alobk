@@ -36,21 +36,21 @@ class ScheduleController extends Controller
         $data->time = $request->time;
         $data->save();
 
-        $client = new OneSignalClient(
-            'e90e8fc3-6a1f-47d1-a834-d5579ff2dfee',
-            'Y2QyMTVhMzMtOGVlOC00MjFiLThmNDctMTAzNzYwNDM2YWMy',
-            'YzRiYzZlNjAtYmIwNC00MzJiLTk3NTYtNzBhNmU2ZTNjNDQx');
-
-        $client->sendNotificationUsingTags(
-            "Mendapatkan pengajuan baru dari siswa.",
-            array(
-                ["field"=>"tag","key" => "user_type", "relation" => "=", "value" => "guru"]
-            ),
-            $url = null,
-            $data = null,
-            $buttons = null,
-            $schedule = null
-        );
+//        $client = new OneSignalClient(
+//            'e90e8fc3-6a1f-47d1-a834-d5579ff2dfee',
+//            'Y2QyMTVhMzMtOGVlOC00MjFiLThmNDctMTAzNzYwNDM2YWMy',
+//            'YzRiYzZlNjAtYmIwNC00MzJiLTk3NTYtNzBhNmU2ZTNjNDQx');
+//
+//        $client->sendNotificationUsingTags(
+//            "Mendapatkan pengajuan baru dari siswa.",
+//            array(
+//                ["field"=>"tag","key" => "user_type", "relation" => "=", "value" => "guru"]
+//            ),
+//            $url = null,
+//            $data = null,
+//            $buttons = null,
+//            $schedule = null
+//        );
 
         return Response::json($data, 200);
     }
