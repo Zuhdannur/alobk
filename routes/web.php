@@ -167,26 +167,26 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
          * Routes for resource schedule
          */
         /*Guru melihat jumlah pengajuan siswa*/
-        $router->get('schedule/student/{id}', 'SchedulesController@getStudentScheduleCount');
-        /*Siswa dapat menambahkan jadwal*/
-        $router->post('schedule/student', 'SchedulesController@add');
-        /*Siswa dapat melihat semua jadwal*/
-        $router->get('schedule/student', 'SchedulesController@all');
-        /*Siswa dapat menyunting jadwal*/
-        $router->put('schedule/student', 'SchedulesController@put');
-        /*Siswa dapat menghapus jadwal berdasarkan id*/
-        $router->delete('schedule/student/{id}', 'SchedulesController@remove');
-        /*Siswa dapat membatalkan pengajuan*/
-        $router->post('schedule/student/cancel/{id}/{status}', 'SchedulesController@cancel');
-        /*Guru & Siswa dapat menyelesaikan pengajuan*/
-        $router->post('schedule/finish/{id}', 'SchedulesController@finish');
-        /*Guru dapat melihat pengajuan*/
-        $router->get('schedule/guru', 'SchedulesController@receive');
-        /*Guru & Siswa dapat menyelesaikan pengajuan*/
-        $router->post('schedule/guru/accept/{id}', 'SchedulesController@accept');
-
-        $router->delete('schedule', 'SchedulesController@removeAll');
-        $router->post('scheduleChannelUrl', 'SchedulesController@updateChannelUrl');
+//        $router->get('schedule/student/{id}', 'SchedulesController@getStudentScheduleCount');
+//        /*Siswa dapat menambahkan jadwal*/
+//        $router->post('schedule/student', 'SchedulesController@add');
+//        /*Siswa dapat melihat semua jadwal*/
+//        $router->get('schedule/student', 'SchedulesController@all');
+//        /*Siswa dapat menyunting jadwal*/
+//        $router->put('schedule/student', 'SchedulesController@put');
+//        /*Siswa dapat menghapus jadwal berdasarkan id*/
+//        $router->delete('schedule/student/{id}', 'SchedulesController@remove');
+//        /*Siswa dapat membatalkan pengajuan*/
+//        $router->post('schedule/student/cancel/{id}/{status}', 'SchedulesController@cancel');
+//        /*Guru & Siswa dapat menyelesaikan pengajuan*/
+//        $router->post('schedule/finish/{id}', 'SchedulesController@finish');
+//        /*Guru dapat melihat pengajuan*/
+//        $router->get('schedule/guru', 'SchedulesController@receive');
+//        /*Guru & Siswa dapat menyelesaikan pengajuan*/
+//        $router->post('schedule/guru/accept/{id}', 'SchedulesController@accept');
+//
+//        $router->delete('schedule', 'SchedulesController@removeAll');
+//        $router->post('scheduleChannelUrl', 'SchedulesController@updateChannelUrl');
 
         /**
          * Routes for resource user
