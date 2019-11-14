@@ -87,10 +87,18 @@ class ScheduleController extends Controller
             ], 201);
         }
 
-        $update = $schedule->update([
-            'active' => 1,
-            'consultant_id' => Auth::user()->id
-        ]);
+        if($schedule->type_schedule == 'daring') {
+            $update = $schedule->update([
+                'active' => 1,
+                'start' => 1,
+                'consultant_id' => Auth::user()->id
+            ]);
+        } else {
+            $update = $schedule->update([
+                'active' => 1,
+                'consultant_id' => Auth::user()->id
+            ]);
+        }
 
         if (!$update) {
             return Response::json([
