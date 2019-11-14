@@ -79,19 +79,20 @@ class ScheduleController extends Controller
                 ->where('requester_id', Auth::user()->id)
                 ->where('active', 0)
                 ->where('pending', 1)
+                ->where('expired', 0)
+                ->where('canceled', 0)
+                ->where('finish', 0)
+                ->where('active', 0)
+                ->where('start', 0)
                 ->update([
                     'title' => $request->title,
                     'desc' => $request->desc
                 ]);
-
-            if (!$update) {
+            if($update) {
                 return Response::json([
-                    "message" => 'Gagal menyunting jadwal.'
-                ], 201);
+                    "message" => 'Jadwal berhasil disunting.'
+                ], 200);
             }
-            return Response::json([
-                "message" => 'Jadwal berhasil disunting.'
-            ], 200);
         } else {
             //Direct dan Realtime
             if ($this->schedule->time->isPast()) {
@@ -100,21 +101,24 @@ class ScheduleController extends Controller
 
             $update = $this->schedule->where('id', $id)
                 ->where('requester_id', Auth::user()->id)
-                ->where('expired', 0)
                 ->where('active', 0)
-                ->where('pending', 1)->update([
+                ->where('pending', 1)
+                ->where('expired', 0)
+                ->where('canceled', 0)
+                ->where('finish', 0)
+                ->where('active', 0)
+                ->where('start', 0)
+                ->update([
                     'title' => $request->title,
                     'desc' => $request->desc,
                     'time' => $request->time
                 ]);
 
             if (!$update) {
-                return Response::json(["message" => 'pengajuan telah diterima oleh guru.'], 201);
+                return Response::json(["message" => 'Pengajuan telah diterima oleh guru..'], 201);
             }
-            return Response::json(["message" => 'schedule updated'], 200);
+            return Response::json(["message" => 'Pengajuan berhasil disunting.'], 200);
         }
-
-        return $request;
     }
 
     public function all(Request $request)
