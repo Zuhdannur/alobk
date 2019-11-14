@@ -53,7 +53,7 @@ class Schedule extends Model
     public function getTimeAttribute()
     {
         return \Carbon\Carbon::parse($this->attributes['time'])
-            ->format('d, M Y H:i');
+            ->format('d, M Y: H:i');
     }
 
 
