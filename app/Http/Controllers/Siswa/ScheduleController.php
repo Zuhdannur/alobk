@@ -36,7 +36,7 @@ class ScheduleController extends Controller
         if($insert->type_schedule != 'daring') {
             if($this->isLessThanFiveMinutes($request->time)) {
                 return Response::json([
-                    'message' => 'Jeda waktu dari waktu sekarang harus minimal 5 menit.'
+                    'message' => 'Jeda waktu dari waktu sekarang disarankan minimal 5 menit.'
                 ], 201);
             }
         }
@@ -66,7 +66,7 @@ class ScheduleController extends Controller
     }
 
     private function isLessThanFiveMinutes($time) {
-        if(Carbon::parse($time)->lessThanOrEqualTo(Carbon::now()->subMinutes(5))) {
+        if(Carbon::parse($time)->lessThanOrEqualTo(Carbon::now())) {
             return true;
         }
         return false;
