@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Siswa;
 use App\Http\Controllers\Controller;
 use App\Schedule;
 use Berkayk\OneSignal\OneSignalClient;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
@@ -32,6 +33,14 @@ class ScheduleController extends Controller
         $insert->type_schedule = $request->type_schedule;
         $insert->desc = $request->desc;
         $insert->location = $request->location;
+        if($insert->type_schedule != daring) {
+            if($this->isLessThanFiveMinutes($insert->time)) {
+                return Response::json([
+                    'message' => 'Jeda waktu dari waktu sekarang harus minimal 5 menit.'
+                ], 201);
+            }
+        }
+
         $insert->time = $request->time;
         $insert->save();
 
@@ -54,6 +63,13 @@ class ScheduleController extends Controller
         }
 
         return Response::json($insert, 200);
+    }
+
+    private function isLessThanFiveMinutes($time) {
+        if(Carbon::parse($time)->lessThanOrEqualTo(Carbon::now()->subMinutes(5))) {
+            return false;
+        }
+        return true;
     }
 
     public function put(Request $request, $id)
