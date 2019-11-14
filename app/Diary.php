@@ -13,7 +13,7 @@ class Diary extends Model
     protected $dates = ['tgl'];
 
     protected $casts = [
-        'tgl' => 'l, d F Y'
+        'tgl' => 'date:l, d F Y'
     ];
 
     protected $table = "diary";
