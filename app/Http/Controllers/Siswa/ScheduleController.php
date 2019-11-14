@@ -7,7 +7,6 @@ namespace App\Http\Controllers\Siswa;
 use App\Http\Controllers\Controller;
 use App\Schedule;
 use Berkayk\OneSignal\OneSignalClient;
-use Berkayk\OneSignal\OneSignalFacade;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
@@ -36,21 +35,23 @@ class ScheduleController extends Controller
         $data->time = $request->time;
         $data->save();
 
-//        $client = new OneSignalClient(
-//            'e90e8fc3-6a1f-47d1-a834-d5579ff2dfee',
-//            'Y2QyMTVhMzMtOGVlOC00MjFiLThmNDctMTAzNzYwNDM2YWMy',
-//            'YzRiYzZlNjAtYmIwNC00MzJiLTk3NTYtNzBhNmU2ZTNjNDQx');
-//
-//        $client->sendNotificationUsingTags(
-//            "Mendapatkan pengajuan baru dari siswa.",
-//            array(
-//                ["field"=>"tag","key" => "user_type", "relation" => "=", "value" => "guru"]
-//            ),
-//            $url = null,
-//            $data = null,
-//            $buttons = null,
-//            $schedule = null
-//        );
+        if ($data) {
+            $client = new OneSignalClient(
+                'e90e8fc3-6a1f-47d1-a834-d5579ff2dfee',
+                'Y2QyMTVhMzMtOGVlOC00MjFiLThmNDctMTAzNzYwNDM2YWMy',
+                'YzRiYzZlNjAtYmIwNC00MzJiLTk3NTYtNzBhNmU2ZTNjNDQx');
+
+            $client->sendNotificationUsingTags(
+                "Mendapatkan pengajuan baru dari siswa.",
+                array(
+                    ["field" => "tag", "key" => "user_type", "relation" => "=", "value" => "siswa"]
+                ),
+                $url = null,
+                $data = null,
+                $buttons = null,
+                $schedule = null
+            );
+        }
 
         return Response::json($data, 200);
     }
@@ -102,11 +103,11 @@ class ScheduleController extends Controller
 
     public function all(Request $request)
     {
-        $data = $this->schedule->orderBy('created_at','desc')->withAndWhereHas('requester', function ($query) {
+        $data = $this->schedule->orderBy('created_at', 'desc')->withAndWhereHas('requester', function ($query) {
             $query->where('role', 'siswa')->where('sekolah_id', Auth::user()->sekolah_id);
         });
 
-        if($request->has('type_schedule')) {
+        if ($request->has('type_schedule')) {
             if ($request->type_schedule == 'online') {
                 $data = $data->where('type_schedule', 'daring')->orWhere('type_schedule', 'realtime');
             } else {
@@ -114,8 +115,8 @@ class ScheduleController extends Controller
             }
         }
 
-        if($request->has('status')) {
-            if($request->status == 'pending') {
+        if ($request->has('status')) {
+            if ($request->status == 'pending') {
                 $data = $data
                     ->where('canceled', 0)
                     ->where('expired', 0)
@@ -123,8 +124,7 @@ class ScheduleController extends Controller
                     ->where('finish', 0)
                     ->where('active', 0)
                     ->where('start', 0);
-            }
-            else if($request->status == 'aktif') {
+            } else if ($request->status == 'aktif') {
                 $data = $data
                     ->where('canceled', 0)
                     ->where('expired', 0)
