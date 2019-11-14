@@ -33,7 +33,7 @@ class ScheduleController extends Controller
         $insert->type_schedule = $request->type_schedule;
         $insert->desc = $request->desc;
         $insert->location = $request->location;
-        if($insert->type_schedule != daring) {
+        if($insert->type_schedule != 'daring') {
             if($this->isLessThanFiveMinutes($insert->time)) {
                 return Response::json([
                     'message' => 'Jeda waktu dari waktu sekarang harus minimal 5 menit.'
