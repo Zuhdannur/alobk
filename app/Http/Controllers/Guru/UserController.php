@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Response;
 
 class UserController extends Controller
 {
-    private $diary, $user;
+    private $user;
 
     /**
      * DiaryController constructor.
