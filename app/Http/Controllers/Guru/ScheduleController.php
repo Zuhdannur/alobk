@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Guru;
 
 
 use App\Http\Controllers\Controller;
+use Berkayk\OneSignal\OneSignalClient;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
@@ -128,6 +129,19 @@ class ScheduleController extends Controller
         // $data['id_user'] = $schedule['requester_id'];
         // $data['type'] = 'accept';
         // Helper::storeDataNotification($data);
+        $client = new OneSignalClient(
+            'e90e8fc3-6a1f-47d1-a834-d5579ff2dfee',
+            'Y2QyMTVhMzMtOGVlOC00MjFiLThmNDctMTAzNzYwNDM2YWMy',
+            'YzRiYzZlNjAtYmIwNC00MzJiLTk3NTYtNzBhNmU2ZTNjNDQx');
+
+        $client->sendNotificationToExternalUser(
+            "Pengajuanmu diterima",
+            $schedule->consultant_id,
+            $url = null,
+            $data = null,
+            $buttons = null,
+            $schedule = null
+        );
 
         return Response::json($schedule, 200);
     }
