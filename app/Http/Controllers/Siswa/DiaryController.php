@@ -77,6 +77,7 @@ class DiaryController extends Controller
         }
 
         return Response::json([
+            "data" => $update,
             "message" => 'Berhasil menyunting catatan.'
         ], 200);
     }
