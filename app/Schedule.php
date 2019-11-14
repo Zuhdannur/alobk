@@ -63,4 +63,10 @@ class Schedule extends Model
             ->diffForHumans();
     }
 
+    public function getUpdatedAtAttribute()
+    {
+        return \Carbon\Carbon::parse($this->attributes['updated_at'])
+            ->diffForHumans();
+    }
+
 }
