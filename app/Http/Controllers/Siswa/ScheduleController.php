@@ -67,9 +67,9 @@ class ScheduleController extends Controller
 
     private function isLessThanFiveMinutes($time) {
         if(Carbon::parse($time)->lessThanOrEqualTo(Carbon::now()->subMinutes(5))) {
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
     public function put(Request $request, $id)
