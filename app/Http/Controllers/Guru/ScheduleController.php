@@ -68,7 +68,7 @@ class ScheduleController extends Controller
         return Response::json($data, 200);
     }
 
-    public function accept(Request $request, $id) {
+    public function accept($id) {
         $schedule = $this->schedule->find($id);
 
         if ($schedule->canceled != 0) {
@@ -108,35 +108,6 @@ class ScheduleController extends Controller
 
         $schedule = $this->schedule->find($id)->with('consultant')->first();
 
-        // if($schedule->type_schedule == 'direct') {
-        //     $this->sendNotificationToDirect();
-        // }
-
-        // if($schedule->type_schedule == 'realtime') {
-        //     $this->sendNotificationToRealtime();
-        // }
-
-        // if($schedule->type_schedule == 'daring') {
-        //     $this->sendNotificationToDaring();
-        // }
-//        $senderName = $this->user->where('id', $schedule['consultant_id'])->first()->name;
-//
-//        $result['type'] = "accept";
-//        $result['schedule_id'] = $schedule['id'];
-//        $result['requester_id'] = $schedule['requester_id'];
-//        $result['consultant_id'] = $schedule['consultant_id'];
-//        $result['title'] = 'Pengajuanmu telah diterima';
-//        $result['body'] = "Pengajuan " . $schedule['title'] . " telah diterima oleh " . $senderName;
-//        $result['read'] = 0;
-
-//            Helper::sendNotificationToSingle($result);
-
-        // $data['requester_id'] = $schedule['requester_id'];
-        // $data['title'] = 'Pengajuanmu telah diterima.';
-        // $data['body'] = 'Pengajuan '.$schedule['title']. ' telah diterima oleh '. $schedule['consultant']['name'];
-        // $data['id_user'] = $schedule['requester_id'];
-        // $data['type'] = 'accept';
-        // Helper::storeDataNotification($data);
         $client = new OneSignalClient(
             'e90e8fc3-6a1f-47d1-a834-d5579ff2dfee',
             'Y2QyMTVhMzMtOGVlOC00MjFiLThmNDctMTAzNzYwNDM2YWMy',
