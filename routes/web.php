@@ -114,6 +114,10 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
                 $router->get('diary', 'DiaryController@all');
                 $router->get('schedule', 'ScheduleController@all');
                 $router->post('accept/{id}', 'ScheduleController@accept');
+
+                $router->get('student/profile/{id}','UsersController@getStudentInfo');
+                $router->get('student/diary/{id}','DiaryController@getStudentDiaryCount');
+                $router->get('student/schedule/{id}','ScheduleController@getStudentScheduleCount');
             });
 
         });
@@ -143,7 +147,6 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
         //profile
         $router->put('user', 'UsersController@put');
         $router->get('user', 'UsersController@all');
-        $router->get('user/teacher/student/profile/{id}','UsersController@getStudentInfo');
         $router->post('user/update/image', 'UsersController@updateImageProfile');
         $router->post('user/password', 'UsersController@changePassword');
         $router->get('user/check', 'UsersController@checkUsername');
@@ -219,7 +222,7 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
         $router->get('viewRiwayat', 'RiwayatsController@view');
 
         //Favorite Artikels
-        $router->post('favorit', 'ArtikelsController@storeFavorite');
+        $router->post('favorit', 'user/teacher/student/profile/3ArtikelsController@storeFavorite');
         $router->get('favorit', 'ArtikelsController@getMyFavorite');
         $router->get('favoritCount', 'ArtikelsController@getMyFavoriteCount');
         $router->delete('favorit/{id}/{id_favorit}', 'ArtikelsController@removeMyFavorit');

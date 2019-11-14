@@ -40,4 +40,13 @@ class DiaryController extends Controller
         return Response::json($data, 200);
     }
 
+    public function getStudentDiaryCount($id)
+    {
+        $total = $this->diary->where('user_id', $id)->count();
+
+        return Response::json([
+            "total" => $total
+        ], 200);
+    }
+
 }

@@ -126,4 +126,13 @@ class ScheduleController extends Controller
         return Response::json($result, 200);
     }
 
+    public function getStudentScheduleCount($id)
+    {
+        $total = $this->schedule->where('requester_id', $id)->count();
+
+        return Response::json([
+            "total" => $total
+        ], 200);
+    }
+
 }
