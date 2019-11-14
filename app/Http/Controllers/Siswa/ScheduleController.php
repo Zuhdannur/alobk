@@ -26,16 +26,16 @@ class ScheduleController extends Controller
 
     public function post(Request $request)
     {
-        $data = $this->schedule;
-        $data->requester_id = Auth::user()->id;
-        $data->title = $request->title;
-        $data->type_schedule = $request->type_schedule;
-        $data->desc = $request->desc;
-        $data->location = $request->location;
-        $data->time = $request->time;
-        $data->save();
+        $insert = $this->schedule;
+        $insert->requester_id = Auth::user()->id;
+        $insert->title = $request->title;
+        $insert->type_schedule = $request->type_schedule;
+        $insert->desc = $request->desc;
+        $insert->location = $request->location;
+        $insert->time = $request->time;
+        $insert->save();
 
-        if ($data) {
+        if ($insert) {
             $client = new OneSignalClient(
                 'e90e8fc3-6a1f-47d1-a834-d5579ff2dfee',
                 'Y2QyMTVhMzMtOGVlOC00MjFiLThmNDctMTAzNzYwNDM2YWMy',
@@ -53,7 +53,7 @@ class ScheduleController extends Controller
             );
         }
 
-        return Response::json($data, 200);
+        return Response::json($insert, 200);
     }
 
     public function put(Request $request, $id)
