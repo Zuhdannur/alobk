@@ -125,6 +125,7 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
                 $router->post('schedule/{id}', 'ScheduleController@cancel');
                 $router->get('schedule', 'ScheduleController@all');
                 $router->put('schedule/{id}', 'ScheduleController@put');
+                $router->get('riwayat', 'ScheduleController@riwayat');
 
                 $router->put('diary', 'DiaryController@put');
                 $router->get('diary', 'DiaryController@all');
@@ -134,6 +135,7 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
                 $router->get('article', 'ArticleController@all');
                 $router->post('article', 'ArticleController@storeFavorite');
                 $router->get('favorite', 'ArticleController@getFavorite');
+
             });
 
         });

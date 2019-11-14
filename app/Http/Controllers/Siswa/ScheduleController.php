@@ -140,6 +140,11 @@ class ScheduleController extends Controller
         return Response::json($data, 200);
     }
 
+    public function riwayat() {
+        $schedule = $this->schedule->where('expired', 1)->get();
+        return Response::json($schedule, 200);
+    }
+
     public function cancel($id)
     {
         $schedule = $this->schedule->find($id);
