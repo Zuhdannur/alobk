@@ -12,6 +12,10 @@ class Diary extends Model
 
     protected $dates = ['tgl'];
 
+    protected $casts = [
+        'tgl' => 'l, d F Y'
+    ];
+
     protected $table = "diary";
 
     public static $rules = [
