@@ -64,7 +64,7 @@ class DiaryController extends Controller
 
     public function put(Request $request)
     {
-        $update = $this->diary->where('id', $request->id)->where('user_id', Auth::user()->id)->update([
+        $update = tap($this->diary->find($request->id))->update([
             'title' => $request->title,
             'body' => $request->body,
             'tgl' => $request->tgl
