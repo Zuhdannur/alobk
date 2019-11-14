@@ -106,7 +106,7 @@ class ScheduleController extends Controller
             ], 201);
         }
 
-        $schedule = $this->schedule->find($id)->with('consultant')->first();
+        $result = $this->schedule->find($id)->with('consultant')->first();
 
         $client = new OneSignalClient(
             'e90e8fc3-6a1f-47d1-a834-d5579ff2dfee',
@@ -122,7 +122,7 @@ class ScheduleController extends Controller
             $schedule = null
         );
 
-        return Response::json($schedule, 200);
+        return Response::json($result, 200);
     }
 
 }
