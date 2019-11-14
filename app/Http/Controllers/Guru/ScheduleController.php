@@ -46,8 +46,7 @@ class ScheduleController extends Controller
                     ->where('expired', 0)
                     ->where('pending', 1)
                     ->where('finish', 0)
-                    ->where('active', 1)
-                    ->where('start', 1);
+                    ->where('active', 1);
             }
         }
 
