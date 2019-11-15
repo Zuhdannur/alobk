@@ -136,6 +136,8 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
                 $router->get('schedule/jadwal/aktif', 'ScheduleController@jadwalAktif');
                 $router->get('schedule/obrolan/pending', 'ScheduleController@obrolanPending');
 
+                $router->post('catatan-konseling', 'CatatanKonselingController@post');
+
                 $router->put('diary', 'DiaryController@put');
                 $router->get('diary', 'DiaryController@all');
                 $router->post('diary', 'DiaryController@post');
@@ -234,13 +236,5 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
 
         $router->post('related', 'ArtikelsController@getRelatedArtikel');
 
-        /**
-         * Routes for resource catatan-konseling
-         */
-        $router->get('catatan-konseling', 'CatatanKonselingsController@all');
-        $router->get('catatan-konseling/{id}', 'CatatanKonselingsController@get');
-        $router->post('catatan-konseling', 'CatatanKonselingsController@add');
-        $router->put('catatan-konseling/{id}', 'CatatanKonselingsController@put');
-        $router->delete('catatan-konseling/{id}', 'CatatanKonselingsController@remove');
     });
 });
