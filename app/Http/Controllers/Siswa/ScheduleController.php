@@ -197,8 +197,7 @@ class ScheduleController extends Controller
             ->where('expired', 0)
             ->where('pending', 1)
             ->where('finish', 0)
-            ->where('active', 1)
-            ->where('start', 0);
+            ->where('active', 1);
 
         $data = $data->paginate($request->per_page);
 
