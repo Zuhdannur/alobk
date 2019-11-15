@@ -123,7 +123,10 @@ class ScheduleController extends Controller
             $schedule = null
         );
 
-        return Response::json($result, 200);
+        return Response::json([
+            'data' => $data,
+            'message' => 'Pengajuan berhasil diterima.'
+        ], 200);
     }
 
     public function getStudentScheduleCount($id)

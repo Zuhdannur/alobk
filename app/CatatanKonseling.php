@@ -19,7 +19,7 @@ class CatatanKonseling extends Model
     // Relationships
     public function schedule()
     {
-        return $this->hasOne('\App\Schedule', 'id', 'schedule_id');
+        return $this->hasOne('\App\Schedule');
     }
 
     public function getCreatedAtAttribute()

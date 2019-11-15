@@ -16,6 +16,8 @@ class CreateTblCatatanKonseling extends Migration
         Schema::create('catatan_konseling', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('schedule_id')->unsigned();
+            $table->string('komentar')->unsigned();
+            $table->float('rating')->unsigned();
             $table->timestamps();
         });
     }
