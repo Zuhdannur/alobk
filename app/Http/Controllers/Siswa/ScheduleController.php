@@ -225,7 +225,6 @@ class ScheduleController extends Controller
 
     public function finish($id)
     {
-
         $update = $this->schedule->where('id', $id)->update([
             'finish' => 1
         ]);

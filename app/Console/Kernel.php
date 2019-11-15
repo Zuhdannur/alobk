@@ -24,11 +24,16 @@ class Kernel extends ConsoleKernel
             return Cron::shouldIRun('command:startschedule', 1);
             //returns true every hour
         });
+        $schedule->command('command:daringexpired')->everyMinute()->when(function() {
+            return Cron::shouldIRun('command:daringexpired', 1);
+            //returns true every hour
+        });
     }
 
     protected $commands = [
         Commands\ExpiredScheduler::class,
-        Commands\StartScheduler::class
+        Commands\StartScheduler::class,
+        Commands\DaringExpiredScheduler::class
     ];
 
     /**
