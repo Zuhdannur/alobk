@@ -124,7 +124,11 @@ class ScheduleController extends Controller
         );
 
         return Response::json([
-            'id_room' => $id,
+            'requester_id' => $result->requester_id,
+            'id' => $id,
+            'title' => $result->title,
+            'desc' => $result->desc,
+            'time' => $result->time,
             'message' => 'Pengajuan berhasil diterima.'
         ], 200);
     }
