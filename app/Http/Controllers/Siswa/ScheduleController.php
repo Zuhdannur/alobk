@@ -223,6 +223,24 @@ class ScheduleController extends Controller
         return Response::json($data, 200);
     }
 
+    public function finish($id)
+    {
+
+        $update = $this->schedule->where('id', $id)->update([
+            'finish' => 1
+        ]);
+
+        if(!$update) {
+            return Response::json([
+                'message' => 'Pengajuan gagal diselesaikan.'
+            ], 201);
+        }
+
+        return Response::json([
+            'message' => 'Pengajuan berhasil diselesaikan.'
+        ], 201);
+    }
+
     public function riwayat()
     {
         $schedule = $this->schedule->where('expired', 1)->get();
