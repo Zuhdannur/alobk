@@ -20,10 +20,15 @@ class Kernel extends ConsoleKernel
             return Cron::shouldIRun('command:updateschedule', 1);
             //returns true every hour
         });
+        $schedule->command('command:startschedule')->everyMinute()->when(function() {
+            return Cron::shouldIRun('command:startschedule', 1);
+            //returns true every hour
+        });
     }
 
     protected $commands = [
-        Commands\ExpiredScheduler::class
+        Commands\ExpiredScheduler::class,
+        Commands\StartScheduler::class
     ];
 
     /**
