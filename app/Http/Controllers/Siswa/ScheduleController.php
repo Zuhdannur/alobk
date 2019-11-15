@@ -33,8 +33,8 @@ class ScheduleController extends Controller
         $insert->type_schedule = $request->type_schedule;
         $insert->desc = $request->desc;
         $insert->location = $request->location;
-        if($insert->type_schedule != 'daring') {
-            if($this->isLessThanFiveMinutes($request->time)) {
+        if ($insert->type_schedule != 'daring') {
+            if ($this->isLessThanFiveMinutes($request->time)) {
                 return Response::json([
                     'message' => 'Jeda waktu dari waktu sekarang disarankan minimal 5 menit.'
                 ], 201);
@@ -65,8 +65,9 @@ class ScheduleController extends Controller
         return Response::json($insert, 200);
     }
 
-    private function isLessThanFiveMinutes($time) {
-        if(Carbon::parse($time)->lessThanOrEqualTo(Carbon::now())) {
+    private function isLessThanFiveMinutes($time)
+    {
+        if (Carbon::parse($time)->lessThanOrEqualTo(Carbon::now())) {
             return true;
         }
         return false;
@@ -88,7 +89,7 @@ class ScheduleController extends Controller
                     'title' => $request->title,
                     'desc' => $request->desc
                 ]);
-            if($update) {
+            if ($update) {
                 return Response::json([
                     "message" => 'Jadwal berhasil disunting.'
                 ], 200);
@@ -127,29 +128,36 @@ class ScheduleController extends Controller
             $query->where('role', 'siswa')->where('sekolah_id', Auth::user()->sekolah_id);
         })->with('consultant');
 
-        if ($request->has('status')) {
-            if ($request->status == 'pending') {
+        if ($request->has('type_schedule')) {
+            if ($request->type_schedule == 'online') {
                 $data = $data
                     ->where('canceled', 0)
                     ->where('expired', 0)
                     ->where('pending', 1)
                     ->where('finish', 0)
                     ->where('active', 0)
-                    ->where('start', 0);
-            } else if ($request->status == 'aktif') {
-                $data = $data
-                    ->where('canceled', 0)
-                    ->where('expired', 0)
-                    ->where('pending', 1)
-                    ->where('finish', 0)
-                    ->where('active', 1);
-            }
-        }
-
-        if ($request->has('type_schedule')) {
-            if ($request->type_schedule == 'online') {
-                $data = $data->where('type_schedule', 'daring')->orWhere('type_schedule', 'realtime');
+                    ->where('start', 0)
+                    ->where('type_schedule', 'daring')->orWhere('type_schedule', 'realtime');
             } else {
+                if ($request->has('status')) {
+                    if ($request->status == 'pending') {
+                        $data = $data
+                            ->where('canceled', 0)
+                            ->where('expired', 0)
+                            ->where('pending', 1)
+                            ->where('finish', 0)
+                            ->where('active', 0)
+                            ->where('start', 0);
+                    } else if ($request->status == 'aktif') {
+                        $data = $data
+                            ->where('canceled', 0)
+                            ->where('expired', 0)
+                            ->where('pending', 1)
+                            ->where('finish', 0)
+                            ->where('active', 1);
+                    }
+                }
+
                 $data = $data->where('type_schedule', $request->type_schedule);
             }
         }
@@ -159,7 +167,8 @@ class ScheduleController extends Controller
         return Response::json($data, 200);
     }
 
-    public function riwayat() {
+    public function riwayat()
+    {
         $schedule = $this->schedule->where('expired', 1)->get();
         return Response::json($schedule, 200);
     }
