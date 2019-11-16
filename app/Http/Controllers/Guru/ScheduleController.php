@@ -125,9 +125,11 @@ class ScheduleController extends Controller
 
         return Response::json([
             'requester_id' => $result->requester_id,
+            'consultant_id' => $result->consultant_id,
             'id' => $id,
             'title' => $result->title,
             'desc' => $result->desc,
+            'type_schedule' => $result->type_schedule,
             'time' => $result->time,
             'message' => 'Pengajuan berhasil diterima.'
         ], 200);
