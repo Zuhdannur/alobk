@@ -89,13 +89,13 @@ class ScheduleController extends Controller
         }
 
         if($schedule->type_schedule == 'daring') {
-            $update = tap($schedule->update([
+            $update = tap($this->schedule->find($id)->update([
                 'active' => 1,
                 'start' => 1,
                 'consultant_id' => Auth::user()->id
             ]));
         } else {
-            $update = tap($schedule->update([
+            $update = tap($this->schedule->find($id)->update([
                 'active' => 1,
                 'consultant_id' => Auth::user()->id
             ]));
@@ -122,7 +122,13 @@ class ScheduleController extends Controller
         );
 
         return Response::json([
-            'data' => $update,
+            'requester_id' => $update->requester_id,
+            'consultant_id' => $update->consultant_id,
+            'id' => $id,
+            'title' => $update->title,
+            'desc' => $update->desc,
+            'type_schedule' => $result->type_schedule,
+            'time' => $result->time,
             'message' => 'Pengajuan berhasil diterima.'
         ], 200);
     }
