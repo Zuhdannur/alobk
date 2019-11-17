@@ -30,26 +30,6 @@ class ScheduleController extends Controller
             $query->where('sekolah_id', Auth::user()->sekolah_id);
         })->with('consultant');
 
-        if($request->has('status')) {
-            if($request->status == 'pending') {
-                $schedule = $schedule
-                    ->where('canceled', 0)
-                    ->where('expired', 0)
-                    ->where('pending', 1)
-                    ->where('finish', 0)
-                    ->where('active', 0)
-                    ->where('start', 0);
-            }
-            else if($request->status == 'aktif') {
-                $schedule = $schedule
-                    ->where('canceled', 0)
-                    ->where('expired', 0)
-                    ->where('pending', 1)
-                    ->where('finish', 0)
-                    ->where('active', 1);
-            }
-        }
-
         if($request->has('orderBy')) {
             $schedule = $schedule->orderBy('id', 'desc');
         }
@@ -125,6 +105,62 @@ class ScheduleController extends Controller
             'data' => $update,
             'message' => 'Pengajuan berhasil diterima.'
         ], 200);
+    }
+
+    public function jadwalPending(Request $request) {
+        $data = $this->schedule->orderBy('created_at', 'desc')->whereHas('requester', function ($query) {
+            $query->where('role', 'siswa')->where('sekolah_id', Auth::user()->sekolah_id);
+        })->with('consultant');
+
+        $data = $data
+            ->where('type_schedule', 'direct')
+            ->where('canceled', 0)
+            ->where('expired', 0)
+            ->where('pending', 1)
+            ->where('finish', 0)
+            ->where('active', 0)
+            ->where('start', 0);
+
+        $data = $data->paginate($request->per_page);
+
+        return Response::json($data, 200);
+    }
+
+    public function jadwalAktif(Request $request) {
+        $data = $this->schedule->orderBy('created_at', 'desc')->whereHas('requester', function ($query) {
+            $query->where('role', 'siswa')->where('sekolah_id', Auth::user()->sekolah_id);
+        })->with('consultant');
+
+        $data = $data
+            ->where('type_schedule', 'direct')
+            ->where('canceled', 0)
+            ->where('expired', 0)
+            ->where('pending', 1)
+            ->where('finish', 0)
+            ->where('active', 1);
+
+        $data = $data->paginate($request->per_page);
+
+        return Response::json($data, 200);
+    }
+
+    public function obrolanPending(Request $request) {
+        $data = $this->schedule->orderBy('created_at', 'desc')->whereHas('requester', function ($query) {
+            $query->where('role', 'siswa')->where('sekolah_id', Auth::user()->sekolah_id);
+        })->with('consultant');
+
+        $data = $data
+            ->where('type_schedule', 'daring')->orWhere('type_schedule', 'realtime')
+            ->where('canceled', 0)
+            ->where('expired', 0)
+            ->where('pending', 1)
+            ->where('finish', 0)
+            ->where('active', 0)
+            ->where('start', 0);
+
+        $data = $data->paginate($request->per_page);
+
+        return Response::json($data, 200);
     }
 
     public function getStudentScheduleCount($id)

@@ -120,6 +120,10 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
                 $router->get('student/profile/{id}','UserController@getStudentInfo');
                 $router->get('student/diary/{id}','DiaryController@getStudentDiaryCount');
                 $router->get('student/schedule/{id}','ScheduleController@getStudentScheduleCount');
+
+                $router->get('schedule/jadwal/pending', 'ScheduleController@jadwalPending');
+                $router->get('schedule/jadwal/aktif', 'ScheduleController@jadwalAktif');
+                $router->get('schedule/obrolan/pending', 'ScheduleController@obrolanPending');
             });
 
         });
