@@ -89,16 +89,16 @@ class ScheduleController extends Controller
         }
 
         if($schedule->type_schedule == 'daring') {
-            $update = tap($this->schedule->find($id)->update([
+            $update = tap($schedule)->update([
                 'active' => 1,
                 'start' => 1,
                 'consultant_id' => Auth::user()->id
-            ]));
+            ]);
         } else {
-            $update = tap($this->schedule->find($id)->update([
+            $update = tap($schedule)->update([
                 'active' => 1,
                 'consultant_id' => Auth::user()->id
-            ]));
+            ]);
         }
 
         if (!$update) {
