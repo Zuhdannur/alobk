@@ -122,13 +122,7 @@ class ScheduleController extends Controller
         );
 
         return Response::json([
-            'requester_id' => $update->requester_id,
-            'consultant_id' => $update->consultant_id,
-            'id' => $id,
-            'title' => $update->title,
-            'desc' => $update->desc,
-            'type_schedule' => $result->type_schedule,
-            'time' => $result->time,
+            'data' => $update,
             'message' => 'Pengajuan berhasil diterima.'
         ], 200);
     }
