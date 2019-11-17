@@ -89,16 +89,16 @@ class ScheduleController extends Controller
         }
 
         if($schedule->type_schedule == 'daring') {
-            $update = $schedule->update([
+            $update = tap($schedule->update([
                 'active' => 1,
                 'start' => 1,
                 'consultant_id' => Auth::user()->id
-            ]);
+            ]));
         } else {
-            $update = $schedule->update([
+            $update = tap($schedule->update([
                 'active' => 1,
                 'consultant_id' => Auth::user()->id
-            ]);
+            ]));
         }
 
         if (!$update) {
@@ -106,8 +106,6 @@ class ScheduleController extends Controller
                 "message" => "Gagal menerima."
             ], 201);
         }
-
-        $result = $this->schedule->find($id)->with('consultant')->first();
 
         $client = new OneSignalClient(
             'e90e8fc3-6a1f-47d1-a834-d5579ff2dfee',
