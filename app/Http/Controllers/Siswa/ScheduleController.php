@@ -241,7 +241,7 @@ class ScheduleController extends Controller
 
     public function finish($id)
     {
-        $update = $this->schedule->where('id', $id)->update([
+        $update = $this->schedule->find($id)->update([
             'finish' => 1
         ]);
 
@@ -293,7 +293,7 @@ class ScheduleController extends Controller
         $cancel = tap($this->schedule->find($id))
             ->update([
                 'canceled' => 1
-            ], 201);
+            ]);
 
         if (!$cancel) {
             return Response::json([
