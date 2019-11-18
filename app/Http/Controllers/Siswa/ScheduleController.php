@@ -90,18 +90,19 @@ class ScheduleController extends Controller
         }
 
         $update = tap(Schedule::find($id))
-            ->where('requester_id', Auth::user()->id)
-            ->where('pending', 1)
-            ->where('expired', 0)
-            ->where('canceled', 0)
-            ->where('finish', 0)
-            ->where('active', 0)
-            ->where('start', 0)
             ->update([
                 'title' => $request->title,
                 'desc' => $request->desc,
                 'time' => $request->time
             ]);
+//            ->where('requester_id', Auth::user()->id)
+//            ->where('pending', 1)
+//            ->where('expired', 0)
+//            ->where('canceled', 0)
+//            ->where('finish', 0)
+//            ->where('active', 0)
+//            ->where('start', 0)
+
 
         return Response::json([
             "data" => $update,
