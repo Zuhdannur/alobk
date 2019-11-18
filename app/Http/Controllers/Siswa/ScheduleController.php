@@ -36,7 +36,7 @@ class ScheduleController extends Controller
         if ($insert->type_schedule != 'daring') {
             if ($this->isLessThanFiveMinutes($request->time)) {
                 return Response::json([
-                    'message' => 'Jeda waktu dari waktu sekarang disarankan minimal 5 menit.'
+                    'message' => 'Waktu tidak boleh masa lampau.'
                 ], 201);
             }
         }
@@ -109,7 +109,7 @@ class ScheduleController extends Controller
 
         if ($this->isLessThanFiveMinutes($request->time)) {
             return Response::json([
-                'message' => 'Jeda waktu dari waktu sekarang disarankan minimal 5 menit.'
+                'message' => 'Waktu tidak boleh masa lampau.'
             ], 201);
         }
 
@@ -290,7 +290,7 @@ class ScheduleController extends Controller
             ], 201);
         }
 
-        $cancel = $this->schedule->find($id)
+        $cancel = tap($this->schedule->find($id))
             ->update([
                 'canceled' => 1
             ], 201);
@@ -302,6 +302,7 @@ class ScheduleController extends Controller
         }
 
         return Response::json([
+            'data' => $cancel,
             'message' => 'Berhasil membatalkan pengajuan.'
         ], 200);
     }
