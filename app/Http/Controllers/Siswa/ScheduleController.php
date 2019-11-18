@@ -108,6 +108,12 @@ class ScheduleController extends Controller
                 ], 200);
             }
 
+            if ($this->isLessThanFiveMinutes($request->time)) {
+                return Response::json([
+                    'message' => 'Jeda waktu dari waktu sekarang disarankan minimal 5 menit.'
+                ], 201);
+            }
+
             $update = $this->schedule->find($id)
                 ->where('requester_id', Auth::user()->id)
                 ->where('pending', 1)
