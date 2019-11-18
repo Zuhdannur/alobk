@@ -153,7 +153,6 @@ class ScheduleController extends Controller
             ->where('type_schedule', 'daring')->orWhere('type_schedule', 'realtime')
             ->where('canceled', 0)
             ->where('expired', 0)
-            ->where('pending', 1)
             ->where('finish', 0)
             ->where('active', 0)
             ->where('start', 0);

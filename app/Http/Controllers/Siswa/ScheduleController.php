@@ -167,7 +167,8 @@ class ScheduleController extends Controller
 //        return Response::json($data, 200);
 //    }
 
-    public function jadwalPending(Request $request) {
+    public function jadwalPending(Request $request)
+    {
         $data = $this->schedule->orderBy('created_at', 'desc')->whereHas('requester', function ($query) {
             $query->where('role', 'siswa')->where('sekolah_id', Auth::user()->sekolah_id);
         })->with('consultant');
@@ -186,7 +187,8 @@ class ScheduleController extends Controller
         return Response::json($data, 200);
     }
 
-    public function jadwalAktif(Request $request) {
+    public function jadwalAktif(Request $request)
+    {
         $data = $this->schedule->orderBy('created_at', 'desc')->whereHas('requester', function ($query) {
             $query->where('role', 'siswa')->where('sekolah_id', Auth::user()->sekolah_id);
         })->with('consultant');
@@ -204,13 +206,14 @@ class ScheduleController extends Controller
         return Response::json($data, 200);
     }
 
-    public function obrolanPending(Request $request) {
+    public function obrolanPending(Request $request)
+    {
         $data = $this->schedule->orderBy('created_at', 'desc')->whereHas('requester', function ($query) {
             $query->where('role', 'siswa')->where('sekolah_id', Auth::user()->sekolah_id);
         })->with('consultant');
 
         $data = $data
-            ->where('type_schedule', 'daring')->orWhere('type_schedule', 'realtime')
+            ->where('type_schedule','!=', 'direct')
             ->where('canceled', 0)
             ->where('expired', 0)
             ->where('pending', 1)
@@ -229,7 +232,7 @@ class ScheduleController extends Controller
             'finish' => 1
         ]);
 
-        if(!$update) {
+        if (!$update) {
             return Response::json([
                 'message' => 'Pengajuan gagal diselesaikan.'
             ], 201);
