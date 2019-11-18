@@ -75,65 +75,38 @@ class ScheduleController extends Controller
 
     public function put(Request $request, $id)
     {
-        $data = $this->schedule->find($id);
-        if ($request->type_schedule == 'daring') {
+        $schedule = $this->schedule;
 
-            if($this->schedule->expired != 0) {
-                return Response::json([
-                    'message' => 'Pengajuan telah kedaluwarsa.'
-                ], 200);
-            }
-
-            $update = tap($data)
-                ->where('requester_id', Auth::user()->id)
-                ->where('pending', 1)
-                ->where('expired', 0)
-                ->where('canceled', 0)
-                ->where('finish', 0)
-                ->where('active', 0)
-                ->where('start', 0)
-                ->update([
-                    'title' => $request->title,
-                    'desc' => $request->desc
-                ]);
-            if ($update) {
-                return Response::json([
-                    "message" => 'Jadwal berhasil disunting.'
-                ], 200);
-            }
-        } else {
-            //Direct dan Realtime
-            if($this->schedule->expired != 0) {
-                return Response::json([
-                    'message' => 'Pengajuan telah kedaluwarsa.'
-                ], 200);
-            }
-
-            if ($this->isLessThanFiveMinutes($request->time)) {
-                return Response::json([
-                    'message' => 'Jeda waktu dari waktu sekarang disarankan minimal 5 menit.'
-                ], 201);
-            }
-
-            $update = tap($data)
-                ->where('requester_id', Auth::user()->id)
-                ->where('pending', 1)
-                ->where('expired', 0)
-                ->where('canceled', 0)
-                ->where('finish', 0)
-                ->where('active', 0)
-                ->where('start', 0)
-                ->update([
-                    'title' => $request->title,
-                    'desc' => $request->desc,
-                    'time' => $request->time
-                ]);
-
+        if($schedule->expired != 0) {
             return Response::json([
-                "data" => $update,
-                "message" => 'Pengajuan berhasil disunting.'
-            ], 200);
+                'message' => 'Pengajuan telah kedaluwarsa.'
+            ], 201);
         }
+
+        if ($this->isLessThanFiveMinutes($request->time)) {
+            return Response::json([
+                'message' => 'Jeda waktu dari waktu sekarang disarankan minimal 5 menit.'
+            ], 201);
+        }
+
+        $update = tap($schedule->find($id))
+            ->where('requester_id', Auth::user()->id)
+            ->where('pending', 1)
+            ->where('expired', 0)
+            ->where('canceled', 0)
+            ->where('finish', 0)
+            ->where('active', 0)
+            ->where('start', 0)
+            ->update([
+                'title' => $request->title,
+                'desc' => $request->desc,
+                'time' => $request->time
+            ]);
+
+        return Response::json([
+            "data" => $update,
+            "message" => 'Pengajuan berhasil disunting.'
+        ], 200);
     }
 
 //    public function all(Request $request)
