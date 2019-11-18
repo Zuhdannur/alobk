@@ -256,14 +256,14 @@ class ScheduleController extends Controller
         ], 201);
     }
 
-    public function riwayat()
+    public function riwayat(Request $request)
     {
         $schedule = $this->schedule
             ->where('expired', 1)
             ->orWhere('canceled', 1)
             ->orWhere('finish', 1)
             ->orderBy('updated_at', 'desc')
-            ->get();
+            ->paginate($request->per_page);
 
         return Response::json($schedule, 200);
     }
