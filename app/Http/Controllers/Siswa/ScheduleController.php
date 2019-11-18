@@ -89,7 +89,7 @@ class ScheduleController extends Controller
             ], 201);
         }
 
-        $update = tap($schedule->find($id))
+        $update = tap(Schedule::find($id))
             ->where('requester_id', Auth::user()->id)
             ->where('pending', 1)
             ->where('expired', 0)
