@@ -9,7 +9,6 @@ class Schedule extends Model
         'consultant_id',
         'title',
         'desc',
-        'tgl_pengajuan',
         'type_schedule',
         'channel_url',
         'time',

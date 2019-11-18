@@ -117,7 +117,8 @@ class ScheduleController extends Controller
             ->update([
                 'title' => $request->title,
                 'desc' => $request->desc,
-                'time' => $request->time
+                'time' => $request->time,
+                'location' => $request->location
             ]);
 //            ->where('requester_id', Auth::user()->id)
 //            ->where('pending', 1)
