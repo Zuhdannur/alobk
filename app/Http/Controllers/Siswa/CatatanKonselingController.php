@@ -23,7 +23,7 @@ class CatatanKonselingController extends Controller
      */
     public function __construct(CatatanKonseling $catatan)
     {
-        $this->$catatan = $catatan;
+        $this->catatan = $catatan;
     }
 
     public function post(Request $request)
