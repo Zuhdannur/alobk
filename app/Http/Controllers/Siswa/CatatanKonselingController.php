@@ -30,6 +30,8 @@ class CatatanKonselingController extends Controller
     {
         $data = $this->catatan;
         $data->schedule_id = $request->schedule_id;
+        $data->komentar = $request->komentar;
+        $data->rating = $request->rating;
         $data->save();
 
         return Response::json([
