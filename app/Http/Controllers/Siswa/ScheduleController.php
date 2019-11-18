@@ -258,7 +258,12 @@ class ScheduleController extends Controller
 
     public function riwayat()
     {
-        $schedule = $this->schedule->where('expired', 1)->get();
+        $schedule = $this->schedule
+            ->where('expired', 1)
+            ->orWhere('canceled', 1)
+            ->orWhere('finish', 1)
+            ->get();
+
         return Response::json($schedule, 200);
     }
 
