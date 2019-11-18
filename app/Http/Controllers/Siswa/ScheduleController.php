@@ -75,6 +75,7 @@ class ScheduleController extends Controller
 
     public function put(Request $request, $id)
     {
+        $data = $this->schedule->find($id);
         if ($request->type_schedule == 'daring') {
 
             if($this->schedule->expired != 0) {
@@ -83,7 +84,7 @@ class ScheduleController extends Controller
                 ], 200);
             }
 
-            $update = tap($this->schedule->find($id))
+            $update = tap($data)
                 ->where('requester_id', Auth::user()->id)
                 ->where('pending', 1)
                 ->where('expired', 0)
@@ -114,7 +115,7 @@ class ScheduleController extends Controller
                 ], 201);
             }
 
-            $update = tap($this->schedule->find($id))
+            $update = tap($data)
                 ->where('requester_id', Auth::user()->id)
                 ->where('pending', 1)
                 ->where('expired', 0)
