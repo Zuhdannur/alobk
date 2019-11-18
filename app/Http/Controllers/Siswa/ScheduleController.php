@@ -280,12 +280,6 @@ class ScheduleController extends Controller
 
         if ($schedule->active == 1) {
             return Response::json([
-                'message' => 'Pengajuan ini telah selesai.'
-            ], 201);
-        }
-
-        if ($schedule->active == 1) {
-            return Response::json([
                 'message' => 'Pengajuan ini telah diterima oleh guru.'
             ], 201);
         }
@@ -296,8 +290,7 @@ class ScheduleController extends Controller
             ], 201);
         }
 
-        $cancel = $schedule
-            ->where('pending', 1)
+        $cancel = $this->schedule->find($id)
             ->update([
                 'canceled' => 1
             ], 201);
