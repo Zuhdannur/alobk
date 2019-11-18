@@ -290,10 +290,7 @@ class ScheduleController extends Controller
             ], 201);
         }
 
-        $cancel = tap($this->schedule->find($id))
-            ->update([
-                'canceled' => 1
-            ]);
+        $cancel = $this->schedule->find($id)->update(['canceled' => 1]);
 
         if (!$cancel) {
             return Response::json([
@@ -302,7 +299,6 @@ class ScheduleController extends Controller
         }
 
         return Response::json([
-            'data' => $cancel,
             'message' => 'Berhasil membatalkan pengajuan.'
         ], 200);
     }
