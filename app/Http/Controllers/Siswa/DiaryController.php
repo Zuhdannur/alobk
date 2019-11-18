@@ -44,8 +44,7 @@ class DiaryController extends Controller
 
         return Response::json([
             'message' => 'Berhasil menambah catatan.',
-            'model' => $insert,
-            'id' => $insert->id
+            'data' => $insert
         ], 200);
     }
 
