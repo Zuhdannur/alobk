@@ -75,11 +75,35 @@ class ScheduleController extends Controller
 
     public function put(Request $request, $id)
     {
-        $schedule = $this->schedule;
+        $schedule = $this->schedule->find($id);
 
-        if($schedule->expired != 0) {
+        if ($schedule->expired == 1) {
             return Response::json([
                 'message' => 'Pengajuan telah kedaluwarsa.'
+            ], 201);
+        }
+
+        if ($schedule->canceled == 1) {
+            return Response::json([
+                'message' => 'Pengajuan ini telah dibatalkan.'
+            ], 201);
+        }
+
+        if ($schedule->active == 1) {
+            return Response::json([
+                'message' => 'Pengajuan ini telah selesai.'
+            ], 201);
+        }
+
+        if ($schedule->active == 1) {
+            return Response::json([
+                'message' => 'Pengajuan ini telah diterima oleh guru.'
+            ], 201);
+        }
+
+        if ($schedule->start == 1) {
+            return Response::json([
+                'message' => 'Pengajuan ini telah dimulai.'
             ], 201);
         }
 
@@ -89,7 +113,7 @@ class ScheduleController extends Controller
             ], 201);
         }
 
-        $update = tap(Schedule::find($id))
+        $update = tap($schedule)
             ->update([
                 'title' => $request->title,
                 'desc' => $request->desc,
