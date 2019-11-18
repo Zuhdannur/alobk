@@ -83,7 +83,7 @@ class ScheduleController extends Controller
                 ], 200);
             }
 
-            $update = $this->schedule->find($request->schedule_id)
+            $update = tap($this->schedule->find($request->schedule_id))
                 ->where('requester_id', Auth::user()->id)
                 ->where('pending', 1)
                 ->where('expired', 0)
@@ -128,9 +128,6 @@ class ScheduleController extends Controller
                     'time' => $request->time
                 ]);
 
-            if (!$update) {
-                return Response::json(["message" => 'Gagal menyunting pengajuan.'], 201);
-            }
             return Response::json([
                 "data" => $update,
                 "message" => 'Pengajuan berhasil disunting.'
