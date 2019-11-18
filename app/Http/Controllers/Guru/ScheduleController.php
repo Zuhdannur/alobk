@@ -150,7 +150,7 @@ class ScheduleController extends Controller
         })->with('consultant');
 
         $data = $data
-            ->where('type_schedule', 'daring')->orWhere('type_schedule', 'realtime')
+            ->where('type_schedule','!=', 'direct')
             ->where('canceled', 0)
             ->where('expired', 0)
             ->where('finish', 0)

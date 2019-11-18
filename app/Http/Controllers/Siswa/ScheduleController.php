@@ -76,9 +76,15 @@ class ScheduleController extends Controller
     public function put(Request $request, $id)
     {
         if ($request->type_schedule == 'daring') {
-            $update = $this->schedule->where('id', $id)
+
+            if($this->schedule->expired != 0) {
+                return Response::json([
+                    'message' => 'Pengajuan telah kedaluwarsa.'
+                ], 200);
+            }
+
+            $update = $this->schedule->find($id)
                 ->where('requester_id', Auth::user()->id)
-                ->where('active', 0)
                 ->where('pending', 1)
                 ->where('expired', 0)
                 ->where('canceled', 0)
@@ -96,13 +102,14 @@ class ScheduleController extends Controller
             }
         } else {
             //Direct dan Realtime
-            if ($this->schedule->time->isPast()) {
-                return Response::json(["message" => 'Pengajuan telah kedaluwarsa.'], 201);
+            if($this->schedule->expired != 0) {
+                return Response::json([
+                    'message' => 'Pengajuan telah kedaluwarsa.'
+                ], 200);
             }
 
-            $update = $this->schedule->where('id', $id)
+            $update = $this->schedule->find($id)
                 ->where('requester_id', Auth::user()->id)
-                ->where('active', 0)
                 ->where('pending', 1)
                 ->where('expired', 0)
                 ->where('canceled', 0)
@@ -116,7 +123,7 @@ class ScheduleController extends Controller
                 ]);
 
             if (!$update) {
-                return Response::json(["message" => 'Pengajuan telah diterima oleh guru..'], 201);
+                return Response::json(["message" => 'Gagal menyunting pengajuan.'], 201);
             }
             return Response::json(["message" => 'Pengajuan berhasil disunting.'], 200);
         }
