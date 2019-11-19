@@ -154,9 +154,8 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
                 $router->get('favorite', 'ArticleController@getFavorite');
 
                 $router->post('feedback', 'CatatanKonselingController@post');
-
+                $router->get('feedback/{id}', 'CatatanKonselingController@get');
             });
-
         });
 
         //profile

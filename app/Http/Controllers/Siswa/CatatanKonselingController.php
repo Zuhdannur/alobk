@@ -39,4 +39,9 @@ class CatatanKonselingController extends Controller
         ], 200);
     }
 
+    public function get($id) {
+        $data = $this->catatan->where('id', $id)->first();
+        return Response::json($data, 200);
+    }
+
 }
