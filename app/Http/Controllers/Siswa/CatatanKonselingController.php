@@ -28,6 +28,13 @@ class CatatanKonselingController extends Controller
 
     public function post(Request $request)
     {
+        $data = $this->catatan->where('schedule_id', $request->schedule_id)->exists();
+        if($data) {
+            return Response::json([
+                'message' => 'Pengajuan ini sudah diberikan penilaian.'
+            ], 201);
+        }
+
         $data = $this->catatan;
         $data->schedule_id = $request->schedule_id;
         $data->komentar = $request->komentar;
