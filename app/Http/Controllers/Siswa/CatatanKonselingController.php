@@ -40,7 +40,7 @@ class CatatanKonselingController extends Controller
     }
 
     public function get($id) {
-        $data = $this->catatan->where('id', $id)->first();
+        $data = $this->catatan->where('schedule_id', $id)->first();
         return Response::json($data, 200);
     }
 
