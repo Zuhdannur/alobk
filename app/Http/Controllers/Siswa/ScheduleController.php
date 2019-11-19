@@ -262,7 +262,7 @@ class ScheduleController extends Controller
             ->where('expired', 1)
             ->orWhere('canceled', 1)
             ->orWhere('finish', 1)
-            ->orderBy('updated_at', 'desc')
+            ->orderBy('id', 'desc')
             ->paginate($request->per_page);
 
         return Response::json($schedule, 200);
