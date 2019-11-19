@@ -28,7 +28,7 @@ class ScheduleController extends Controller
     {
         $schedule = $this->schedule->withAndWhereHas('requester', function($query) {
             $query->where('sekolah_id', Auth::user()->sekolah_id);
-        })->with('consultant');
+        })->with('requester');
 
         if($request->has('orderBy')) {
             $schedule = $schedule->orderBy('id', 'desc');
@@ -110,7 +110,7 @@ class ScheduleController extends Controller
     public function jadwalPending(Request $request) {
         $data = $this->schedule->orderBy('created_at', 'desc')->whereHas('requester', function ($query) {
             $query->where('role', 'siswa')->where('sekolah_id', Auth::user()->sekolah_id);
-        })->with('consultant');
+        })->with('requester');
 
         $data = $data
             ->where('type_schedule', 'direct')
@@ -129,7 +129,7 @@ class ScheduleController extends Controller
     public function jadwalAktif(Request $request) {
         $data = $this->schedule->orderBy('created_at', 'desc')->whereHas('requester', function ($query) {
             $query->where('role', 'siswa')->where('sekolah_id', Auth::user()->sekolah_id);
-        })->with('consultant');
+        })->with('requester');
 
         $data = $data
             ->where('type_schedule', 'direct')
@@ -147,7 +147,7 @@ class ScheduleController extends Controller
     public function obrolanPending(Request $request) {
         $data = $this->schedule->orderBy('created_at', 'desc')->whereHas('requester', function ($query) {
             $query->where('role', 'siswa')->where('sekolah_id', Auth::user()->sekolah_id);
-        })->with('consultant');
+        })->with('requester');
 
         $data = $data
             ->where('type_schedule','!=', 'direct')
