@@ -241,9 +241,24 @@ class ScheduleController extends Controller
 
     public function finish($id)
     {
-        $update = $this->schedule->find($id)->update([
+        $update = tap($this->schedule->find($id))->update([
             'finish' => 1
         ]);
+
+        $client = new OneSignalClient(
+            'e90e8fc3-6a1f-47d1-a834-d5579ff2dfee',
+            'Y2QyMTVhMzMtOGVlOC00MjFiLThmNDctMTAzNzYwNDM2YWMy',
+            'YzRiYzZlNjAtYmIwNC00MzJiLTk3NTYtNzBhNmU2ZTNjNDQx');
+
+        $client->sendNotificationToExternalUser(
+            "Pengajuan telah diselesaikan",
+            $update->consultant_id,
+            $url = null,
+            $data = null,
+            $buttons = null,
+            $schedule = null
+        );
+
 
         if (!$update) {
             return Response::json([
