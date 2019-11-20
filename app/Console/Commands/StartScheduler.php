@@ -47,7 +47,7 @@ class StartScheduler extends Command
             ->where('finish', 0)
             ->where('active', 1)
             ->where('start', 0)
-            ->whereDate('time', '<=', Carbon::now())
+            ->where('time', '<=', Carbon::now())
             ->update(['start' => 1]);
     }
 }
