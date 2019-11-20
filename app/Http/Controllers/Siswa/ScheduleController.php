@@ -252,6 +252,7 @@ class ScheduleController extends Controller
         }
 
         return Response::json([
+            'id' => $update->id,
             'message' => 'Pengajuan berhasil diselesaikan.'
         ], 201);
     }
