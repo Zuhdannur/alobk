@@ -113,7 +113,7 @@ class ScheduleController extends Controller
             ->where('expired', 1)
             ->orWhere('canceled', 1)
             ->orWhere('finish', 1)
-            ->orderBy('updated_at', 'desc')
+            ->orderBy('created_at', 'desc')
             ->with('requester')
             ->paginate($request->per_page);
 
