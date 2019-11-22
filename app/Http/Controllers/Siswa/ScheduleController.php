@@ -53,7 +53,8 @@ class ScheduleController extends Controller
             $client->sendNotificationUsingTags(
                 "Mendapatkan pengajuan baru dari siswa.",
                 array(
-                    ["field" => "tag", "key" => "user_type", "relation" => "=", "value" => "guru"]
+                    ["field" => "tag", "key" => "user_type", "relation" => "=", "value" => "guru"],
+                    ["field" => "tag", "key" => "sekolah_id", "relation" => "=", "value" => Auth::user()->sekolah_id]
                 ),
                 $url = null,
                 $data = null,
