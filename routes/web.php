@@ -229,20 +229,20 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
         /**
          * Routes for resource riwayat
          */
-        $router->get('riwayat', 'RiwayatsController@all');
-        $router->get('riwayat/{id}', 'RiwayatsController@get');
-        $router->post('riwayat', 'RiwayatsController@add');
-        $router->put('riwayat/{id}', 'RiwayatsController@put');
-        $router->delete('riwayat/{id}', 'RiwayatsController@remove');
-        $router->get('viewRiwayat', 'RiwayatsController@view');
-
-        //Favorite Artikels
+//        $router->get('riwayat', 'RiwayatsController@all');
+//        $router->get('riwayat/{id}', 'RiwayatsController@get');
+//        $router->post('riwayat', 'RiwayatsController@add');
+//        $router->put('riwayat/{id}', 'RiwayatsController@put');
+//        $router->delete('riwayat/{id}', 'RiwayatsController@remove');
+//        $router->get('viewRiwayat', 'RiwayatsController@view');
+//
+//        //Favorite Artikels
         $router->post('favorit', 'user/teacher/student/profile/3ArtikelsController@storeFavorite');
         $router->get('favorit', 'ArtikelsController@getMyFavorite');
         $router->get('favoritCount', 'ArtikelsController@getMyFavoriteCount');
         $router->delete('favorit/{id}/{id_favorit}', 'ArtikelsController@removeMyFavorit');
-
-        $router->post('related', 'ArtikelsController@getRelatedArtikel');
+//
+//        $router->post('related', 'ArtikelsController@getRelatedArtikel');
 
     });
 });
