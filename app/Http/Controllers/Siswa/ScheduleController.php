@@ -281,8 +281,9 @@ class ScheduleController extends Controller
 
     public function riwayat(Request $request)
     {
-        $schedule = $this->schedule
-            ->where('requester_id', Auth::user()->id)
+        $data = $this->schedule->where('requester_id', Auth::user()->id);
+
+        $data = $data
             ->where('expired', 1)
             ->orWhere('canceled', 1)
             ->orWhere('finish', 1)
@@ -290,7 +291,7 @@ class ScheduleController extends Controller
             ->with('consultant')
             ->paginate($request->per_page);
 
-        return Response::json($schedule, 200);
+        return Response::json($data, 200);
     }
 
     public function cancel($id)
