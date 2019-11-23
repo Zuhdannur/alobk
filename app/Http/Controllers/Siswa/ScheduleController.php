@@ -184,7 +184,9 @@ class ScheduleController extends Controller
     public function jadwalPending(Request $request)
     {
         $data = $this->schedule->orderBy('created_at', 'desc')->whereHas('requester', function ($query) {
-            $query->where('role', 'siswa')->where('sekolah_id', Auth::user()->sekolah_id);
+            $query->where('role', 'siswa')
+                ->where('requester_id', Auth::user()->id)
+                ->where('sekolah_id', Auth::user()->sekolah_id);
         })->with('consultant');
 
         $data = $data
@@ -204,7 +206,9 @@ class ScheduleController extends Controller
     public function jadwalAktif(Request $request)
     {
         $data = $this->schedule->orderBy('created_at', 'desc')->whereHas('requester', function ($query) {
-            $query->where('role', 'siswa')->where('sekolah_id', Auth::user()->sekolah_id);
+            $query->where('role', 'siswa')
+                ->where('requester_id', Auth::user()->id)
+                ->where('sekolah_id', Auth::user()->sekolah_id);
         })->with('consultant');
 
         $data = $data
@@ -223,7 +227,9 @@ class ScheduleController extends Controller
     public function obrolanPending(Request $request)
     {
         $data = $this->schedule->orderBy('created_at', 'desc')->whereHas('requester', function ($query) {
-            $query->where('role', 'siswa')->where('sekolah_id', Auth::user()->sekolah_id);
+            $query->where('role', 'siswa')
+                ->where('requester_id', Auth::user()->id)
+                ->where('sekolah_id', Auth::user()->sekolah_id);
         })->with('consultant');
 
         $data = $data
