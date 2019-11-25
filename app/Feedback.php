@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class CatatanKonseling extends Model
+class Feedback extends Model
 {
     protected $fillable = [
         'id',

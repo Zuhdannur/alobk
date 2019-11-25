@@ -50,9 +50,9 @@ class Schedule extends Model
         return $this->hasOne('\App\User', 'id', 'consultant_id');
     }
 
-    public function catatan()
+    public function feedback()
     {
-        return $this->belongsTo('\App\CatatanKonseling', 'id'. 'schedule_id');
+        return $this->belongsTo('\App\Feedback');
     }
 
     public function getTimeAttribute()

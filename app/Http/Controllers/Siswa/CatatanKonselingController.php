@@ -4,7 +4,7 @@
 namespace App\Http\Controllers\Siswa;
 
 
-use App\CatatanKonseling;
+use App\Feedback;
 use App\Http\Controllers\Controller;
 use App\Schedule;
 use Berkayk\OneSignal\OneSignalClient;
@@ -21,7 +21,7 @@ class CatatanKonselingController extends Controller
      * ScheduleControlle constructor.
      * @param $schedule
      */
-    public function __construct(CatatanKonseling $catatan)
+    public function __construct(Feedback $catatan)
     {
         $this->catatan = $catatan;
     }

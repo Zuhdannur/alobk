@@ -11,7 +11,7 @@ class CatatanKonselingsController extends Controller
     {
         $user = \App\User::with('detail')->where('id', Auth::user()->id)->first()->detail;
         // $riwayat = \App\Riwayat::all()->groupBy('schedule_id');
-        $riwayat = \App\CatatanKonseling::whereHas('schedule', function ($q) use ($user) {
+        $riwayat = \App\Feedback::whereHas('schedule', function ($q) use ($user) {
             $q->whereHas('request', function ($query) use ($user) {
                 $query->whereHas('detail', function ($q) use ($user) {
                     $q->where('sekolah_id', $user->sekolah_id);
