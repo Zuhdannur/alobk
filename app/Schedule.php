@@ -52,7 +52,7 @@ class Schedule extends Model
 
     public function catatan()
     {
-        return $this->belongsTo('\App\CatatanKonseling', 'schedule_id');
+        return $this->belongsTo('\App\CatatanKonseling', 'schedule_id'. 'id');
     }
 
     public function getTimeAttribute()
