@@ -282,13 +282,13 @@ class ScheduleController extends Controller
     public function riwayat(Request $request)
     {
         $schedule = $this->schedule
-            ->with('consultant')
-            ->with('catatan')
             ->where('expired', 1)
             ->orWhere('canceled', 1)
             ->orWhere('finish', 1)
             ->orderBy('updated_at', 'desc')
-            ->where('requester_id', Auth::user()->id);
+            ->where('requester_id', Auth::user()->id)
+            ->with('consultant')
+            ->with('catatan');
 
         $schedule = $schedule
             ->paginate($request->per_page);
