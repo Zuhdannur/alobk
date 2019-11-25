@@ -246,6 +246,27 @@ class ScheduleController extends Controller
         return Response::json($data, 200);
     }
 
+    public function obrolanAktif(Request $request)
+    {
+        $data = $this->schedule->orderBy('created_at', 'desc')->whereHas('requester', function ($query) {
+            $query->where('role', 'siswa')
+                ->where('requester_id', Auth::user()->id)
+                ->where('sekolah_id', Auth::user()->sekolah_id);
+        })->with('consultant');
+
+        $data = $data
+            ->where('type_schedule', '!=', 'direct')
+            ->where('canceled', 0)
+            ->where('expired', 0)
+            ->where('pending', 1)
+            ->where('finish', 0)
+            ->where('active', 1);
+
+        $data = $data->paginate($request->per_page);
+
+        return Response::json($data, 200);
+    }
+
     public function finish($id)
     {
         $update = tap($this->schedule->find($id))->update([
