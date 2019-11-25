@@ -233,7 +233,7 @@ class ScheduleController extends Controller
         })->with('consultant');
 
         $data = $data
-            ->where('type_schedule','!=', 'direct')
+            ->where('type_schedule', '!=', 'direct')
             ->where('canceled', 0)
             ->where('expired', 0)
             ->where('pending', 1)
@@ -287,7 +287,10 @@ class ScheduleController extends Controller
             ->orWhere('finish', 1)
             ->orderBy('updated_at', 'desc')
             ->with('consultant')
-            ->where('requester_id', Auth::user()->id)
+            ->with('catatanKonsel')
+            ->where('requester_id', Auth::user()->id);
+
+        $schedule = $schedule
             ->paginate($request->per_page);
 
         return Response::json($schedule, 200);
