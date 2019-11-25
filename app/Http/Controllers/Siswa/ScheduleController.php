@@ -287,7 +287,7 @@ class ScheduleController extends Controller
             ->orWhere('finish', 1)
             ->orderBy('updated_at', 'desc')
             ->with('consultant')
-            ->with('catatanKonsel')
+            ->with('catatan')
             ->where('requester_id', Auth::user()->id);
 
         $schedule = $schedule

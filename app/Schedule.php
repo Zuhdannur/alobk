@@ -49,7 +49,7 @@ class Schedule extends Model
         return $this->hasOne('\App\User', 'id', 'consultant_id');
     }
 
-    public function catatanKonsel()
+    public function catatan()
     {
         return $this->belongsTo('\App\CatatanKonseling');
     }
