@@ -285,7 +285,7 @@ class ScheduleController extends Controller
             ->where('expired', 1)
             ->orWhere('canceled', 1)
             ->orWhere('finish', 1)
-            ->orderBy('updated_at', 'asc')
+            ->orderBy('updated_at', 'desc')
             ->with('consultant')
             ->where('requester_id', Auth::user()->id)
             ->paginate($request->per_page);
