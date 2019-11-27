@@ -42,7 +42,8 @@ class CatatanKonselingController extends Controller
         $data->save();
 
         return Response::json([
-            'message' => 'Berhasil mengirim penilaian.'
+            'message' => 'Berhasil mengirim penilaian.',
+            'data' => $data
         ], 200);
     }
 
