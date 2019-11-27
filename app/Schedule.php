@@ -50,9 +50,9 @@ class Schedule extends Model
         return $this->hasOne('\App\User', 'id', 'consultant_id');
     }
 
-    public function feedback()
+    public function feed()
     {
-        return $this->belongsTo('\App\Feedback');
+        return $this->belongsTo('\App\Feedback', 'schedule_id', 'id');
     }
 
     public function getTimeAttribute()
@@ -68,10 +68,10 @@ class Schedule extends Model
             ->diffForHumans();
     }
 
-    public function getUpdatedAtAttribute()
-    {
-        return \Carbon\Carbon::parse($this->attributes['updated_at'])
-            ->diffForHumans();
-    }
+//    public function getUpdatedAtAttribute()
+//    {
+//        return \Carbon\Carbon::parse($this->attributes['updated_at'])
+//            ->diffForHumans();
+//    }
 
 }

@@ -309,7 +309,7 @@ class ScheduleController extends Controller
             ->orderBy('updated_at', 'desc')
             ->where('requester_id', Auth::user()->id)
             ->with('consultant')
-            ->with('feedback');
+            ->with('feed');
 
         $schedule = $schedule
             ->paginate($request->per_page);
