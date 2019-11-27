@@ -52,7 +52,7 @@ class Schedule extends Model
 
     public function feed()
     {
-        return $this->belongsTo('\App\Feedback', 'schedule_id', 'id');
+        return $this->hasOne('\App\Feedback');
     }
 
     public function getTimeAttribute()

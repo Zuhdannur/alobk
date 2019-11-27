@@ -22,7 +22,7 @@ class Feedback extends Model
     // Relationships
     public function schedule()
     {
-        return $this->hasOne('\App\Schedule');
+        return $this->belongsTo('\App\Schedule');
     }
 
     public function getCreatedAtAttribute()
