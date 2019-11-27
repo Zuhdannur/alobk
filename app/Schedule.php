@@ -50,7 +50,7 @@ class Schedule extends Model
         return $this->hasOne('\App\User', 'id', 'consultant_id');
     }
 
-    public function feed()
+    public function feedback()
     {
         return $this->hasOne('\App\Feedback');
     }
