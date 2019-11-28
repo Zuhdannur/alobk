@@ -269,7 +269,15 @@ class ScheduleController extends Controller
 
     public function finish($id)
     {
-        $update = tap($this->schedule->find($id))->update([
+        $schedule = $this->schedule->find($id);
+
+        if($schedule->finish == 1) {
+            return Response::json([
+                'message' => 'Pengajuan ini telah diselesaikan.'
+            ], 201);
+        }
+
+        $update = tap($schedule)->update([
             'finish' => 1
         ]);
 
