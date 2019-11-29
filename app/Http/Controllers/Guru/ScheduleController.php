@@ -108,26 +108,7 @@ class ScheduleController extends Controller
     }
 
     public function calculateRating() {
-        $total_five = $this->schedule->whereHas('feedback', function($query) {
-            $query->where('rating', 5);
-        })->count();
-        $total_four = $this->schedule->whereHas('feedback', function($query) {
-            $query->where('rating', 4);
-        })->count();
-        $total_three = $this->schedule->whereHas('feedback', function($query) {
-            $query->where('rating', 3);
-        })->count();
-        $total_two = $this->schedule->whereHas('feedback', function($query) {
-            $query->where('rating', 2);
-        })->count();
-        $total_one = $this->schedule->whereHas('feedback', function($query) {
-            $query->where('rating', 1);
-        })->count();
-
-        $calculate = (5*$total_five + 4*$total_four + 3*$total_three + 2*$total_two + 1*$total_one) / ($total_five+$total_four+$total_three+$total_two+$total_one);
-        return Response::json([
-            'average' => $calculate
-        ], 200);
+        
     }
 
     public function updateThenAccept(Request $request, $id) {
@@ -258,7 +239,29 @@ class ScheduleController extends Controller
         $totalObrolan = $this->schedule->where('finish', 1)->where('consultant_id', Auth::user()->id)->where('type_schedule', '!=' , 'direct')->count();
         $totalDirect = $this->schedule->where('finish', 1)->where('consultant_id', Auth::user()->id)->where('type_schedule', 'direct')->count();
 
-        return Response::json(['total_obrolan' => $totalObrolan,'total_direct' => $totalDirect], 200);
+        $total_five = $this->schedule->whereHas('feedback', function($query) {
+            $query->where('rating', 5);
+        })->count();
+        $total_four = $this->schedule->whereHas('feedback', function($query) {
+            $query->where('rating', 4);
+        })->count();
+        $total_three = $this->schedule->whereHas('feedback', function($query) {
+            $query->where('rating', 3);
+        })->count();
+        $total_two = $this->schedule->whereHas('feedback', function($query) {
+            $query->where('rating', 2);
+        })->count();
+        $total_one = $this->schedule->whereHas('feedback', function($query) {
+            $query->where('rating', 1);
+        })->count();
+
+        $calculate = (5*$total_five + 4*$total_four + 3*$total_three + 2*$total_two + 1*$total_one) / ($total_five+$total_four+$total_three+$total_two+$total_one);
+
+        return Response::json([
+            'total_obrolan' => $totalObrolan,
+            'total_direct' => $totalDirect,
+            'calculate' => $calculate
+        ], 200);
     }
 
     public function obrolanAktif(Request $request)
