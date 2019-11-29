@@ -194,7 +194,9 @@ class ScheduleController extends Controller
 
     public function jadwalAktif(Request $request) {
         $data = $this->schedule->orderBy('created_at', 'desc')->whereHas('requester', function ($query) {
-            $query->where('role', 'siswa')->where('sekolah_id', Auth::user()->sekolah_id);
+            $query->where('role', 'siswa')
+            ->where('consultant_id', Auth::user()->id)
+            ->where('sekolah_id', Auth::user()->sekolah_id);
         })->with('requester');
 
         $data = $data
@@ -230,7 +232,7 @@ class ScheduleController extends Controller
 
     public function obrolanAktif(Request $request)
     {
-        $data = $this->schedule->orderBy('created_at', 'desc')->whereHas('consultant', function ($query) {
+        $data = $this->schedule->orderBy('created_at', 'desc')->whereHas('requester', function ($query) {
             $query->where('role', 'siswa')
                 ->where('consultant_id', Auth::user()->id)
                 ->where('sekolah_id', Auth::user()->sekolah_id);
