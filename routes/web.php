@@ -133,7 +133,7 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
 
             $router->group(['prefix' => 'siswa'], function () use ($router) {
                 $router->post('schedule', 'ScheduleController@post');
-                $router->post('schedule/total', 'ScheduleController@getScheduleFinished');
+                $router->get('schedule/total', 'ScheduleController@getScheduleFinished');
                 $router->post('schedule/cancel/{id}', 'ScheduleController@cancel');
 //                $router->get('schedule', 'ScheduleController@all');
                 $router->put('schedule/{id}', 'ScheduleController@put');
