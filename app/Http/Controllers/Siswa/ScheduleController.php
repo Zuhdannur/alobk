@@ -326,10 +326,8 @@ class ScheduleController extends Controller
     }
 
     public function getScheduleFinished() {
-        $schedule = $this->schedule->where('finish', 1)->where('requester_id', Auth::user()->id);
-        
-        $totalObrolan = $schedule->where('type_schedule', '!=' , 'direct')->count();
-        $totalDirect = $schedule->where('type_schedule', 'direct')->count();
+        $totalObrolan = $this->schedule->where('finish', 1)->where('requester_id', Auth::user()->id)->where('type_schedule', '!=' , 'direct')->count();
+        $totalDirect = $this->schedule->where('finish', 1)->where('requester_id', Auth::user()->id)->where('type_schedule', 'direct')->count();
 
         return Response::json(['total_obrolan' => $totalObrolan,'total_direct' => $totalDirect], 200);
     }
