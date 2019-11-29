@@ -116,6 +116,8 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
                 $router->get('diary', 'DiaryController@all');
                 $router->get('schedule', 'ScheduleController@all');
                 $router->post('accept/{id}', 'ScheduleController@accept');
+                $router->post('accept/update/{id}', 'ScheduleController@updateThenAccept');
+
                 $router->get('riwayat', 'ScheduleController@riwayat');
 
                 $router->get('student/profile/{id}','UserController@getStudentInfo');

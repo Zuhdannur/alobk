@@ -107,6 +107,58 @@ class ScheduleController extends Controller
         ], 200);
     }
 
+    public function updateThenAccept(Request $request, $id) {
+        $schedule = $this->schedule->find($id);
+
+        if ($schedule->canceled != 0) {
+            return Response::json(["message" => "Pengajuan ini telah dibatalkan."], 201);
+        }
+
+        if ($schedule->active != 0) {
+            return Response::json([
+                "message" => "Pengajuan telah diterima oleh guru lain."
+            ], 201);
+        }
+
+        if ($schedule->expired != 0) {
+            return Response::json([
+                "message" => "Pengajuan telah kedaluwarsa."
+            ], 201);
+        }
+
+        $update = tap($schedule)->update([
+            'time' => $request->time,
+            'active' => 1,
+            'consultant_id' => Auth::user()->id
+        ]);
+
+        if (!$update) {
+            return Response::json([
+                "message" => "Gagal menerima."
+            ], 201);
+        }
+
+        $client = new OneSignalClient(
+            'e90e8fc3-6a1f-47d1-a834-d5579ff2dfee',
+            'Y2QyMTVhMzMtOGVlOC00MjFiLThmNDctMTAzNzYwNDM2YWMy',
+            'YzRiYzZlNjAtYmIwNC00MzJiLTk3NTYtNzBhNmU2ZTNjNDQx');
+
+        $client->sendNotificationToExternalUser(
+            "Pengajuanmu diterima",
+            $schedule->requester_id,
+            $url = null,
+            $data = null,
+            $buttons = null,
+            $schedule = null
+        );
+
+        return Response::json([
+            'old_value' => $schedule->getOriginal('time'),
+            'new_value' => $schedule->time,
+            'message' => 'Pengajuan berhasil diterima.'
+        ], 200);
+    }
+
     public function riwayat(Request $request)
     {
         $schedule = $this->schedule
