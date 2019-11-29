@@ -147,9 +147,9 @@ class ScheduleController extends Controller
             "Pengajuanmu diterima",
             $schedule->requester_id,
             $url = null,
-            $data = array(
-                ["message" => "pengajuan berhasil diterima dengan tanggal"]
-            ),
+            $data = [
+                "message" => "pengajuan berhasil diterima dengan tanggal"
+            ],
             $buttons = null,
             $schedule = null
         );
