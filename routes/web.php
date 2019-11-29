@@ -127,6 +127,7 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
                 $router->get('schedule/jadwal/pending', 'ScheduleController@jadwalPending');
                 $router->get('schedule/jadwal/aktif', 'ScheduleController@jadwalAktif');
                 $router->get('schedule/obrolan/pending', 'ScheduleController@obrolanPending');
+                $router->get('schedule/obrolan/aktif', 'ScheduleController@obrolanAktif');
             });
 
         });
