@@ -118,6 +118,7 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
                 $router->get('schedule/total', 'ScheduleController@getScheduleFinished');
                 $router->post('accept/{id}', 'ScheduleController@accept');
                 $router->post('accept/update/{id}', 'ScheduleController@updateThenAccept');
+                $router->put('schedule/finish/{id}', 'ScheduleController@finish');
 
                 $router->get('riwayat', 'ScheduleController@riwayat');
 
