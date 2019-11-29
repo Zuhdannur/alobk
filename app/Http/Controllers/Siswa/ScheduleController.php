@@ -325,6 +325,15 @@ class ScheduleController extends Controller
         return Response::json($schedule, 200);
     }
 
+    public function getScheduleFinished() {
+        $schedule = $this->schedule->where('finish', 1)->where('requester_id', Auth::user()->id);
+        
+        $totalObrolan = $schedule->where('type_schedule', '!=' , 'direct');
+        $totalDirect = $schedule->where('type_schedule', 'direct');
+
+        return Response::json(['total_obrolan' => $totalObrolan,'total_direct' => $totalDirect], 200);
+    }
+
     public function cancel($id)
     {
         $schedule = $this->schedule->find($id);
