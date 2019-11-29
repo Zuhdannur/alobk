@@ -107,10 +107,6 @@ class ScheduleController extends Controller
         ], 200);
     }
 
-    public function calculateRating() {
-        
-    }
-
     public function updateThenAccept(Request $request, $id) {
         $schedule = $this->schedule->find($id);
 
@@ -151,15 +147,57 @@ class ScheduleController extends Controller
             "Pengajuanmu diterima",
             $schedule->requester_id,
             $url = null,
-            $data = null,
+            $data = array(
+                ["field" => "tag", "key" => "message", "relation" => "=", "value" => "pengajuan berhasil diterima dengan tanggal " + $update->time]
+            ),
             $buttons = null,
             $schedule = null
         );
 
         return Response::json([
-            'old_value' => $request->time,
-            'new_value' => $update->time,
+            'data' => $update,
             'message' => 'Pengajuan berhasil diterima.'
+        ], 200);
+    }
+
+    public function finish($id)
+    {
+        $schedule = $this->schedule->find($id);
+
+        if($schedule->finish == 1) {
+            return Response::json([
+                'message' => 'Pengajuan ini telah diselesaikan.'
+            ], 201);
+        }
+
+        $update = tap($schedule)->update([
+            'finish' => 1
+        ]);
+
+        $client = new OneSignalClient(
+            'e90e8fc3-6a1f-47d1-a834-d5579ff2dfee',
+            'Y2QyMTVhMzMtOGVlOC00MjFiLThmNDctMTAzNzYwNDM2YWMy',
+            'YzRiYzZlNjAtYmIwNC00MzJiLTk3NTYtNzBhNmU2ZTNjNDQx');
+
+        $client->sendNotificationToExternalUser(
+            "Pengajuan telah diselesaikan",
+            $update->requester_id,
+            $url = null,
+            $data = null,
+            $buttons = null,
+            $schedule = null
+        );
+
+
+        if (!$update) {
+            return Response::json([
+                'message' => 'Pengajuan gagal diselesaikan.'
+            ], 201);
+        }
+
+        return Response::json([
+            'id' => $update->id,
+            'message' => 'Pengajuan berhasil diselesaikan.'
         ], 200);
     }
 
