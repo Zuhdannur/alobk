@@ -295,10 +295,13 @@ class ScheduleController extends Controller
 
         $calculate = (5*$total_five + 4*$total_four + 3*$total_three + 2*$total_two + 1*$total_one) / ($total_five+$total_four+$total_three+$total_two+$total_one);
 
+        $total_schedule = $total_five+$total_four+$total_three+$total_two+$total_one;
+
         return Response::json([
             'total_obrolan' => $totalObrolan,
             'total_direct' => $totalDirect,
-            'calculate' => number_format($calculate, 2, '.', '')
+            'calculate' => number_format($calculate, 2, '.', ''),
+            'total' => $total_schedule
         ], 200);
     }
 
