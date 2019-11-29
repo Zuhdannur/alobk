@@ -138,6 +138,12 @@ class ScheduleController extends Controller
             ], 201);
         }
 
+        if ($this->isLessThanFiveMinutes($request->time)) {
+            return Response::json([
+                'message' => 'Waktu tidak boleh masa lampau.'
+            ], 201);
+        }
+
         $client = new OneSignalClient(
             'e90e8fc3-6a1f-47d1-a834-d5579ff2dfee',
             'Y2QyMTVhMzMtOGVlOC00MjFiLThmNDctMTAzNzYwNDM2YWMy',
@@ -158,6 +164,14 @@ class ScheduleController extends Controller
             'data' => $update,
             'message' => 'Pengajuan berhasil diterima.'
         ], 200);
+    }
+
+    private function isLessThanFiveMinutes($time)
+    {
+        if (Carbon::parse($time)->lessThanOrEqualTo(Carbon::now())) {
+            return true;
+        }
+        return false;
     }
 
     public function finish($id)
