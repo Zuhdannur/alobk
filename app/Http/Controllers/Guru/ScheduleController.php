@@ -153,7 +153,7 @@ class ScheduleController extends Controller
         );
 
         return Response::json([
-            'old_value' => $schedule->getOriginal('time'),
+            'old_value' => $request->time,
             'new_value' => $schedule->time,
             'message' => 'Pengajuan berhasil diterima.'
         ], 200);
