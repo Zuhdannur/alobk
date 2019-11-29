@@ -234,7 +234,7 @@ class ScheduleController extends Controller
             $query->where('role', 'siswa')
                 ->where('requester_id', Auth::user()->id)
                 ->where('sekolah_id', Auth::user()->sekolah_id);
-        })->with('consultant');
+        })->with('requester');
 
         $data = $data
             ->where('type_schedule', '!=', 'direct')
