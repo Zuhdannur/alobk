@@ -260,7 +260,7 @@ class ScheduleController extends Controller
         return Response::json([
             'total_obrolan' => $totalObrolan,
             'total_direct' => $totalDirect,
-            'calculate' => $calculate
+            'calculate' => number_format($calculate, 2, '.', '')
         ], 200);
     }
 
