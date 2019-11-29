@@ -230,9 +230,9 @@ class ScheduleController extends Controller
 
     public function obrolanAktif(Request $request)
     {
-        $data = $this->schedule->orderBy('created_at', 'desc')->whereHas('requester', function ($query) {
+        $data = $this->schedule->orderBy('created_at', 'desc')->whereHas('consultant', function ($query) {
             $query->where('role', 'siswa')
-                ->where('requester_id', Auth::user()->id)
+                ->where('consultant_id', Auth::user()->id)
                 ->where('sekolah_id', Auth::user()->sekolah_id);
         })->with('requester');
 
