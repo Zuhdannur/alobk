@@ -144,12 +144,14 @@ class ScheduleController extends Controller
             'YzRiYzZlNjAtYmIwNC00MzJiLTk3NTYtNzBhNmU2ZTNjNDQx');
 
         $client->sendNotificationToExternalUser(
-            "Pengajuanmu diterima",
+            "Pengajuan dengan id #"+$update->id+" diterima oleh guru.",
             $schedule->requester_id,
             $url = null,
             $data = null,
             $buttons = null,
-            $schedule = null
+            $schedule = null,
+            $headings = "Pengajuanmu diterima",
+            $subtitle  = "Pengajuan dengan id #"+$update->id+" diterima oleh guru."
         );
 
         return Response::json([
