@@ -159,8 +159,7 @@ class ScheduleController extends Controller
             ],
             $buttons = null,
             $schedule = null,
-            $headings = "Pengajuanmu diterima",
-            $subtitle  = "Pengajuan dengan id #"+$update->id+" diterima oleh guru."
+            $headings = "Pengajuanmu diterima"
         );
 
         return Response::json([
