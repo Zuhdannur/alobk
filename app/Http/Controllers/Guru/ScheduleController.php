@@ -94,7 +94,7 @@ class ScheduleController extends Controller
             'YzRiYzZlNjAtYmIwNC00MzJiLTk3NTYtNzBhNmU2ZTNjNDQx');
 
         $client->sendNotificationToExternalUser(
-            "Pengajuan dengan id #"+$update->id+" telah diterima oleh guru.",
+            "Pengajuan dengan id #".$update->id." telah diterima oleh guru.",
             $schedule->requester_id,
             $url = null,
             $buttons = null,
@@ -151,7 +151,7 @@ class ScheduleController extends Controller
             'YzRiYzZlNjAtYmIwNC00MzJiLTk3NTYtNzBhNmU2ZTNjNDQx');
 
         $client->sendNotificationToExternalUser(
-            "Pengajuan dengan id #"+$update->id+" disunting dan diterima oleh guru.",
+            "Pengajuan dengan id #".$update->id." disunting dan diterima oleh guru.",
             $schedule->requester_id,
             $url = null,
             $buttons = null,
@@ -193,7 +193,7 @@ class ScheduleController extends Controller
             'YzRiYzZlNjAtYmIwNC00MzJiLTk3NTYtNzBhNmU2ZTNjNDQx');
 
         $client->sendNotificationToExternalUser(
-            "Pengajuan dengan id #"+$update->id+" telah diselesaikan.",
+            "Pengajuan dengan id #".$update->id." telah diselesaikan.",
             $update->requester_id,
             $url = null,
             $data = null,
