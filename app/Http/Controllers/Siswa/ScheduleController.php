@@ -58,7 +58,7 @@ class ScheduleController extends Controller
                 ),
                 $url = null,
                 $data = [
-                    "data" => $this->schedule->find($insert->id),
+                    "data" => $this->schedule->where('id', $insert->id)->with('requester')->first(),
                     "type" => "schedule"
                 ],
                 $buttons = null,
