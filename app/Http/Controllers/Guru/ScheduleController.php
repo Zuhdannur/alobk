@@ -97,6 +97,10 @@ class ScheduleController extends Controller
             "Pengajuan dengan id #".$update->id." telah diterima oleh guru.",
             $schedule->requester_id,
             $url = null,
+            $data = [
+                "id" => $update->id,
+                "type" => "schedule"
+            ],
             $buttons = null,
             $schedule = null,
             $headings = "Pengajuanmu diterima"
@@ -154,6 +158,10 @@ class ScheduleController extends Controller
             "Pengajuan dengan id #".$update->id." disunting dan diterima oleh guru.",
             $schedule->requester_id,
             $url = null,
+            $data = [
+                "id" => $update->id,
+                "type" => "schedule"
+            ],
             $buttons = null,
             $schedule = null,
             $headings = "Pengajuanmu diterima"
@@ -187,27 +195,29 @@ class ScheduleController extends Controller
             'finish' => 1
         ]);
 
+        if (!$update) {
+            return Response::json([
+                'message' => 'Pengajuan gagal diselesaikan.'
+            ], 201);
+        }
+
         $client = new OneSignalClient(
             'e90e8fc3-6a1f-47d1-a834-d5579ff2dfee',
             'Y2QyMTVhMzMtOGVlOC00MjFiLThmNDctMTAzNzYwNDM2YWMy',
             'YzRiYzZlNjAtYmIwNC00MzJiLTk3NTYtNzBhNmU2ZTNjNDQx');
 
         $client->sendNotificationToExternalUser(
-            "Pengajuan dengan id #".$update->id." telah diselesaikan.",
+            "Pengajuan dengan id #".$update->id." telah diselesaikan oleh guru.",
             $update->requester_id,
             $url = null,
-            $data = null,
+            $data = [
+                "id" => $update->id,
+                "type" => "schedule"
+            ],
             $buttons = null,
             $schedule = null,
             $headings = "Pengajuan telah diselesaikan."
         );
-
-
-        if (!$update) {
-            return Response::json([
-                'message' => 'Pengajuan gagal diselesaikan.'
-            ], 201);
-        }
 
         return Response::json([
             'id' => $update->id,
