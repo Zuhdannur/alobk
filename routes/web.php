@@ -118,6 +118,7 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
                 $router->get('schedule/total', 'ScheduleController@getScheduleFinished');
                 $router->post('accept/{id}', 'ScheduleController@accept');
                 $router->post('accept/update/{id}', 'ScheduleController@updateThenAccept');
+                $router->put('schedule/finish/{id}', 'ScheduleController@finish');
 
                 $router->get('riwayat', 'ScheduleController@riwayat');
 
@@ -126,6 +127,7 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
                 $router->get('student/schedule/{id}','ScheduleController@getStudentScheduleCount');
 
                 $router->get('schedule/jadwal/pending', 'ScheduleController@jadwalPending');
+                $router->get('schedule/calculate', 'ScheduleController@calculateRating');
                 $router->get('schedule/jadwal/aktif', 'ScheduleController@jadwalAktif');
                 $router->get('schedule/obrolan/pending', 'ScheduleController@obrolanPending');
                 $router->get('schedule/obrolan/aktif', 'ScheduleController@obrolanAktif');

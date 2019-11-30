@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
 use App\Schedule;
+use Carbon\Carbon;
 
 class ScheduleController extends Controller
 {
@@ -138,6 +139,12 @@ class ScheduleController extends Controller
             ], 201);
         }
 
+        if ($this->isLessThanFiveMinutes($request->time)) {
+            return Response::json([
+                'message' => 'Waktu tidak boleh masa lampau.'
+            ], 201);
+        }
+
         $client = new OneSignalClient(
             'e90e8fc3-6a1f-47d1-a834-d5579ff2dfee',
             'Y2QyMTVhMzMtOGVlOC00MjFiLThmNDctMTAzNzYwNDM2YWMy',
@@ -147,7 +154,9 @@ class ScheduleController extends Controller
             "Pengajuan dengan id #"+$update->id+" diterima oleh guru.",
             $schedule->requester_id,
             $url = null,
-            $data = null,
+            $data = [
+                "message" => "pengajuan berhasil diterima dengan tanggal"
+            ],
             $buttons = null,
             $schedule = null,
             $headings = "Pengajuanmu diterima",
@@ -155,9 +164,57 @@ class ScheduleController extends Controller
         );
 
         return Response::json([
-            'old_value' => $request->time,
-            'new_value' => $update->time,
+            'data' => $update,
             'message' => 'Pengajuan berhasil diterima.'
+        ], 200);
+    }
+
+    private function isLessThanFiveMinutes($time)
+    {
+        if (Carbon::parse($time)->lessThanOrEqualTo(Carbon::now())) {
+            return true;
+        }
+        return false;
+    }
+
+    public function finish($id)
+    {
+        $schedule = $this->schedule->find($id);
+
+        if($schedule->finish == 1) {
+            return Response::json([
+                'message' => 'Pengajuan ini telah diselesaikan.'
+            ], 201);
+        }
+
+        $update = tap($schedule)->update([
+            'finish' => 1
+        ]);
+
+        $client = new OneSignalClient(
+            'e90e8fc3-6a1f-47d1-a834-d5579ff2dfee',
+            'Y2QyMTVhMzMtOGVlOC00MjFiLThmNDctMTAzNzYwNDM2YWMy',
+            'YzRiYzZlNjAtYmIwNC00MzJiLTk3NTYtNzBhNmU2ZTNjNDQx');
+
+        $client->sendNotificationToExternalUser(
+            "Pengajuan telah diselesaikan",
+            $update->requester_id,
+            $url = null,
+            $data = null,
+            $buttons = null,
+            $schedule = null
+        );
+
+
+        if (!$update) {
+            return Response::json([
+                'message' => 'Pengajuan gagal diselesaikan.'
+            ], 201);
+        }
+
+        return Response::json([
+            'id' => $update->id,
+            'message' => 'Pengajuan berhasil diselesaikan.'
         ], 200);
     }
 
@@ -237,7 +294,32 @@ class ScheduleController extends Controller
         $totalObrolan = $this->schedule->where('finish', 1)->where('consultant_id', Auth::user()->id)->where('type_schedule', '!=' , 'direct')->count();
         $totalDirect = $this->schedule->where('finish', 1)->where('consultant_id', Auth::user()->id)->where('type_schedule', 'direct')->count();
 
-        return Response::json(['total_obrolan' => $totalObrolan,'total_direct' => $totalDirect], 200);
+        $total_five = $this->schedule->whereHas('feedback', function($query) {
+            $query->where('rating', 5);
+        })->count();
+        $total_four = $this->schedule->whereHas('feedback', function($query) {
+            $query->where('rating', 4);
+        })->count();
+        $total_three = $this->schedule->whereHas('feedback', function($query) {
+            $query->where('rating', 3);
+        })->count();
+        $total_two = $this->schedule->whereHas('feedback', function($query) {
+            $query->where('rating', 2);
+        })->count();
+        $total_one = $this->schedule->whereHas('feedback', function($query) {
+            $query->where('rating', 1);
+        })->count();
+
+        $calculate = (5*$total_five + 4*$total_four + 3*$total_three + 2*$total_two + 1*$total_one) / ($total_five+$total_four+$total_three+$total_two+$total_one);
+
+        $total_schedule = $total_five+$total_four+$total_three+$total_two+$total_one;
+
+        return Response::json([
+            'total_obrolan' => $totalObrolan,
+            'total_direct' => $totalDirect,
+            'calculate' => number_format($calculate, 2, '.', ''),
+            'total' => $total_schedule
+        ], 200);
     }
 
     public function obrolanAktif(Request $request)
