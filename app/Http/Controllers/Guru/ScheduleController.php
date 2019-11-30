@@ -122,6 +122,12 @@ class ScheduleController extends Controller
             ], 201);
         }
 
+        if ($this->isLessThanFiveMinutes($request->time)) {
+            return Response::json([
+                'message' => 'Waktu tidak boleh masa lampau.'
+            ], 201);
+        }
+
         $update = tap($schedule)->update([
             'time' => $request->time,
             'active' => 1,
@@ -131,12 +137,6 @@ class ScheduleController extends Controller
         if (!$update) {
             return Response::json([
                 "message" => "Gagal menerima."
-            ], 201);
-        }
-
-        if ($this->isLessThanFiveMinutes($request->time)) {
-            return Response::json([
-                'message' => 'Waktu tidak boleh masa lampau.'
             ], 201);
         }
 
