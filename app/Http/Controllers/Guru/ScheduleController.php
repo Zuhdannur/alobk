@@ -88,6 +88,11 @@ class ScheduleController extends Controller
             ], 201);
         }
 
+        $client = new OneSignalClient(
+            'e90e8fc3-6a1f-47d1-a834-d5579ff2dfee',
+            'Y2QyMTVhMzMtOGVlOC00MjFiLThmNDctMTAzNzYwNDM2YWMy',
+            'YzRiYzZlNjAtYmIwNC00MzJiLTk3NTYtNzBhNmU2ZTNjNDQx');
+
         $client->sendNotificationToExternalUser(
             "Pengajuan dengan id #"+$update->id+" telah diterima oleh guru.",
             $schedule->requester_id,
