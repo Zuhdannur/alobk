@@ -88,18 +88,13 @@ class ScheduleController extends Controller
             ], 201);
         }
 
-        $client = new OneSignalClient(
-            'e90e8fc3-6a1f-47d1-a834-d5579ff2dfee',
-            'Y2QyMTVhMzMtOGVlOC00MjFiLThmNDctMTAzNzYwNDM2YWMy',
-            'YzRiYzZlNjAtYmIwNC00MzJiLTk3NTYtNzBhNmU2ZTNjNDQx');
-
         $client->sendNotificationToExternalUser(
-            "Pengajuanmu diterima",
+            "Pengajuan dengan id #"+$update->id+" telah diterima oleh guru.",
             $schedule->requester_id,
             $url = null,
-            $data = null,
             $buttons = null,
-            $schedule = null
+            $schedule = null,
+            $headings = "Pengajuanmu diterima"
         );
 
         return Response::json([
@@ -151,12 +146,9 @@ class ScheduleController extends Controller
             'YzRiYzZlNjAtYmIwNC00MzJiLTk3NTYtNzBhNmU2ZTNjNDQx');
 
         $client->sendNotificationToExternalUser(
-            "Pengajuan dengan id #"+$update->id+" diterima oleh guru.",
+            "Pengajuan dengan id #"+$update->id+" disunting dan diterima oleh guru.",
             $schedule->requester_id,
             $url = null,
-            $data = [
-                "message" => "pengajuan berhasil diterima dengan tanggal"
-            ],
             $buttons = null,
             $schedule = null,
             $headings = "Pengajuanmu diterima"
@@ -196,12 +188,13 @@ class ScheduleController extends Controller
             'YzRiYzZlNjAtYmIwNC00MzJiLTk3NTYtNzBhNmU2ZTNjNDQx');
 
         $client->sendNotificationToExternalUser(
-            "Pengajuan telah diselesaikan",
+            "Pengajuan dengan id #"+$update->id+" telah diselesaikan.",
             $update->requester_id,
             $url = null,
             $data = null,
             $buttons = null,
-            $schedule = null
+            $schedule = null,
+            $headings = "Pengajuan telah diselesaikan."
         );
 
 
