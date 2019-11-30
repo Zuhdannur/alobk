@@ -59,7 +59,8 @@ class ScheduleController extends Controller
                 $url = null,
                 $data = null,
                 $buttons = null,
-                $schedule = null
+                $schedule = null,
+                $headings = "Pengajuan baru"
             );
         }
 
