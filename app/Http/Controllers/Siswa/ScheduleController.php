@@ -288,12 +288,13 @@ class ScheduleController extends Controller
             'YzRiYzZlNjAtYmIwNC00MzJiLTk3NTYtNzBhNmU2ZTNjNDQx');
 
         $client->sendNotificationToExternalUser(
-            "Pengajuan telah diselesaikan",
+            "Pengajuan dengan id #".$update->id." telah diselesaikan.",
             $update->consultant_id,
             $url = null,
             $data = null,
             $buttons = null,
-            $schedule = null
+            $schedule = null,
+            $headings = "Pengajuan telah diselesaikan"
         );
 
 
