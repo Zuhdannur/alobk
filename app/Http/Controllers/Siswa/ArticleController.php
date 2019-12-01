@@ -67,7 +67,7 @@ class ArticleController extends Controller
        $currentResults = $datas->slice(($currentPage - 1) * $perPage, $perPage)->all();
        $results = new LengthAwarePaginator($currentResults, $datas->count(), $perPage);
 
-        return \Illuminate\Support\Facades\Response::json($data, 200);
+        return \Illuminate\Support\Facades\Response::json($results, 200);
     }
 
     public function storeFavorite(Request $request)
