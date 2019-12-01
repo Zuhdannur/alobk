@@ -37,37 +37,37 @@ class ArticleController extends Controller
 
 
     public function all(Request $request) {
-        // $isBookmarked = Favorite::with('artikel')->with('user')->exists();
-        // $data = DB::table('artikel')->leftJoin('fav_artikel', function($join) {
-        //     $join->on('artikel.id', '=', 'fav_artikel.artikel_id');
-        //     $join->on('fav_artikel.user_id', '=', DB::raw(Auth::user()->id));
-        // })->select('artikel.*', 'fav_artikel.id as bookmarked')->where('artikel.title',$request->title)
-        //     ->paginate($request->per_page);
+        $isBookmarked = Favorite::with('artikel')->with('user')->exists();
+        $data = DB::table('artikel')->leftJoin('fav_artikel', function($join) {
+            $join->on('artikel.id', '=', 'fav_artikel.artikel_id');
+            $join->on('fav_artikel.user_id', '=', DB::raw(Auth::user()->id));
+        })->select('artikel.*', '(fav_artikel.id IS NOT NULL) as bookmarked')->where('artikel.title',$request->title)
+            ->paginate($request->per_page);
 
-       $data = DB::select("
-           SELECT
-           exists(select 1 from fav_artikel where fav_artikel.artikel_id = artikel.id and fav_artikel.user_id = user.id limit 1) as hasBookmark,
-           (select fav_artikel.id from fav_artikel where fav_artikel.artikel_id = artikel.id and fav_artikel.user_id = user.id limit 1) as id_favorit
-           ,user.name
-           ,artikel.id
-           ,artikel.title
-           ,artikel.desc
-           ,artikel.created_at
-           FROM
-           artikel,
-           user
-           WHERE user.id =:id AND LOWER(artikel.title) LIKE :q", ['id' => Auth::user()->id, 'q' => '%'.strtolower($request->title).'%']);
+    //    $data = DB::select("
+    //        SELECT
+    //        exists(select 1 from fav_artikel where fav_artikel.artikel_id = artikel.id and fav_artikel.user_id = user.id limit 1) as hasBookmark,
+    //        (select fav_artikel.id from fav_artikel where fav_artikel.artikel_id = artikel.id and fav_artikel.user_id = user.id limit 1) as id_favorit
+    //        ,user.name
+    //        ,artikel.id
+    //        ,artikel.title
+    //        ,artikel.desc
+    //        ,artikel.created_at
+    //        FROM
+    //        artikel,
+    //        user
+    //        WHERE user.id =:id AND LOWER(artikel.title) LIKE :q", ['id' => Auth::user()->id, 'q' => '%'.strtolower($request->title).'%']);
 
-       $datas = collect($data);
+    //    $datas = collect($data);
 
-       $currentPage = LengthAwarePaginator::resolveCurrentPage();
-       // set limit
-       $perPage = $request->per_page;
-       // generate pagination
-       $currentResults = $datas->slice(($currentPage - 1) * $perPage, $perPage)->all();
-       $results = new LengthAwarePaginator($currentResults, $datas->count(), $perPage);
+    //    $currentPage = LengthAwarePaginator::resolveCurrentPage();
+    //    // set limit
+    //    $perPage = $request->per_page;
+    //    // generate pagination
+    //    $currentResults = $datas->slice(($currentPage - 1) * $perPage, $perPage)->all();
+    //    $results = new LengthAwarePaginator($currentResults, $datas->count(), $perPage);
 
-        return \Illuminate\Support\Facades\Response::json($results, 200);
+        return \Illuminate\Support\Facades\Response::json($data, 200);
     }
 
     public function storeFavorite(Request $request)
