@@ -15,11 +15,13 @@ class Artikel extends Model
 
     protected $dates = [];
 
+    protected $appends = ['readable_created_at'];
+
     public static $rules = [
         // Validation rules
     ];
 
-    public function getCreatedAtAttribute()
+    public function getReadableCreatedAtAttribute()
     {
         return \Carbon\Carbon::parse($this->attributes['created_at'])
             ->diffForHumans();
