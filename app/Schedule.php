@@ -14,6 +14,7 @@ class Schedule extends Model
         'channel_url',
         'time',
         'location',
+        'catatan',
 
         'expired',
         'canceled',
@@ -26,6 +27,8 @@ class Schedule extends Model
     protected $dates = [
         'time'
     ];
+
+    protected $appends = ['readable_created_at', 'readable_updated_at'];
 
     protected $table = "schedule";
 
@@ -61,17 +64,16 @@ class Schedule extends Model
             ->format('d, M Y: H:i');
     }
 
-
-    public function getCreatedAtAttribute()
+    public function getReadableCreatedAtAttribute()
     {
         return \Carbon\Carbon::parse($this->attributes['created_at'])
             ->diffForHumans();
     }
 
-//    public function getUpdatedAtAttribute()
-//    {
-//        return \Carbon\Carbon::parse($this->attributes['updated_at'])
-//            ->diffForHumans();
-//    }
+   public function getReadableUpdatedAtAttribute()
+   {
+       return \Carbon\Carbon::parse($this->attributes['updated_at'])
+           ->diffForHumans();
+   }
 
 }
