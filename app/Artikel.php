@@ -5,8 +5,6 @@ use Illuminate\Database\Eloquent\Model;
 class Artikel extends Model
 {
 
-    use RecordsFeed;
-
     protected $fillable = [
         'id','img','title','desc'
     ];
@@ -28,8 +26,8 @@ class Artikel extends Model
     }
 
     // Relationships
-    public function logAttribute(): string
-    {
-        return $this->title;
-    }
+    // public function logAttribute(): string
+    // {
+    //     return $this->title;
+    // }
 }
