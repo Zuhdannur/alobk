@@ -167,6 +167,8 @@ class ScheduleController extends Controller
             $headings = "Pengajuanmu diterima"
         );
 
+        $update['catatan'] = "Waktu pengajuan telah disunting dari tanggal ".$request->time." disunting ke ".$update->time;
+
         return Response::json([
             'data' => $update,
             'message' => 'Pengajuan berhasil diterima.'
