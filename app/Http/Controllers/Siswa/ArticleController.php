@@ -30,14 +30,18 @@ class ArticleController extends Controller
     }
 
     public function getFavorite(Request $request) {
-        $favorite = $this->favorite->where('user_id', Auth::user()->id)->with('artikel')->paginate($request->per_page);
+        // $favorite = $this->favorite->where('user_id', Auth::user()->id)->with('artikel')->paginate($request->per_page);
+        $data = DB::table('artikel')->leftJoin('fav_artikel', function($join) {
+            $join->on('artikel.id', '=', 'fav_artikel.artikel_id');
+            $join->on('fav_artikel.user_id', '=', DB::raw(Auth::user()->id));
+        })->select('artikel.*', DB::raw('(fav_artikel.id IS NOT NULL) as bookmarked'))->whereNotNull('fav_artikel.id')
+            ->paginate($request->per_page);
 
-        return Response::json($favorite, 200);
+        return Response::json($data, 200);
     }
 
 
     public function all(Request $request) {
-        $isBookmarked = Favorite::with('artikel')->with('user')->exists();
         $data = DB::table('artikel')->leftJoin('fav_artikel', function($join) {
             $join->on('artikel.id', '=', 'fav_artikel.artikel_id');
             $join->on('fav_artikel.user_id', '=', DB::raw(Auth::user()->id));
