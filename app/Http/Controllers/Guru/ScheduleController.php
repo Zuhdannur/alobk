@@ -137,8 +137,15 @@ class ScheduleController extends Controller
             ], 201);
         }
 
+        if(!$schedule->isDirty('time')) {
+            return Response::json([
+                'message' => "Tidak ada perubahan jadwal yang terjadi"
+            ], 201);
+        }
+
         $update = tap($schedule)->update([
             'time' => $request->time,
+            'sunting_jadwal_catatan' => "Waktu konseling telah disunting dari tanggal ".$schedule->getOriginal('time')." disunting ke ".$request->time,
             'active' => 1,
             'consultant_id' => Auth::user()->id
         ]);
@@ -167,7 +174,6 @@ class ScheduleController extends Controller
             $headings = "Pengajuanmu diterima"
         );
 
-        $update['catatan'] = "Waktu pengajuan telah disunting dari tanggal ".$request->time." disunting ke ".$update->time;
 
         return Response::json([
             'data' => $update,
