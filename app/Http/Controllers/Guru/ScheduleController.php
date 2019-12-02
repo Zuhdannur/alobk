@@ -146,7 +146,7 @@ class ScheduleController extends Controller
 
         $update = tap($schedule)->update([
             'time' => $request->time,
-            'sunting_jadwal_catatan' => "Waktu konseling telah disunting dari tanggal ".$getNewOne->getOriginal('time')." disunting ke ".$request->time,
+            'sunting_jadwal_catatan' => "Waktu konseling telah disunting dari tanggal ".$getNewOne->time." disunting ke ".$request->time,
             'active' => 1,
             'consultant_id' => Auth::user()->id
         ]);
