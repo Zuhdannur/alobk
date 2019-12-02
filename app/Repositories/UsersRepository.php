@@ -56,6 +56,7 @@ class UsersRepository
         $insert->nomor_hp = $request->nomor_hp;
         $insert->kelas = $request->kelas;
         $insert->sekolah_id = $request->sekolah_id;
+        $insert->perguruan_tinggi = $request->perguruan_tinggi;
         $insert->kota = $request->kota;
         $insert->tanggal_lahir = $request->tanggal_lahir;
         $insert->kota_lahir = $request->kota_lahir;
