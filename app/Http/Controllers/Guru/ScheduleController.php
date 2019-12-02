@@ -146,8 +146,8 @@ class ScheduleController extends Controller
 
         $update = tap($schedule)->update([
             'time' => $request->time,
-            'sunting_jadwal_catatan' => "Waktu konseling telah disunting dari tanggal ".$getNewOne->time." disunting ke ".\Carbon\Carbon::parse($request->time)
-            ->format('d, M Y: H:i'),
+            'updated_old_time' => $getNewOne->time,
+            'updated_new_time' => \Carbon\Carbon::parse($request->time)->format('d, M Y: H:i'),
             'active' => 1,
             'consultant_id' => Auth::user()->id
         ]);

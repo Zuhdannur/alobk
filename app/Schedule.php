@@ -14,7 +14,8 @@ class Schedule extends Model
         'time',
         'location',
         'catatan',
-        'sunting_jadwal_catatan',
+        'updated_old_time',
+        'updated_new_time',
 
         'expired',
         'canceled',
