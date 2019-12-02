@@ -142,10 +142,11 @@ class ScheduleController extends Controller
         //         'message' => "Tidak ada perubahan jadwal yang terjadi"
         //     ], 201);
         // }
+        $getNewOne = $this->schedule->find($id);
 
         $update = tap($schedule)->update([
             'time' => $request->time,
-            'sunting_jadwal_catatan' => "Waktu konseling telah disunting dari tanggal ".$schedule->getOriginal('time')." disunting ke ".$request->time,
+            'sunting_jadwal_catatan' => "Waktu konseling telah disunting dari tanggal ".$getNewOne->getOriginal('time')." disunting ke ".$request->time,
             'active' => 1,
             'consultant_id' => Auth::user()->id
         ]);
