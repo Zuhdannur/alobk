@@ -89,7 +89,6 @@ $app->register(App\Providers\AuthServiceProvider::class);
 $app->register(Orumad\ConfigCache\ServiceProviders\ConfigCacheServiceProvider::class);
 $app->register(App\Providers\EventServiceProvider::class);
 $app->register(Barryvdh\Cors\ServiceProvider::class);
-$app->register(Kreait\Laravel\Firebase\ServiceProvider::class);
 //App\Providers\BroadcastServiceProvider::class,
 $app->register(\Illuminate\Broadcasting\BroadcastServiceProvider::class);
 $app->configure('broadcasting');
