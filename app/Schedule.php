@@ -11,10 +11,10 @@ class Schedule extends Model
         'title',
         'desc',
         'type_schedule',
-        'channel_url',
         'time',
         'location',
         'catatan',
+        'sunting_jadwal_catatan',
 
         'expired',
         'canceled',
