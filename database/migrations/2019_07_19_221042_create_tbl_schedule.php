@@ -23,7 +23,9 @@ class CreateTblSchedule extends Migration
             $table->string('type_schedule');
             $table->dateTime('time')->nullable();
             $table->string('location')->nullable();
-            $table->text('sunting_jadwal_catatan')->nullable();
+
+            $table->string('updated_old_time')->nullable();
+            $table->string('updated_new_time')->nullable();
 
             /*Saat konseling tidak diterima sama sekali*/
             $table->integer('expired')->default(0);
