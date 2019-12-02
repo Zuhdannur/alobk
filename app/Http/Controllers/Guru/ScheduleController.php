@@ -137,11 +137,11 @@ class ScheduleController extends Controller
             ], 201);
         }
 
-        if(!$schedule->isDirty('time')) {
-            return Response::json([
-                'message' => "Tidak ada perubahan jadwal yang terjadi"
-            ], 201);
-        }
+        // if(!$schedule->isDirty('time')) {
+        //     return Response::json([
+        //         'message' => "Tidak ada perubahan jadwal yang terjadi"
+        //     ], 201);
+        // }
 
         $update = tap($schedule)->update([
             'time' => $request->time,
