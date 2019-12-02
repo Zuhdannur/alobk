@@ -45,7 +45,7 @@ class ArticleController extends Controller
         $data = DB::table('artikel')->leftJoin('fav_artikel', function($join) {
             $join->on('artikel.id', '=', 'fav_artikel.artikel_id');
             $join->on('fav_artikel.user_id', '=', DB::raw(Auth::user()->id));
-        })->select('artikel.*', DB::raw('(fav_artikel.id IS NOT NULL) as bookmarked'))->where('artikel.title', 'like', '%' . $request->title . '%')
+        })->select('artikel.*', DB::raw('(fav_artikel.id IS NOT NULL) as bookmarked'))->where('artikel.title', 'ILIKE', '%' . $request->title . '%')
             ->paginate($request->per_page);
 
     //    $data = DB::select("
