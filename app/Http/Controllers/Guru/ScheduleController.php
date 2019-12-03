@@ -93,12 +93,15 @@ class ScheduleController extends Controller
             'Y2QyMTVhMzMtOGVlOC00MjFiLThmNDctMTAzNzYwNDM2YWMy',
             'YzRiYzZlNjAtYmIwNC00MzJiLTk3NTYtNzBhNmU2ZTNjNDQx');
 
+        $getObject = $this->schedule->find($id);
+
         $client->sendNotificationToExternalUser(
             "Pengajuan dengan id #".$update->id." telah diterima oleh guru.",
             $schedule->requester_id,
             $url = null,
             $data = [
                 "id" => $update->id,
+                "data" => $getObject,
                 "type" => "schedule",
                 "detail" => "siswa_receive_accept"
             ],
@@ -170,12 +173,15 @@ class ScheduleController extends Controller
             'Y2QyMTVhMzMtOGVlOC00MjFiLThmNDctMTAzNzYwNDM2YWMy',
             'YzRiYzZlNjAtYmIwNC00MzJiLTk3NTYtNzBhNmU2ZTNjNDQx');
 
+        $getObject = $this->schedule->find($id);
+
         $client->sendNotificationToExternalUser(
             "Pengajuan dengan id #".$update->id." disunting dan diterima oleh guru.",
             $schedule->requester_id,
             $url = null,
             $data = [
                 "id" => $update->id,
+                "data" => $getObject,
                 "type" => "schedule",
                 "detail" => "siswa_receive_accept"
             ],
@@ -224,12 +230,15 @@ class ScheduleController extends Controller
             'Y2QyMTVhMzMtOGVlOC00MjFiLThmNDctMTAzNzYwNDM2YWMy',
             'YzRiYzZlNjAtYmIwNC00MzJiLTk3NTYtNzBhNmU2ZTNjNDQx');
 
+        $getObject = $this->schedule->find($id);
+
         $client->sendNotificationToExternalUser(
             "Pengajuan dengan id #".$update->id." telah diselesaikan oleh guru.",
             $update->requester_id,
             $url = null,
             $data = [
                 "id" => $update->id,
+                "data" => $getObject,
                 "type" => "schedule",
                 "detail" => "siswa_receive_finish"
             ],

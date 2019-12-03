@@ -305,12 +305,15 @@ class ScheduleController extends Controller
             'Y2QyMTVhMzMtOGVlOC00MjFiLThmNDctMTAzNzYwNDM2YWMy',
             'YzRiYzZlNjAtYmIwNC00MzJiLTk3NTYtNzBhNmU2ZTNjNDQx');
 
+        $getObject = $this->schedule->find($id);
+
         $client->sendNotificationToExternalUser(
             "Pengajuan dengan id #".$update->id." telah diselesaikan oleh siswa.",
             $update->consultant_id,
             $url = null,
             $data = [
                 "id" => $update->id,
+                "data" => $getObject,
                 "type" => "schedule",
                 "detail" => "guru_receive_finish"
             ],
