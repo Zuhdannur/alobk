@@ -93,7 +93,7 @@ class ScheduleController extends Controller
             'Y2QyMTVhMzMtOGVlOC00MjFiLThmNDctMTAzNzYwNDM2YWMy',
             'YzRiYzZlNjAtYmIwNC00MzJiLTk3NTYtNzBhNmU2ZTNjNDQx');
 
-        $getObject = $this->schedule->find($id);
+        $getObject = $this->schedule->find($id)->with('consultant');
 
         $client->sendNotificationToExternalUser(
             "Pengajuan dengan id #".$update->id." telah diterima oleh guru.",
@@ -173,7 +173,7 @@ class ScheduleController extends Controller
             'Y2QyMTVhMzMtOGVlOC00MjFiLThmNDctMTAzNzYwNDM2YWMy',
             'YzRiYzZlNjAtYmIwNC00MzJiLTk3NTYtNzBhNmU2ZTNjNDQx');
 
-        $getObject = $this->schedule->find($id);
+        $getObject = $this->schedule->find($id)->with('consultant');;
 
         $client->sendNotificationToExternalUser(
             "Pengajuan dengan id #".$update->id." disunting dan diterima oleh guru.",
@@ -230,7 +230,7 @@ class ScheduleController extends Controller
             'Y2QyMTVhMzMtOGVlOC00MjFiLThmNDctMTAzNzYwNDM2YWMy',
             'YzRiYzZlNjAtYmIwNC00MzJiLTk3NTYtNzBhNmU2ZTNjNDQx');
 
-        $getObject = $this->schedule->find($id);
+        $getObject = $this->schedule->find($id)->with('consultant');
 
         $client->sendNotificationToExternalUser(
             "Pengajuan dengan id #".$update->id." telah diselesaikan oleh guru.",
