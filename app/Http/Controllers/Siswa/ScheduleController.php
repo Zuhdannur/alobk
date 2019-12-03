@@ -53,13 +53,16 @@ class ScheduleController extends Controller
             $client->sendNotificationUsingTags(
                 "Mendapatkan pengajuan baru dari siswa.",
                 array(
+                    ["field" => "tag", "key" => "schedule_notif", "relation" => "=", "value" => "on"],
                     ["field" => "tag", "key" => "user_type", "relation" => "=", "value" => "guru"],
                     ["field" => "tag", "key" => "sekolah_id", "relation" => "=", "value" => Auth::user()->sekolah_id]
                 ),
                 $url = null,
                 $data = [
+                    "id" => $insert->id,
                     "data" => $this->schedule->where('id', $insert->id)->with('requester')->first(),
-                    "type" => "schedule"
+                    "type" => "schedule",
+                    "detail" => "guru_receive_post"
                 ],
                 $buttons = null,
                 $schedule = null,
@@ -68,6 +71,12 @@ class ScheduleController extends Controller
         }
 
         return Response::json($insert, 200);
+    }
+
+    public function get($id) {
+        $schedule = $this->schedule->find($id);
+
+        return Response::json($schedule, 200);
     }
 
     private function isLessThanFiveMinutes($time)
@@ -302,7 +311,8 @@ class ScheduleController extends Controller
             $url = null,
             $data = [
                 "id" => $update->id,
-                "type" => "schedule"
+                "type" => "schedule",
+                "detail" => "guru_receive_finish"
             ],
             $buttons = null,
             $schedule = null,

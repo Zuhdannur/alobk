@@ -115,6 +115,7 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
             $router->group(['prefix' => 'guru'], function () use ($router) {
                 $router->get('diary', 'DiaryController@all');
                 $router->get('schedule', 'ScheduleController@all');
+                $router->get('schedule/{id}', 'ScheduleController@get');
                 $router->get('schedule/total', 'ScheduleController@getScheduleFinished');
                 $router->post('accept/{id}', 'ScheduleController@accept');
                 $router->post('accept/update/{id}', 'ScheduleController@updateThenAccept');
@@ -139,6 +140,7 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
 
             $router->group(['prefix' => 'siswa'], function () use ($router) {
                 $router->post('schedule', 'ScheduleController@post');
+                $router->get('schedule/{id}', 'ScheduleController@get');
                 $router->get('schedule/total', 'ScheduleController@getScheduleFinished');
                 $router->post('schedule/cancel/{id}', 'ScheduleController@cancel');
 //                $router->get('schedule', 'ScheduleController@all');

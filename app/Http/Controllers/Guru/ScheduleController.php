@@ -99,7 +99,8 @@ class ScheduleController extends Controller
             $url = null,
             $data = [
                 "id" => $update->id,
-                "type" => "schedule"
+                "type" => "schedule",
+                "detail" => "siswa_receive_accept"
             ],
             $buttons = null,
             $schedule = null,
@@ -110,6 +111,12 @@ class ScheduleController extends Controller
             'data' => $update,
             'message' => 'Pengajuan berhasil diterima.'
         ], 200);
+    }
+
+    public function get($id) {
+        $schedule = $this->schedule->find($id);
+
+        return Response::json($schedule, 200);
     }
 
     public function updateThenAccept(Request $request, $id) {
@@ -169,7 +176,8 @@ class ScheduleController extends Controller
             $url = null,
             $data = [
                 "id" => $update->id,
-                "type" => "schedule"
+                "type" => "schedule",
+                "detail" => "siswa_receive_accept"
             ],
             $buttons = null,
             $schedule = null,
@@ -222,7 +230,8 @@ class ScheduleController extends Controller
             $url = null,
             $data = [
                 "id" => $update->id,
-                "type" => "schedule"
+                "type" => "schedule",
+                "detail" => "siswa_receive_finish"
             ],
             $buttons = null,
             $schedule = null,
