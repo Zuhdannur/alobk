@@ -60,7 +60,7 @@ class ScheduleController extends Controller
                 $url = null,
                 $data = [
                     "id" => $insert->id,
-                    "data" => $this->schedule->find($insert->id)->with('requester'),
+                    "data" => $insert->with('requester'),
                     "type" => "schedule",
                     "detail" => "guru_receive_post"
                 ],
@@ -305,7 +305,7 @@ class ScheduleController extends Controller
             'Y2QyMTVhMzMtOGVlOC00MjFiLThmNDctMTAzNzYwNDM2YWMy',
             'YzRiYzZlNjAtYmIwNC00MzJiLTk3NTYtNzBhNmU2ZTNjNDQx');
 
-        $getObject = $this->schedule->find($id)->with('requester');
+        $getObject = $update->with('requester');
 
         $client->sendNotificationToExternalUser(
             "Pengajuan dengan id #".$update->id." telah diselesaikan oleh siswa.",
