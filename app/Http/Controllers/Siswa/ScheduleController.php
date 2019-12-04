@@ -60,7 +60,7 @@ class ScheduleController extends Controller
                 $url = null,
                 $data = [
                     "id" => $insert->id,
-                    "data" => $insert,
+                    "data" => $this->schedule->find($insert->id)->with('requester')->first(),
                     "type" => "schedule",
                     "detail" => "guru_receive_post"
                 ],
