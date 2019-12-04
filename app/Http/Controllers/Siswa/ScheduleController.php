@@ -50,7 +50,7 @@ class ScheduleController extends Controller
                 'Y2QyMTVhMzMtOGVlOC00MjFiLThmNDctMTAzNzYwNDM2YWMy',
                 'YzRiYzZlNjAtYmIwNC00MzJiLTk3NTYtNzBhNmU2ZTNjNDQx');
 
-            $getObject = $this->schedule->with('requester')->whereIn('id', '$insert->id')->first();
+            $getObject = $this->schedule->with('requester')->whereIn('id', $insert->id)->first();
 
             $client->sendNotificationUsingTags(
                 "Mendapatkan pengajuan baru dari siswa.",
