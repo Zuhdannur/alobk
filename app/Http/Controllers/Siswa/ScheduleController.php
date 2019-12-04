@@ -50,7 +50,7 @@ class ScheduleController extends Controller
                 'Y2QyMTVhMzMtOGVlOC00MjFiLThmNDctMTAzNzYwNDM2YWMy',
                 'YzRiYzZlNjAtYmIwNC00MzJiLTk3NTYtNzBhNmU2ZTNjNDQx');
 
-            $data = $this->schedule->where('id', $insert->id)->whereHas('requester', function ($query) {
+            $data = $this->schedule->where('id', $insert->id)->whereHas('requester', function ($query) use($insert) {
                 $query->where('requester_id', $insert->requester_id);
             })->with('requester');                
 
