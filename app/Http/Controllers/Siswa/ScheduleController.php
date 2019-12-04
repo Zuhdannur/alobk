@@ -50,6 +50,8 @@ class ScheduleController extends Controller
                 'Y2QyMTVhMzMtOGVlOC00MjFiLThmNDctMTAzNzYwNDM2YWMy',
                 'YzRiYzZlNjAtYmIwNC00MzJiLTk3NTYtNzBhNmU2ZTNjNDQx');
 
+                $getObject = $this->schedule->find($insert->id)->with('requester');
+
             $client->sendNotificationUsingTags(
                 "Mendapatkan pengajuan baru dari siswa.",
                 array(
@@ -60,7 +62,7 @@ class ScheduleController extends Controller
                 $url = null,
                 $data = [
                     "id" => $insert->id,
-                    "data" => $insert,
+                    "data" => $getObject,
                     "type" => "schedule",
                     "detail" => "guru_receive_post"
                 ],
