@@ -93,7 +93,7 @@ class ScheduleController extends Controller
             'Y2QyMTVhMzMtOGVlOC00MjFiLThmNDctMTAzNzYwNDM2YWMy',
             'YzRiYzZlNjAtYmIwNC00MzJiLTk3NTYtNzBhNmU2ZTNjNDQx');
 
-        $getObject = $update->with('consultant');
+        $getObject = $this->schedule->where('id', $update->id)->with('consultant')->first();            
 
         $client->sendNotificationToExternalUser(
             "Pengajuan dengan id #".$update->id." telah diterima oleh guru.",
@@ -173,7 +173,7 @@ class ScheduleController extends Controller
             'Y2QyMTVhMzMtOGVlOC00MjFiLThmNDctMTAzNzYwNDM2YWMy',
             'YzRiYzZlNjAtYmIwNC00MzJiLTk3NTYtNzBhNmU2ZTNjNDQx');
 
-        $getObject = $update->with('consultant');
+        $getObject = $this->schedule->where('id', $update->id)->with('consultant')->first();      
 
         $client->sendNotificationToExternalUser(
             "Pengajuan dengan id #".$update->id." disunting dan diterima oleh guru.",
@@ -230,7 +230,7 @@ class ScheduleController extends Controller
             'Y2QyMTVhMzMtOGVlOC00MjFiLThmNDctMTAzNzYwNDM2YWMy',
             'YzRiYzZlNjAtYmIwNC00MzJiLTk3NTYtNzBhNmU2ZTNjNDQx');
 
-        $getObject = $update->with('consultant');
+        $getObject = $this->schedule->where('id', $update->id)->with('consultant')->first();
 
         $client->sendNotificationToExternalUser(
             "Pengajuan dengan id #".$update->id." telah diselesaikan oleh guru.",
