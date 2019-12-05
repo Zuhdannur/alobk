@@ -93,6 +93,7 @@ $app->register(Barryvdh\Cors\ServiceProvider::class);
 //App\Providers\BroadcastServiceProvider::class,
 $app->register(\Illuminate\Broadcasting\BroadcastServiceProvider::class);
 $app->configure('broadcasting');
+$app->configure('services');
 
 // $app->register('broadcasting');
 /*|--------------------------------------------------------------------------
