@@ -6,10 +6,10 @@ namespace App\Repositories;
 
 use App\User;
 use Illuminate\Http\Request;
+use SafeStudio\Firebase\Firebase;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Response;
-use Kreait\Firebase\Factory;
 
 class UsersRepository
 {
@@ -40,9 +40,11 @@ class UsersRepository
     {
         if ($this->isUsernameExists($request->username)) {
             return Response::json([
-                'message' => 'Duplicate Username'
+                'message' => 'Username ini telah digunakan.'
             ], 201);
         }
+
+        createUserInFirebase($request);
 
         $insert = $this->user;
         $insert->name = $request->name;
@@ -66,6 +68,18 @@ class UsersRepository
             'user_id' => $insert->id,
             'message' => 'Berhasil daftar.'
         ], 200);
+    }
+
+    private function createUserInFirebase(Request $request) {
+        // Jika role nya siswa atau guru, then create firebase account. In order todo chat....
+        if($request->role == 'siswa' || $request->role == 'guru') {
+            $data = [
+                'name' => $request->name, 'username' => $request->username,
+                'role' => $request->role, 'avatar' => $request->avatar,
+                'sekolah_id' => $request->sekolah_id
+            ];
+            Firebase::set('/users/', $data);
+        }
     }
 
     public function getTotalAccountBySchool(Request $request) {

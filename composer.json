@@ -17,6 +17,7 @@
         "nesbot/carbon": "^2.25",
         "orumad/lumen-config-cache": "^1.0",
         "php-http/curl-client": "^2.0",
+        "safestudio/firebase-laravel": "^1.0",
         "sngrl/php-firebase-cloud-messaging": "dev-master",
         "unsplash/unsplash": "^2.4",
         "vlucas/phpdotenv": "^3.3",

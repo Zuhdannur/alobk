@@ -82,7 +82,8 @@ $app->routeMiddleware([
 |
 */
 class_alias('Berkayk\OneSignal\OneSignalFacade', 'OneSignals');
-
+class_alias(SafeStudio\Firebase\Facades\FirebaseFacades::class, 'Firebase');
+$app->register(SafeStudio\Firebase\FirebaseServiceProvider::class);
 $app->register(App\Providers\AppServiceProvider::class);
 $app->register(Berkayk\OneSignal\OneSignalServiceProvider::class);
 $app->register(App\Providers\AuthServiceProvider::class);
@@ -92,6 +93,7 @@ $app->register(Barryvdh\Cors\ServiceProvider::class);
 //App\Providers\BroadcastServiceProvider::class,
 $app->register(\Illuminate\Broadcasting\BroadcastServiceProvider::class);
 $app->configure('broadcasting');
+
 // $app->register('broadcasting');
 /*|--------------------------------------------------------------------------
 | Load The Application Routes
