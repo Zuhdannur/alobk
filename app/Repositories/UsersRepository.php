@@ -72,14 +72,14 @@ class UsersRepository
 
     private function createUserInFirebase(Request $request) {
         // Jika role nya siswa atau guru, then create firebase account. In order todo chat....
-        if($request->role == 'siswa' || $request->role == 'guru') {
+        //if($request->role == 'siswa' || $request->role == 'guru') {
             $data = [
                 'name' => $request->name, 'username' => $request->username,
                 'role' => $request->role, 'avatar' => $request->avatar,
                 'sekolah_id' => $request->sekolah_id
             ];
             Firebase::set('/users/', $data);
-        }
+        //}
     }
 
     public function getTotalAccountBySchool(Request $request) {
