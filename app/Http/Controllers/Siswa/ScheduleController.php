@@ -53,7 +53,7 @@ class ScheduleController extends Controller
             $scheduleDetail = $this->schedule->where('id', $insert->id)->with('requester')->first();
 
             $client->sendNotificationUsingTags(
-                "Mendapatkan pengajuan baru dari ".$scheduleDetail->requester()->name,
+                "Mendapatkan pengajuan baru dari ".Auth::user()->name,
                 array(
                     ["field" => "tag", "key" => "schedule_notif", "relation" => "=", "value" => "on"],
                     ["field" => "tag", "key" => "user_type", "relation" => "=", "value" => "guru"],
