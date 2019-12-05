@@ -44,7 +44,12 @@ class UsersRepository
             ], 201);
         }
 
-        createUserInFirebase($request);
+        $data = [
+            'name' => $request->name, 'username' => $request->username,
+            'role' => $request->role, 'avatar' => $request->avatar,
+            'sekolah_id' => $request->sekolah_id
+        ];
+        Firebase::set("/users/", $data);
 
         $insert = $this->user;
         $insert->name = $request->name;
