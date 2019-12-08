@@ -19,7 +19,6 @@ class ChatController extends Controller
             $params = array(
                 'app_id' => 'e90e8fc3-6a1f-47d1-a834-d5579ff2dfee',
                 'included_segments' => ['all'],
-                'filters' => array(array("field" => "tag", "key" => "obrolan_notif", "relation" => "=", "value" => "on")),
                 'include_external_user_ids' => ["$request->receiver_id"],
                 'headings' => array("en" => "$senderName"),
                 'contents' => array("en" => "$senderMessage"),
@@ -36,7 +35,6 @@ class ChatController extends Controller
             $params = array(
                 'app_id' => 'e90e8fc3-6a1f-47d1-a834-d5579ff2dfee',
                 'included_segments' => ['all'],
-                'filters' => array(array("field" => "tag", "key" => "obrolan_notif", "relation" => "=", "value" => "on")),
                 'include_external_user_ids' => ["$request->receiver_id"],
                 'headings' => array("en" => "$senderName"),
                 'contents' => array("en" => "$senderMessage"),
