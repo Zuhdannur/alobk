@@ -14,9 +14,9 @@ class ChatController extends Controller
             'included_segments' => ['all'],
             'include_external_user_ids' => ["3"],
             'headings' => array("en" => "Test notifikasi obrolan"),
-            'contents' => array("en" => "Test notifikasi obrolan")
+            'contents' => array("en" => "Test notifikasi obrolan"),
+            'filters' => array(["field" => "tag", "key" => "obrolan_notif", "relation" => "=", "value" => "on"])
         );
-//        'filters' => array(["field" => "tag", "key" => "obrolan_notif", "relation" => "=", "value" => "on"])
 
         $client = new OneSignalClient(
             'e90e8fc3-6a1f-47d1-a834-d5579ff2dfee',
