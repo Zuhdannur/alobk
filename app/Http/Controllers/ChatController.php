@@ -24,7 +24,7 @@ class ChatController extends Controller
                 'contents' => array("en" => "$senderMessage"),
                 'data' => [
                     "chat_id" => $request->id,
-                    "requesterId" => $request->receiver_info,
+                    "requesterId" => $request->receiver_id,
                     "to" => 'guru',
                     "type" => "chat"
                 ],
@@ -40,7 +40,7 @@ class ChatController extends Controller
                 'contents' => array("en" => "$senderMessage"),
                 'data' => [
                     "chat_id" => $request->id,
-                    "consultantId" => $request->receiver_info,
+                    "consultantId" => $request->receiver_id,
                     "to" => 'siswa',
                     "type" => "chat"
                 ],
