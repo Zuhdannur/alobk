@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Response;
 use Berkayk\OneSignal\OneSignalClient;
 use Illuminate\Support\Facades\Auth;
+use App\Schedule;
 
 class ChatController extends Controller
 {
@@ -12,6 +13,7 @@ class ChatController extends Controller
     {
         $senderName = Auth::user()->name;
         $senderMessage = $request->message;
+        $params = [];
 
         if(Auth::user()->role == 'siswa') {
             $params = array(
