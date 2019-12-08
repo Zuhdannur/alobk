@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Response;
 use Berkayk\OneSignal\OneSignalClient;
+use Illuminate\Support\Facades\Auth;
 
 class ChatController extends Controller
 {
