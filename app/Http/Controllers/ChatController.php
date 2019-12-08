@@ -35,7 +35,7 @@ class ChatController extends Controller
             $headings = "$senderName"
         );            
 
-        $client->sendNotificationCustom($params);
+        //$client->sendNotificationCustom($params);
 
         return Response::json([
             'message' => 'Berhasil mengirim notifikasi.'
