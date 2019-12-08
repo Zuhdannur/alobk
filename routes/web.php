@@ -136,12 +136,9 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
 
         });
 
-        $router->group(['namespace' => 'Chat'], function () use ($router) {
 
-            $router->group(['prefix' => 'chat'], function () use ($router) {
-                $router->post('send', 'ChatController@send');
-            });
-
+        $router->group(['prefix' => 'chat'], function () use ($router) {
+            $router->post('send', 'ChatController@send');
         });
 
         $router->group(['namespace' => 'Siswa'], function () use ($router) {
