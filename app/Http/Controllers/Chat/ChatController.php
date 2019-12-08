@@ -11,7 +11,8 @@ class ChatController extends Controller
         $params = array(
             'app_id' => 'e90e8fc3-6a1f-47d1-a834-d5579ff2dfee',
             'included_segments' => ['all'],
-            'include_external_user_ids' => ["3"]
+            'include_external_user_ids' => ["3"],
+            "headings" => array("en" => "Test notifikasi obrolan")
         );
 //        'filters' => array(["field" => "tag", "key" => "obrolan_notif", "relation" => "=", "value" => "on"])
 
