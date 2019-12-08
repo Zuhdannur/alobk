@@ -13,29 +13,35 @@ class ChatController extends Controller
         $senderName = Auth::user()->name;
         $senderMessage = $request->message;
 
-        // $params = array(
-        //     'app_id' => 'e90e8fc3-6a1f-47d1-a834-d5579ff2dfee',
-        //     'included_segments' => ['all'],
-        //     'include_external_user_ids' => ["$request->receiver_id"],
-        //     'headings' => array("en" => "$senderName"),
-        //     'contents' => array("en" => "$senderMessage")
-        // );
+        $params = array(
+            'app_id' => 'e90e8fc3-6a1f-47d1-a834-d5579ff2dfee',
+            'included_segments' => ['all'],
+            'include_external_user_ids' => ["$request->receiver_id"],
+            'headings' => array("en" => "$senderName"),
+            'contents' => array("en" => "$senderMessage")
+        );
 
         $client = new OneSignalClient(
             'e90e8fc3-6a1f-47d1-a834-d5579ff2dfee',
             'Y2QyMTVhMzMtOGVlOC00MjFiLThmNDctMTAzNzYwNDM2YWMy',
             'YzRiYzZlNjAtYmIwNC00MzJiLTk3NTYtNzBhNmU2ZTNjNDQx');
 
-        $client->sendNotificationToExternalUser(
-            "$senderMessage",
-            $request->receiver_id,
-            $url = null,
-            $buttons = null,
-            $schedule = null,
-            $headings = "$senderName"
-        );            
+        // $client->sendNotificationToExternalUser(
+        //     "$senderMessage",
+        //     $request->receiver_id,
+        //     $url = null,
+        //     $data = [
+        //         "chat_id" => $update->id,
+        //         "data" => $getObject,
+        //         "type" => "chat",
+        //         "detail" => "guru_receive_finish"
+        //     ],
+        //     $buttons = null,
+        //     $schedule = null,
+        //     $headings = "$senderName"
+        // );            
 
-        //$client->sendNotificationCustom($params);
+        $client->sendNotificationCustom($params);
 
         return Response::json([
             'message' => 'Berhasil mengirim notifikasi.'
