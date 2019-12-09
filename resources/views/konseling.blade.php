@@ -17,6 +17,7 @@
 	<table class='table table-bordered'>
 		<thead>
 			<tr>
+				<td rowspan="2">No</td>
                 <td rowspan="2">ID Konseling</td>
                 <td colspan="2">Siswa</td>
                 <td colspan="2">Guru BK</td>
@@ -35,6 +36,7 @@
 			@php $i=1 @endphp
 			@foreach($konseling as $p)
 			<tr>
+				<td>{{ $i++ }}</td>
 				<td>{{$p->id}}</td>
 				{{-- <td>{{$p->requester->username}}</td> --}}
 				<td>Test</td>
