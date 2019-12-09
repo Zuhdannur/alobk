@@ -37,10 +37,14 @@
 			<tr>
 				<td>{{ $i++ }}</td>
 				<td>{{$p->id}}</td>
-				<td>{{$p->requester->username}}</td>
-                <td>{{$p->requester->name}}</td>
-                <td>{{$p->consultant->username}}</td>
-				<td>{{$p->consultant->name}}</td>
+				{{-- <td>{{$p->requester->username}}</td> --}}
+				<td>Test</td>
+				<td>Test</td>
+				<td>Test</td>
+				<td>Test</td>
+                {{-- <td>{{$p->requester->name}}</td> --}}
+                {{-- <td>{{$p->consultant->username}}</td> --}}
+				{{-- <td>{{$p->consultant->name}}</td> --}}
                 <td>test</td>
                 <td>test</td>
 			</tr>
