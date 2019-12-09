@@ -171,7 +171,7 @@ class ScheduleController extends Controller
         $pdf = PDF::loadView('diari_pdf', ['diari' => $diary])->setPaper('a4','portrait');
         $fileName = 'testing';
         // return Response::download($file);
-        return $pdf->stream($fileName. '.pdf');
+        return $pdf->stream($fileName. '.pdf'); 
         
     }
 
