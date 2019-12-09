@@ -29,7 +29,7 @@
 			@foreach($diari as $p)
 			<tr>
 				<td>{{ $i++ }}</td>
-				<td>{{$p->user()->nama}}</td>
+				<td>{{$p->user->name}}</td>
 				<td>{{$p->user_id}}</td>
 				<td>{{$p->title}}</td>
 				<td>{{$p->body}}</td>
