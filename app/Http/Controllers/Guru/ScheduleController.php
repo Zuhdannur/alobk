@@ -114,10 +114,10 @@ class ScheduleController extends Controller
                 'chatId' => $id,
 
                 'consultantActive' => $scheduleInfo->consultant_id.'_true',
-                'consultantId' => $scheduleInfo->consultant_id,
+                'consultantId' => "$scheduleInfo->consultant_id",
                 'desc' => $scheduleInfo->desc,
                 'requesterActive' => $scheduleInfo->requester_id.'_true',
-                'requesterId' => $scheduleInfo->requester_id,
+                'requesterId' => "$scheduleInfo->requester_id",
                 'title' => $scheduleInfo->title,
                 'time' => 193849383,
                 'typeSchedule' => $scheduleInfo->type_schedule
