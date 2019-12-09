@@ -170,7 +170,7 @@ class ScheduleController extends Controller
         // $diary = Diary::withAndWhereHas('user', function($query) {
         //     $query->where('sekolah_id', Auth::user()->sekolah_id);
         // });
-        $diary = Diary::with('user');
+        $diary = Diary::with('user')->get();
         $pdf = PDF::loadView('diari_pdf', ['diari' => $diary])->setPaper('a4','portrait');
         $fileName = 'testing';
         // return Response::download($file);
