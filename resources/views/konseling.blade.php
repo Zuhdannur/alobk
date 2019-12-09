@@ -44,9 +44,9 @@
 				<td>{{$p->consultant->name}}</td>
 				<td>{{$p->title}}</td>
 				<td>{{$p->desc}}</td>
-				<td>Test</td>
+				<td>{{ $p->type_schedule == 'direct' ? 'Lokasi: '.$p->location." Waktu".$p->time: "-" }}</td>
 				<td>{{ !empty($p->feedback) ? $p->feedback->komentar:'-' }}</td>
-				<td>{{ !empty($p->feedback) ? $p->feedback->rating:'-' }}</td>
+				<td>{{ !empty($p->feedback) ? $p->feedback->rating/5:'-' }}</td>
 			</tr>
 			@endforeach
 		</tbody>

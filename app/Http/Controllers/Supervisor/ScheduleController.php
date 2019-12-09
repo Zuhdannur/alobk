@@ -180,7 +180,7 @@ class ScheduleController extends Controller
     public function generateSchedule() {
         $schedule = Schedule::where('finish', 1)->with('consultant', 'requester','feedback')->get();
 
-        $pdf = PDF::loadView('konseling', ['konseling' => $schedule])->setPaper('a4','portrait');
+        $pdf = PDF::loadView('konseling', ['konseling' => $schedule])->setPaper('a2','portrait');
         $fileName = 'testing2';
         // return Response::download($file);
         return $pdf->stream($fileName. '.pdf'); 
