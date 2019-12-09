@@ -168,7 +168,7 @@ class ScheduleController extends Controller
         $diary = Diary::withAndWhereHas('user', function($query) {
             $query->where('sekolah_id', Auth::user()->sekolah_id);
         });
-        $pdf = PDF::loadView('diari_pdf', ['diari' => $diary]);
+        $pdf = PDF::loadView('diari_pdf', ['diari' => $diary])->download('backup_diari');
         $headers = ['Content-Type' => 'application/pdf'];
         return Response::download($file, 'diary.pdf', $headers);
     }
