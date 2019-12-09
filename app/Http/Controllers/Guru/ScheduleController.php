@@ -110,7 +110,7 @@ class ScheduleController extends Controller
         if($schedule->type_schedule != 'direct') {
             $data = [
                 'active' => true,
-                'chatId' => 'data1',
+                'chatId' => $id,
 
                 'consultantActive' => $scheduleInfo->consultant_id.'_true',
                 'consultantId' => $scheduleInfo->consultant_id,
