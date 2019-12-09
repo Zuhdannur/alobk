@@ -38,16 +38,15 @@
 			@foreach($konseling as $p)
 			<tr>
 				<td>{{ $i++ }}</td>
-				{{-- <td>{{$p->requester->username}}</td> --}}
+				<td>{{$p->requester->username}}</td>
+                <td>{{$p->requester->name}}</td>
+                <td>{{$p->consultant->username}}</td>
+				<td>{{$p->consultant->name}}</td>
+				<td>{{$p->title}}</td>
+				<td>{{$p->desc}}</td>
 				<td>Test</td>
 				<td>Test</td>
 				<td>Test</td>
-				<td>Test</td>
-                {{-- <td>{{$p->requester->name}}</td> --}}
-                {{-- <td>{{$p->consultant->username}}</td> --}}
-				{{-- <td>{{$p->consultant->name}}</td> --}}
-                <td>test</td>
-                <td>test</td>
 			</tr>
 			@endforeach
 		</tbody>
