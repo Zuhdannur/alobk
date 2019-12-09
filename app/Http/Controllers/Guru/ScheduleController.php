@@ -204,7 +204,25 @@ class ScheduleController extends Controller
             'Y2QyMTVhMzMtOGVlOC00MjFiLThmNDctMTAzNzYwNDM2YWMy',
             'YzRiYzZlNjAtYmIwNC00MzJiLTk3NTYtNzBhNmU2ZTNjNDQx');
 
-        $getObject = $this->schedule->where('id', $update->id)->with('consultant')->first();      
+        $getObject = $this->schedule->where('id', $update->id)->with('consultant')->first();
+
+        if($schedule->type_schedule != 'direct') {
+            $data = [
+                'active' => true,
+                'chatId' => $id,
+
+                'consultantActive' => $scheduleInfo->consultant_id.'_true',
+                'consultantId' => "$scheduleInfo->consultant_id",
+                'desc' => $scheduleInfo->desc,
+                'requesterActive' => $scheduleInfo->requester_id.'_true',
+                'requesterId' => "$scheduleInfo->requester_id",
+                'title' => $scheduleInfo->title,
+                'time' => 193849383,
+                'typeSchedule' => $scheduleInfo->type_schedule
+            ];
+
+            Firebase::set('/room/metainfo/'.$id, $data);
+        }
 
         $client->sendNotificationToExternalUser(
             "Pengajuan dengan id #".$update->id." disunting dan diterima oleh guru.",
