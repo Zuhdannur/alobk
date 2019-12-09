@@ -25,7 +25,7 @@
 		</thead>
 		<tbody>
 			@php $i=1 @endphp
-			@foreach($diary as $p)
+			@foreach($diari as $p)
 			<tr>
 				<td>{{ $i++ }}</td>
 				<td>{{$p->nama}}</td>

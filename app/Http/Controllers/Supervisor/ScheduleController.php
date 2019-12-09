@@ -167,7 +167,7 @@ class ScheduleController extends Controller
             $query->where('sekolah_id', Auth::user()->sekolah_id);
         });
         $pdf = PDF::loadView('diari_pdf', ['diari' => $diary]);
-        return $pdf->download('backup_diari.pdf');
+        return $pdf->stream();
     }
 
 }
