@@ -45,8 +45,8 @@
 				<td>{{$p->title}}</td>
 				<td>{{$p->desc}}</td>
 				<td>Test</td>
-				<td>Test</td>
-				<td>Test</td>
+				<td>{{ !empty($p->feedback) ? $p->feedback->komentar:'-' }}</td>
+				<td>{{ !empty($p->feedback) ? $p->feedback->rating:'-' }}</td>
 			</tr>
 			@endforeach
 		</tbody>
