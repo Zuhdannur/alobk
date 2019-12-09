@@ -93,7 +93,37 @@ class ScheduleController extends Controller
             'Y2QyMTVhMzMtOGVlOC00MjFiLThmNDctMTAzNzYwNDM2YWMy',
             'YzRiYzZlNjAtYmIwNC00MzJiLTk3NTYtNzBhNmU2ZTNjNDQx');
 
-        $getObject = $this->schedule->where('id', $update->id)->with('consultant')->first();            
+        $getObject = $this->schedule->where('id', $update->id)->with('consultant')->first();
+        
+        // pushInfo.put("time", millis)
+        //     pushInfo.put("chatAble", false)
+        //     pushInfo.put("consultantActive", "${it.consultantId}_true")
+        //     pushInfo.put("consultantId", "${it.consultantId}")
+        //     pushInfo.put("desc", "${it.desc}")
+        //     pushInfo.put("requesterActive", "${it.requesterId}_true")
+        //     pushInfo.put("requesterId", "${it.requesterId}")
+        //     pushInfo.put("title", it.title ?: "")
+        //     pushInfo.put("typeSchedule", it.typeSchedule ?: "")
+
+        $scheduleInfo = $this->schedule->find($id);
+
+        if($schedule->type_schedule != 'direct') {
+            $data = [
+                'active' => true,
+                'chatId' => 'data1',
+
+                'consultantActive' => $scheduleInfo->consultant_id.'_true',
+                'consultantId' => $scheduleInfo->consultant_id,
+                'desc' => $scheduleInfo->desc,
+                'requesterActive' => $scheduleInfo->requester_id.'_true',
+                'requesterId' => $scheduleInfo->requester_id,
+                'title' => $scheduleInfo->title,
+                'time' => 193849383,
+                'typeSchedule' => $scheduleInfo->type_schedule
+            ];
+
+            Firebase::set('/room/metainfo/'.$id, $data);
+        }
 
         $client->sendNotificationToExternalUser(
             "Pengajuan dengan id #".$update->id." telah diterima oleh guru.",
