@@ -33,8 +33,8 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
     $router->get('title', 'ArtikelsController@getTitle');
     $router->get('cron', 'MastersController@cronJob');
     $router->post('artikel', 'ArtikelsController@create');
-    
-    $router->get('diary/generate', 'Supervisor/ScheduleController@generate');
+
+    $router->get('diary/generate', 'Supervisor\ScheduleController@generate');
 
     /**
     * Routes for resource sekolah
