@@ -170,7 +170,8 @@ class ScheduleController extends Controller
         });
         $pdf = PDF::loadView('diari_pdf', ['diari' => $diary])->download('backup_diari');
         $headers = ['Content-Type' => 'application/pdf'];
-        return Response::download($file, 'diary.pdf', $headers);
+        // return Response::download($file);
+        return $pdf;
     }
 
 }
