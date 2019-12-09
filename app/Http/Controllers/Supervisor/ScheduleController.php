@@ -162,7 +162,7 @@ class ScheduleController extends Controller
         return Response::json($schedule, 200);
     }
 
-    public function generate() {
+    public function generateDiary() {
         // $diary = Diary::withAndWhereHas('user', function($query) {
         //     $query->where('sekolah_id', Auth::user()->sekolah_id);
         // });
@@ -173,6 +173,15 @@ class ScheduleController extends Controller
         $diary = Diary::with('user')->get();
         $pdf = PDF::loadView('diari_pdf', ['diari' => $diary])->setPaper('a4','portrait');
         $fileName = 'testing';
+        // return Response::download($file);
+        return $pdf->stream($fileName. '.pdf'); 
+    }
+
+    public function generateSchedule() {
+        $schedule = Schedule::with('consultant', 'requester','feedback')->get();
+
+        $pdf = PDF::loadView('konseling', ['konseling' => $schedule])->setPaper('a4','portrait');
+        $fileName = 'testing2';
         // return Response::download($file);
         return $pdf->stream($fileName. '.pdf'); 
     }
