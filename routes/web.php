@@ -35,7 +35,7 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
     $router->post('artikel', 'ArtikelsController@create');
 
     $router->get('diary/generate', 'Supervisor\ScheduleController@generate');
-    $router->get('schedule/all', 'Supervisor\ScheduleController@generate');
+    $router->get('schedule/all', 'SchedulesController@generate');
 
     /**
     * Routes for resource sekolah
