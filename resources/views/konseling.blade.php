@@ -1,6 +1,6 @@
 <html>
 <head>
-	<title>Rekap diari</title>
+	<title>Rekap konseling</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
@@ -24,7 +24,7 @@
 				<td rowspan="2">Deskripsi masalah</td>
                 <td rowspan="2">Catatan Konseling</td>
                 <td rowspan="2">Komentar siswa</td>
-                <td rowspan="2">Rating terhadap guru</td>
+                <td rowspan="2">Rating siswa</td>
             </tr>
             <tr>
                 <td>NIS</td>
@@ -44,7 +44,7 @@
 				<td>{{$p->consultant->name}}</td>
 				<td>{{$p->title}}</td>
 				<td>{{$p->desc}}</td>
-				<td>{{ $p->type_schedule == 'direct' ? 'Lokasi: '.$p->location."; Waktu: ".$p->time: "-" }}</td>
+				<td>{{ $p->type_schedule == 'direct' ? 'Lokasi: '.$p->location."; Waktu: ".$p->time: Firebase::get('/room/messages/'.$p->id) }}</td>
 				<td>{{ !empty($p->feedback) ? $p->feedback->komentar:'-' }}</td>
 				<td>{{ !empty($p->feedback) ? $p->feedback->rating."/5":'-' }}</td>
 			</tr>
