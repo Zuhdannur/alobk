@@ -20,7 +20,8 @@
 				<th>No</th>
 				<th>Nama</th>
 				<th>User ID</th>
-				<th>Diari</th>
+				<th>Judul diari</th>
+				<th>Deskripsi diari</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -28,8 +29,9 @@
 			@foreach($diari as $p)
 			<tr>
 				<td>{{ $i++ }}</td>
-				<td>{{$p->nama}}</td>
+				<td>{{$p->user()->nama}}</td>
 				<td>{{$p->user_id}}</td>
+				<td>{{$p->title}}</td>
 				<td>{{$p->body}}</td>
 			</tr>
 			@endforeach
