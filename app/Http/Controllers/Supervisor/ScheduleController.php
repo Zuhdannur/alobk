@@ -163,11 +163,14 @@ class ScheduleController extends Controller
     }
 
     public function generate() {
+        $file= public_path(). "/download/info.pdf";
+
         $diary = Diary::withAndWhereHas('user', function($query) {
             $query->where('sekolah_id', Auth::user()->sekolah_id);
         });
         $pdf = PDF::loadView('diari_pdf', ['diari' => $diary]);
-        return $pdf->stream();
+        $headers = ['Content-Type' => 'application/pdf'];
+        return Response::download($file, 'diary.pdf', $headers);
     }
 
 }
