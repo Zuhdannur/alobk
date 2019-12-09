@@ -11,18 +11,19 @@
 		}
 	</style>
 	<center>
-		<h5>Rekap diari</h4>
+		<h5>Rekap konseling</h4>
 	</center>
  
 	<table class='table table-bordered'>
 		<thead>
 			<tr>
 				<td rowspan="2">No</td>
-                <td rowspan="2">ID Konseling</td>
                 <td colspan="2">Siswa</td>
-                <td colspan="2">Guru BK</td>
+				<td colspan="2">Guru BK</td>
+				<td rowspan="2">Judul</td>
+				<td rowspan="2">Deskripsi masalah</td>
                 <td rowspan="2">Catatan Konseling</td>
-                <td rowspan="2">Komentar</td>
+                <td rowspan="2">Komentar siswa</td>
                 <td rowspan="2">Rating</td>
             </tr>
             <tr>
@@ -37,7 +38,6 @@
 			@foreach($konseling as $p)
 			<tr>
 				<td>{{ $i++ }}</td>
-				<td>{{$p->id}}</td>
 				{{-- <td>{{$p->requester->username}}</td> --}}
 				<td>Test</td>
 				<td>Test</td>
