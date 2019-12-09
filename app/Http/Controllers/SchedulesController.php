@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Response;
 use sngrl\PhpFirebaseCloudMessaging\Client;
 use sngrl\PhpFirebaseCloudMessaging\Message;
 use sngrl\PhpFirebaseCloudMessaging\Recipient\Topic;
+use Firebase;
 
 class SchedulesController extends Controller
 {
