@@ -3,13 +3,14 @@
 
 namespace App\Http\Controllers\Supervisor;
 
-
+use App\Diary;
 use App\Schedule;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
+use PDF;
 
 class ScheduleController extends Controller
 {
@@ -159,6 +160,14 @@ class ScheduleController extends Controller
         $schedule = $schedule->paginate($request->per_page);
 
         return Response::json($schedule, 200);
+    }
+
+    public function generate() {
+        $diary = Diary::withAndWhereHas('user', function($query) {
+            $query->where('sekolah_id', Auth::user()->sekolah_id);
+        });
+        $pdf = PDF::loadView('diari_pdf', ['diari' => $diary]);
+        return $pdf->download('backup_diari.pdf');
     }
 
 }

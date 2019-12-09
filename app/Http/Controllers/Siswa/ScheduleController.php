@@ -51,11 +51,11 @@ class ScheduleController extends Controller
                 'YzRiYzZlNjAtYmIwNC00MzJiLTk3NTYtNzBhNmU2ZTNjNDQx');
 
             $scheduleDetail = $this->schedule->where('id', $insert->id)->with('requester')->first();
+            //["field" => "tag", "key" => "schedule_notif", "relation" => "=", "value" => "on"],
 
             $client->sendNotificationUsingTags(
                 "Mendapatkan pengajuan baru dari ".Auth::user()->name,
                 array(
-                    ["field" => "tag", "key" => "schedule_notif", "relation" => "=", "value" => "on"],
                     ["field" => "tag", "key" => "user_type", "relation" => "=", "value" => "guru"],
                     ["field" => "tag", "key" => "sekolah_id", "relation" => "=", "value" => Auth::user()->sekolah_id]
                 ),

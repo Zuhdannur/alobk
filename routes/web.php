@@ -106,6 +106,7 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
                 $router->get('schedule/count', 'ScheduleController@getTotalSchedule');
                 $router->get('schedule/count/today', 'ScheduleController@getTotalToday');
                 $router->get('schedule/recent', 'ScheduleController@lastFeed');
+                $router->post('diary/generate', 'ScheduleController@generate');
             });
 
         });
