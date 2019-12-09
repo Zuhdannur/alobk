@@ -35,7 +35,6 @@
 			@php $i=1 @endphp
 			@foreach($konseling as $p)
 			<tr>
-				<td>{{ $i++ }}</td>
 				<td>{{$p->id}}</td>
 				{{-- <td>{{$p->requester->username}}</td> --}}
 				<td>Test</td>
