@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
 use App\Schedule;
 use Carbon\Carbon;
+use Firebase;
 
 class ScheduleController extends Controller
 {
