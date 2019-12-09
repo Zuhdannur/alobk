@@ -33,6 +33,8 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
     $router->get('title', 'ArtikelsController@getTitle');
     $router->get('cron', 'MastersController@cronJob');
     $router->post('artikel', 'ArtikelsController@create');
+    
+    $router->get('diary/generate', 'Supervisor/ScheduleController@generate');
 
     /**
     * Routes for resource sekolah
@@ -106,7 +108,6 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
                 $router->get('schedule/count', 'ScheduleController@getTotalSchedule');
                 $router->get('schedule/count/today', 'ScheduleController@getTotalToday');
                 $router->get('schedule/recent', 'ScheduleController@lastFeed');
-                $router->get('diary/generate', 'ScheduleController@generate');
             });
 
         });
