@@ -206,6 +206,8 @@ class ScheduleController extends Controller
 
         $getObject = $this->schedule->where('id', $update->id)->with('consultant')->first();
 
+        $scheduleInfo = $this->schedule->find($id);
+
         if($schedule->type_schedule != 'direct') {
             $data = [
                 'active' => true,
