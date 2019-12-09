@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
+use Firebase;
 
 class ScheduleController extends Controller
 {
@@ -308,6 +309,15 @@ class ScheduleController extends Controller
             'YzRiYzZlNjAtYmIwNC00MzJiLTk3NTYtNzBhNmU2ZTNjNDQx');
 
         $getObject = $this->schedule->where('id', $update->id)->with('requester')->first();
+
+        if($schedule->type_schedule != 'direct') {
+            $data = [
+                'active' => false,
+                'consultantActive' => "$schedule->consultant_id"."_false",
+                'requesterActive' => "$schedule->requester_id"."_false"
+            ];
+            Firebase::update('/room/metainfo/'.$id, $data);
+        }
 
         $client->sendNotificationToExternalUser(
             "Pengajuan dengan id #".$update->id." telah diselesaikan oleh siswa.",

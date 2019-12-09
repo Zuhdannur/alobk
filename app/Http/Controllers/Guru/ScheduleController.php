@@ -283,6 +283,15 @@ class ScheduleController extends Controller
 
         $getObject = $this->schedule->where('id', $update->id)->with('consultant')->first();
 
+        if($schedule->type_schedule != 'direct') {
+            $data = [
+                'active' => false,
+                'consultantActive' => "$schedule->consultant_id"."_false",
+                'requesterActive' => "$schedule->requester_id"."_false"
+            ];
+            Firebase::update('/room/metainfo/'.$id, $data);
+        }
+
         $client->sendNotificationToExternalUser(
             "Pengajuan dengan id #".$update->id." telah diselesaikan oleh guru.",
             $update->requester_id,
