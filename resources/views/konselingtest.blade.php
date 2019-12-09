@@ -45,8 +45,7 @@
 				<td>{{$p->title}}</td>
 				<td>{{$p->desc}}</td>
                 <td>{{ $p->type_schedule == 'direct' ? 'Lokasi: '.$p->location."; Waktu: ".$p->time: '-'}}</td>
-                <td>{{ $characters = json_decode(Firebase::get('/room/messages/'.$p->id,['print'=> 'pretty']), 1)
-                    @foreach($characters as $key => $val) $val['message'] }}</td>
+                <td>{{ @foreach(json_decode(Firebase::get('/room/messages/'.$p->id,['print'=> 'pretty']), 1) as $key => $val) $val['message'] }}</td>
 				<td>{{ !empty($p->feedback) ? $p->feedback->komentar:'-' }}</td>
 				<td>{{ !empty($p->feedback) ? $p->feedback->rating."/5":'-' }}</td>
 			</tr>
