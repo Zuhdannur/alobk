@@ -119,7 +119,7 @@ class ScheduleController extends Controller
                 'requesterActive' => $scheduleInfo->requester_id.'_true',
                 'requesterId' => "$scheduleInfo->requester_id",
                 'title' => $scheduleInfo->title,
-                'time' => $request->time,
+                'time' => (int)$request->time,
                 'typeSchedule' => $scheduleInfo->type_schedule
             ];
 
@@ -217,7 +217,7 @@ class ScheduleController extends Controller
                 'requesterActive' => $scheduleInfo->requester_id.'_true',
                 'requesterId' => "$scheduleInfo->requester_id",
                 'title' => $scheduleInfo->title,
-                'time' => $request->timeMillis,
+                'time' => (int)$request->timeMillis,
                 'typeSchedule' => $scheduleInfo->type_schedule
             ];
 
