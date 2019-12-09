@@ -51,7 +51,7 @@ class ScheduleController extends Controller
         return Response::json($data, 200);
     }
 
-    public function accept($id) {
+    public function accept($id, Request $request) {
         $schedule = $this->schedule->find($id);
 
         if ($schedule->canceled != 0) {
@@ -119,7 +119,7 @@ class ScheduleController extends Controller
                 'requesterActive' => $scheduleInfo->requester_id.'_true',
                 'requesterId' => "$scheduleInfo->requester_id",
                 'title' => $scheduleInfo->title,
-                'time' => 193849383,
+                'time' => $request->time,
                 'typeSchedule' => $scheduleInfo->type_schedule
             ];
 
@@ -217,7 +217,7 @@ class ScheduleController extends Controller
                 'requesterActive' => $scheduleInfo->requester_id.'_true',
                 'requesterId' => "$scheduleInfo->requester_id",
                 'title' => $scheduleInfo->title,
-                'time' => 193849383,
+                'time' => $request->timeMillis,
                 'typeSchedule' => $scheduleInfo->type_schedule
             ];
 
