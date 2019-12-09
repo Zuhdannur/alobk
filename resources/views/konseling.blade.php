@@ -41,8 +41,8 @@
                 <td>{{$p->requester->name}}</td>
                 <td>{{$p->consultant->username}}</td>
 				<td>{{$p->consultant->name}}</td>
-                <td>{{$p->feedback->komentar}}</td>
-                <td>{{$p->feedback->rating}}/5</td>
+                <td>test</td>
+                <td>test</td>
 			</tr>
 			@endforeach
 		</tbody>
