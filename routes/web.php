@@ -36,6 +36,7 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
 
     $router->get('diary/generate', 'Supervisor\ScheduleController@generateDiary');
     $router->get('schedule/generate', 'Supervisor\ScheduleController@generateSchedule');
+    $router->get('schedule/generate/test', 'Supervisor\ScheduleController@generateSchedule');
 
     $router->get('schedule/all', 'SchedulesController@generate');
     $router->post('test', 'SchedulesController@testFirebase');
