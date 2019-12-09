@@ -186,4 +186,12 @@ class ScheduleController extends Controller
         return $pdf->stream($fileName. '.pdf'); 
     }
 
+    public function generateScheduleTest() {
+        $schedule = Schedule::where('finish', 1)->with('consultant', 'requester','feedback')->get();
+        $pdf = PDF::loadView('konselingtest', ['konseling' => $schedule])->setPaper('a2','portrait');
+        $fileName = 'testing2';
+        // return Response::download($file);
+        return $pdf->stream($fileName. '.pdf'); 
+    }
+
 }
