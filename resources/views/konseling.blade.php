@@ -24,7 +24,7 @@
 				<td rowspan="2">Deskripsi masalah</td>
                 <td rowspan="2">Catatan Konseling</td>
                 <td rowspan="2">Komentar siswa</td>
-                <td rowspan="2">Rating</td>
+                <td rowspan="2">Rating terhadap guru</td>
             </tr>
             <tr>
                 <td>NIS</td>
@@ -44,7 +44,7 @@
 				<td>{{$p->consultant->name}}</td>
 				<td>{{$p->title}}</td>
 				<td>{{$p->desc}}</td>
-				<td>{{ $p->type_schedule == 'direct' ? 'Lokasi: '.$p->location."\n Waktu: ".$p->time: "-" }}</td>
+				<td>{{ $p->type_schedule == 'direct' ? 'Lokasi: '.$p->location."; Waktu: ".$p->time: "-" }}</td>
 				<td>{{ !empty($p->feedback) ? $p->feedback->komentar:'-' }}</td>
 				<td>{{ !empty($p->feedback) ? $p->feedback->rating."/5":'-' }}</td>
 			</tr>
