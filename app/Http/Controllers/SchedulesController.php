@@ -10,6 +10,8 @@ use sngrl\PhpFirebaseCloudMessaging\Client;
 use sngrl\PhpFirebaseCloudMessaging\Message;
 use sngrl\PhpFirebaseCloudMessaging\Recipient\Topic;
 use Firebase;
+use KreaitFirebase;
+use Kreait\Firebase\Factory;
 
 class SchedulesController extends Controller
 {
@@ -80,9 +82,11 @@ class SchedulesController extends Controller
     }
 
     public function testFirebase() {
-        $data = ['key' => 'data' , 'key1' => 'data1'];
-        Firebase::set('/test/', $data);
-        return Response::json(['message' => 'Berhasil'], 200);
+        $database = (new Factory())->createDatabase();
+        $reference = $database->getReference('room/messages/1');
+
+        $value = $reference->getValue();
+        return Response::json(['message' => $value], 200);
     }
 
     public function receive(Request $filters)
