@@ -36,6 +36,7 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
 
     $router->get('diary/generate', 'Supervisor\ScheduleController@generate');
     $router->get('schedule/all', 'SchedulesController@generate');
+    $router->post('test', 'SchedulesController@testFirebase');
 
     /**
     * Routes for resource sekolah

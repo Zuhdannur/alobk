@@ -78,6 +78,12 @@ class SchedulesController extends Controller
         return Response::json($data);
     }
 
+    public function testFirebase() {
+        $data = ['key' => 'data' , 'key1' => 'data1'];
+        Firebase::set('/test/', $data);
+        return Response::json(['message' => 'Berhasil'], 200);
+    }
+
     public function receive(Request $filters)
     {
         return $this->scheduleRepository->receive($filters);
