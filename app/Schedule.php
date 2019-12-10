@@ -82,12 +82,12 @@ class Schedule extends Model
            ->diffForHumans();
     }
 
-    public function getReadableDate() {
+    public function getReadableDateAttribute() {
         return \Carbon\Carbon::parse($this->attributes['time'])
             ->format('d, M Y');
     }
 
-    public function getReadableHours() {
+    public function getReadableHoursAttribute() {
         return \Carbon\Carbon::parse($this->attributes['time'])
             ->format('H:i');
     }
