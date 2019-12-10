@@ -12,6 +12,7 @@
 	</style>
 	<div class="row mt-2 mb-3">
 		<div class="col-md-2 text-center">
+			{{ HTML::image('img/logo.png', 'alt text', array('class' => 'css-class')) }}
 				{{-- <img class="" src="https://i.ibb.co/yBCRK2V/logo.png" width="150px" height="150px"> --}}
 		</div>
 		<div class="col-md-10 align-self-center">
@@ -59,7 +60,7 @@
                     @else
                         @if(is_array($data) || is_object($data))
                             @foreach(($data) as $key => $val) 
-                                {!! \App\User::find($val['senderId'])->name.": \"".$val["message"]. "\"" !!} <br/>
+                                {{ \App\User::find($val['senderId'])->name.": \"".$val["message"]. "\"" }} <br/>
                             @endforeach
                         @endif
                     @endif    
