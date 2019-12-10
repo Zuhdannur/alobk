@@ -59,11 +59,11 @@ class Schedule extends Model
         return $this->hasOne('\App\Feedback');
     }
 
-    public function getTimeAttribute()
-    {
-        return \Carbon\Carbon::parse($this->attributes['time'])
-            ->format('d, M Y: H:i');
-    }
+    // public function getTimeAttribute()
+    // {
+    //     return \Carbon\Carbon::parse($this->attributes['time'])
+    //         ->format('d, M Y: H:i');
+    // }
 
     public function getReadableCreatedAtAttribute()
     {
@@ -71,8 +71,13 @@ class Schedule extends Model
             ->diffForHumans();
     }
 
-   public function getReadableUpdatedAtAttribute()
-   {
+    public function getReadableTimeAttribute() {
+        return \Carbon\Carbon::parse($this->attributes['time'])
+            ->format('d, M Y: H:i');
+    }
+
+    public function getReadableUpdatedAtAttribute()
+    {
        return \Carbon\Carbon::parse($this->attributes['updated_at'])
            ->diffForHumans();
    }
