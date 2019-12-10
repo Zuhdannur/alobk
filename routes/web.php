@@ -204,31 +204,6 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
         $router->get('diary/teacher', 'DiariesController@readDiary');
 
         /**
-         * Routes for resource schedule
-         */
-        /*Guru melihat jumlah pengajuan siswa*/
-//        $router->get('schedule/student/{id}', 'SchedulesController@getStudentScheduleCount');
-//        /*Siswa dapat menambahkan jadwal*/
-//        $router->post('schedule/student', 'SchedulesController@add');
-//        /*Siswa dapat melihat semua jadwal*/
-//        $router->get('schedule/student', 'SchedulesController@all');
-//        /*Siswa dapat menyunting jadwal*/
-//        $router->put('schedule/student', 'SchedulesController@put');
-//        /*Siswa dapat menghapus jadwal berdasarkan id*/
-//        $router->delete('schedule/student/{id}', 'SchedulesController@remove');
-//        /*Siswa dapat membatalkan pengajuan*/
-//        $router->post('schedule/student/cancel/{id}/{status}', 'SchedulesController@cancel');
-//        /*Guru & Siswa dapat menyelesaikan pengajuan*/
-//        $router->post('schedule/finish/{id}', 'SchedulesController@finish');
-//        /*Guru dapat melihat pengajuan*/
-//        $router->get('schedule/guru', 'SchedulesController@receive');
-//        /*Guru & Siswa dapat menyelesaikan pengajuan*/
-//        $router->post('schedule/guru/accept/{id}', 'SchedulesController@accept');
-//
-//        $router->delete('schedule', 'SchedulesController@removeAll');
-//        $router->post('scheduleChannelUrl', 'SchedulesController@updateChannelUrl');
-
-        /**
          * Routes for resource user
          */
         $router->get('user/{id}', 'UsersController@get');
@@ -248,16 +223,6 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
 
         $router->post('updateRead', 'NotifikasisController@read');
 
-        /**
-         * Routes for resource riwayat
-         */
-//        $router->get('riwayat', 'RiwayatsController@all');
-//        $router->get('riwayat/{id}', 'RiwayatsController@get');
-//        $router->post('riwayat', 'RiwayatsController@add');
-//        $router->put('riwayat/{id}', 'RiwayatsController@put');
-//        $router->delete('riwayat/{id}', 'RiwayatsController@remove');
-//        $router->get('viewRiwayat', 'RiwayatsController@view');
-//
 //        //Favorite Artikels
         $router->post('favorit', 'user/teacher/student/profile/3ArtikelsController@storeFavorite');
         $router->get('favorit', 'ArtikelsController@getMyFavorite');
