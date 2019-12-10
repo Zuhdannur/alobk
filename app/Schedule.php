@@ -25,9 +25,9 @@ class Schedule extends Model
         'start'
     ];
 
-    // protected $dates = [
-    //     'time'
-    // ];
+    protected $dates = [
+        'time'
+    ];
 
     protected $appends = ['readable_created_at', 'readable_updated_at', 'readable_time'];
 
