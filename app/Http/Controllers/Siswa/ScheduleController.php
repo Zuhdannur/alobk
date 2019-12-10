@@ -221,10 +221,12 @@ class ScheduleController extends Controller
             ], 201);
         }
 
-        if ($this->isLessThanFiveMinutes($request->time)) {
-            return Response::json([
-                'message' => 'Waktu tidak boleh masa lampau.'
-            ], 201);
+        if ($schedule->type_schedule != 'daring') {
+            if ($this->isLessThanFiveMinutes($request->time)) {
+                return Response::json([
+                    'message' => 'Waktu tidak boleh masa lampau.'
+                ], 201);
+            }
         }
 
         $update = tap($schedule)
