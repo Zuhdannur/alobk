@@ -56,7 +56,6 @@
                         @endif
                     @endif    
                 </td>
-                    @endif
 				<td>{{ !empty($p->feedback) ? $p->feedback->komentar:'-' }}</td>
 				<td>{{ !empty($p->feedback) ? $p->feedback->rating."/5":'-' }}</td>
 			</tr>
