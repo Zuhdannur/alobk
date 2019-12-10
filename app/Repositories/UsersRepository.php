@@ -6,10 +6,10 @@ namespace App\Repositories;
 
 use App\User;
 use Illuminate\Http\Request;
-use SafeStudio\Firebase\Firebase;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Response;
+use Firebase;
 
 class UsersRepository
 {
