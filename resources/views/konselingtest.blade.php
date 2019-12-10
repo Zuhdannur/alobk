@@ -17,24 +17,25 @@
 	</center>
  
 	<table class='table table-bordered'>
-		<thead>
-			<tr>
-				<th rowspan="2">No</th>
-                <th colspan="2">Siswa</th>
-				<th colspan="2">Guru BK</th>
-				<th rowspan="2">Judul</th>
-				<th rowspan="2">Deskripsi masalah</th>
-                <th rowspan="2">Catatan Konseling</th>
-                <th rowspan="2">Komentar siswa</th>
-                <th rowspan="2">Rating siswa</th>
-            </tr>
-            <tr>
-                <th>NIS</th>
-                <th>Nama</th>
-                <th>NIP</th>
-                <th>Nama</th>
-            </tr>
-		</thead>
+			<thead>
+					<tr>
+						<th rowspan="2" class="align-middle">No</th>
+						<th colspan="2" class="text-center">Siswa</th>
+						<th colspan="2" class="text-center">Guru BK</th>
+						<th colspan="5" class="text-center">Konseling</th>
+					</tr>
+					<tr>
+						<th class="text-center align-middle">NIS</th>
+						<th class="text-center align-middle">Nama</th>
+						<th class="text-center align-middle">NIP</th>
+						<th class="text-center align-middle">Nama</th>
+						<th rowspan="2" class="align-middle">Judul</th>
+						<th rowspan="2" class="align-middle">Deskripsi masalah</th>
+						<th rowspan="2" class="align-middle">Catatan Konseling</th>
+						<th rowspan="2" class="text-center align-middle">Komentar siswa</th>
+						<th rowspan="2" class="text-center align-middle">Rating siswa</th>
+					</tr>
+				</thead>
 		<tbody>
 			@php $i=1 @endphp
 			@foreach($konseling as $p)
