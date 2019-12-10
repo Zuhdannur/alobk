@@ -150,7 +150,7 @@ class UserController extends Controller {
         $insert->save();
 
         if($request->role == 'guru' || $request->role == 'siswa') {
-            createUserInFirebase($request);
+            $this->createUserInFirebase($request);
         }
 
         return Response::json([
