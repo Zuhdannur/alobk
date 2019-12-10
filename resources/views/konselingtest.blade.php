@@ -44,15 +44,17 @@
 				<td>{{$p->consultant->name}}</td>
 				<td>{{$p->title}}</td>
 				<td>{{$p->desc}}</td>
-                <td>{{$p->type_schedule == 'direct' ? 'Lokasi: '.$p->location."; Waktu: ".$p->time:'-'}}</td>
                 <td>
                     <?php $data = json_decode(Firebase::get('/room/messages/'.$p->id,['print'=> 'pretty']), 1); ?>
-                    @if(is_array($data) || is_object($data))
-                        @foreach(($data) as $key => $val) 
-                            {!! \App\User::find($val['senderId'])->name.": ".$val["message"] !!}
-                        @endforeach
-                    @endif
-                </td>
+                    @if($p->type_schedule == 'direct')
+                        {{'Lokasi: '.$p->location."; Waktu: ".$p->time}}
+                    @else
+                        @if(is_array($data) || is_object($data))
+                            @foreach(($data) as $key => $val) 
+                                {!! \App\User::find($val['senderId'])->name.":".$val["message"] !!}
+                            @endforeach
+                        @endif    
+                    </td>
 				<td>{{ !empty($p->feedback) ? $p->feedback->komentar:'-' }}</td>
 				<td>{{ !empty($p->feedback) ? $p->feedback->rating."/5":'-' }}</td>
 			</tr>
