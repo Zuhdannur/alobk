@@ -63,7 +63,16 @@ class Schedule extends Model
     // {
     //     return \Carbon\Carbon::parse($this->attributes['time'])
     //         ->format('d, M Y: H:i');
-    // }
+    // }updated_new_time updated_old_time
+    public function getUpdatedNewTimeAttribute() {
+        return \Carbon\Carbon::parse($this->attributes['updated_new_time'])
+        ->format('d, M Y: H:i');
+    }
+
+    public function getUpdatedOldTimeAttribute() {
+        return \Carbon\Carbon::parse($this->attributes['updated_old_time'])
+            ->format('d, M Y: H:i');
+    }
 
     public function getReadableCreatedAtAttribute()
     {
