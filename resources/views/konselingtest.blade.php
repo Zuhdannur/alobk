@@ -12,7 +12,7 @@
 	</style>
 	<div class="row mt-2 mb-3">
 		<div class="col-md-2 text-center">
-			<img class="" src="{{ public_path() }}/img/logo.png" width="150px" height="150px">
+			<img class="" src="{{ public_path()."/img/logo.png" }}" width="150px" height="150px">
 		</div>
 		<div class="col-md-10 align-self-center">
 			<p class="h3">Rekap Konseling</p>
