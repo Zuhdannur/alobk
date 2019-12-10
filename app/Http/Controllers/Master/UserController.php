@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Response;
 use Spatie\Activitylog\Models\Activity;
+use Firebase;
 
 class UserController extends Controller {
 
@@ -148,11 +149,30 @@ class UserController extends Controller {
         $insert->kota_lahir = $request->kota_lahir;
         $insert->save();
 
+        if($request->role == 'guru' || $request->role == 'siswa') {
+            createUserInFirebase($request);
+        }
+
         return Response::json([
             'user_id' => $insert->id,
             'message' => 'Berhasil daftar.',
             'model' => $insert->with('sekolahOnlyName')->first()
         ], 200);
+    }
+
+    private function createUserInFirebase(Request $request) {
+        // Jika role nya siswa atau guru, then create firebase account. In order todo chat....
+        //if($request->role == 'siswa' || $request->role == 'guru') {
+            $data = [
+                'name' => $request->name,
+                'id' => $insert->id,
+                'username' => $request->username,
+                'role' => $request->role, 
+                'avatar' => $request->avatar,
+                'sekolah_id' => $request->sekolah_id
+            ];
+            Firebase::set('/users/'.$insert->id, $data);
+        //}
     }
 
 }
