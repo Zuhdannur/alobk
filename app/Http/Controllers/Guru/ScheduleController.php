@@ -45,7 +45,6 @@ class ScheduleController extends Controller
         }
 
 
-
         $data = $schedule->paginate($request->per_page);
 
         return Response::json($data, 200);
@@ -178,73 +177,42 @@ class ScheduleController extends Controller
             ], 201);
         }
 
-        // if(!$schedule->isDirty('time')) {
-        //     return Response::json([
-        //         'message' => "Tidak ada perubahan jadwal yang terjadi"
-        //     ], 201);
-        // }
         $getNewOne = $this->schedule->find($id);
 
         $update = tap($schedule)->update([
             'time' => $request->time,
             'updated_old_time' => $getNewOne->time,
-            'updated_new_time' => \Carbon\Carbon::parse($request->time)->format('d, M Y: H:i'),
-            'active' => 1,
+            'updated_new_time' => \Carbon\Carbon::parse($request->time),
             'consultant_id' => Auth::user()->id
         ]);
 
-        if (!$update) {
-            return Response::json([
-                "message" => "Gagal menerima."
-            ], 201);
-        }
+        $getObject = $this->schedule->where('id', $update->id)->with('consultant')->first();
+
+        $scheduleInfo = $this->schedule->find($id);
 
         $client = new OneSignalClient(
             'e90e8fc3-6a1f-47d1-a834-d5579ff2dfee',
             'Y2QyMTVhMzMtOGVlOC00MjFiLThmNDctMTAzNzYwNDM2YWMy',
             'YzRiYzZlNjAtYmIwNC00MzJiLTk3NTYtNzBhNmU2ZTNjNDQx');
 
-        $getObject = $this->schedule->where('id', $update->id)->with('consultant')->first();
-
-        $scheduleInfo = $this->schedule->find($id);
-
-        if($schedule->type_schedule != 'direct') {
-            $data = [
-                'active' => true,
-                'chatId' => $id,
-
-                'consultantActive' => $scheduleInfo->consultant_id.'_true',
-                'consultantId' => "$scheduleInfo->consultant_id",
-                'desc' => $scheduleInfo->desc,
-                'requesterActive' => $scheduleInfo->requester_id.'_true',
-                'requesterId' => "$scheduleInfo->requester_id",
-                'title' => $scheduleInfo->title,
-                'time' => (int)$request->timeMillis,
-                'typeSchedule' => $scheduleInfo->type_schedule
-            ];
-
-            Firebase::set('/room/metainfo/'.$id, $data);
-        }
-
         $client->sendNotificationToExternalUser(
-            "Pengajuan dengan id #".$update->id." disunting dan diterima oleh guru.",
+            "Guru meminta persetujuan perubahan waktu konseling",
             $schedule->requester_id,
             $url = null,
             $data = [
                 "id" => $update->id,
                 "data" => $getObject,
                 "type" => "schedule",
-                "detail" => "siswa_receive_accept"
+                "detail" => "siswa_receive_request_accept"
             ],
             $buttons = null,
             $schedule = null,
-            $headings = "Pengajuanmu diterima"
+            $headings = "Permintaan perubahan waktu konseling"
         );
-
 
         return Response::json([
             'data' => $update,
-            'message' => 'Pengajuan berhasil diterima.'
+            'message' => 'Permintaan perubahan waktu berhasil dikirim.'
         ], 200);
     }
 

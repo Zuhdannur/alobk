@@ -29,7 +29,7 @@ class Schedule extends Model
         'time'
     ];
 
-    protected $appends = ['readable_created_at', 'readable_updated_at'];
+    protected $appends = ['readable_created_at', 'readable_updated_at', 'readable_time'];
 
     protected $table = "schedule";
 
