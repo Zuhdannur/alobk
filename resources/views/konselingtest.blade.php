@@ -7,39 +7,32 @@
 	<style type="text/css">
 		table tr td,
 		table tr th{
-			font-size: 10pt;
+			font-size: 9pt;
 		}
 	</style>
-    
-    <div class="row mt-2 mb-3">
-    	<div class="col-md-2 text-center">
-       		<img class="" src="https://i.ibb.co/yBCRK2V/logo.png" width="150px" height="150px">
-    	</div>
-    	<div class="col-md-10 align-self-center">
-       		<p class="h3">Rekap Konseling</p>
-            <p class="h6 text-muted">10/12/2019 09:33:33</p>
-            <p class="h6 text-muted">SMAN 8 Bandung</p>
-    	</div>
-	</div>
-	
+	<center>
+		<h2>Rekap konseling</h2>
+		<h3>{{ $time }}</h3>
+		<h3>{{ $nama_sekolah }}</h3>
+	</center>
+ 
 	<table class='table table-bordered'>
 		<thead>
 			<tr>
-				<th rowspan="2" class="align-middle">No</th>
-                <th colspan="2" class="text-center">Siswa</th>
-				<th colspan="2" class="text-center">Guru BK</th>
-                <th colspan="5" class="text-center">Konseling</th>
+				<th rowspan="2">No</th>
+                <th colspan="2">Siswa</th>
+				<th colspan="2">Guru BK</th>
+				<th rowspan="2">Judul</th>
+				<th rowspan="2">Deskripsi masalah</th>
+                <th rowspan="2">Catatan Konseling</th>
+                <th rowspan="2">Komentar siswa</th>
+                <th rowspan="2">Rating siswa</th>
             </tr>
             <tr>
-                <th class="text-center align-middle">NIS</th>
-                <th class="text-center align-middle">Nama</th>
-                <th class="text-center align-middle">NIP</th>
-                <th class="text-center align-middle">Nama</th>
-                <th rowspan="2" class="align-middle">Judul</th>
-				<th rowspan="2" class="align-middle">Deskripsi masalah</th>
-                <th rowspan="2" class="align-middle">Catatan Konseling</th>
-                <th rowspan="2" class="text-center align-middle">Komentar siswa</th>
-                <th rowspan="2" class="text-center align-middle">Rating siswa</th>
+                <th>NIS</th>
+                <th>Nama</th>
+                <th>NIP</th>
+                <th>Nama</th>
             </tr>
 		</thead>
 		<tbody>
