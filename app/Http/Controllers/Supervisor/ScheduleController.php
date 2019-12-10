@@ -174,7 +174,7 @@ class ScheduleController extends Controller
         // });
         $diary = Diary::with('user')->get();
         $pdf = PDF::loadView('diari_pdf', ['diari' => $diary])->setPaper('a4','portrait');
-        $fileName = 'testing';
+        $fileName = 'rekap_diari_'.$namaSekolah."";
         // return Response::download($file);
         return $pdf->stream($fileName. '.pdf'); 
     }
@@ -189,8 +189,17 @@ class ScheduleController extends Controller
 
     public function generateScheduleTest() {
         $schedule = Schedule::where('finish', 1)->with('consultant', 'requester','feedback')->get();
-        $pdf = PDF::loadView('konselingtest', ['konseling' => $schedule])->setPaper('a2','portrait');
-        $fileName = 'testing2';
+        $timeGenerated = Carbon::now()->format('d/m/Y H:i:s');
+        $namaSekolah = "SMAN 8 Bandung";
+
+        $pdf = PDF::loadView('konselingtest', 
+            [
+                'konseling' => $schedule,
+                'time' => $timeGenerated,
+                'nama_sekolah' => $namaSekolah
+            ]
+        )->setPaper('a2','portrait');
+        $fileName = 'rekap_konseling_';
         // return Response::download($file);
         return $pdf->stream($fileName. '.pdf'); 
     }

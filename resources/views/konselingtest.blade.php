@@ -11,7 +11,9 @@
 		}
 	</style>
 	<center>
-		<h5>Rekap konseling</h4>
+		<h2>Rekap konseling</h2>
+		<h3>{{ $time }}</h3>
+		<h3>{{ $nama_sekolah }}</h3>
 	</center>
  
 	<table class='table table-bordered'>
