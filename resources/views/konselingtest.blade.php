@@ -51,7 +51,7 @@
                     @else
                         @if(is_array($data) || is_object($data))
                             @foreach(($data) as $key => $val) 
-                                {!! \App\User::find($val['senderId'])->name.":".$val["message"] !!}
+                                {!! \App\User::find($val['senderId'])->name.": \"".$val["message"]. "\"" !!}
                             @endforeach
                         @endif
                     @endif    
