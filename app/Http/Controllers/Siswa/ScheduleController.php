@@ -42,7 +42,10 @@ class ScheduleController extends Controller
             }
         }
 
-        $insert->time = $request->time;
+        if($request->has('time')) {
+            $insert->time = $request->time;
+        }
+
         
         //For daring only
 
