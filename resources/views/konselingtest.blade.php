@@ -10,11 +10,16 @@
 			font-size: 9pt;
 		}
 	</style>
-	<center>
-		<h2>Rekap konseling</h2>
-		<h3>{{ $time }}</h3>
-		<h3>{{ $nama_sekolah }}</h3>
-	</center>
+	<div class="row mt-2 mb-3">
+		<div class="col-md-2 text-center">
+				<img class="" src="https://i.ibb.co/yBCRK2V/logo.png" width="150px" height="150px">
+		</div>
+		<div class="col-md-10 align-self-center">
+				<p class="h3">Rekap Konseling</p>
+			<p class="h6 text-muted">{{ $time }}</p>
+			<p class="h6 text-muted">{{ $nama_sekolah }}</p>
+		</div>
+	</div>
  
 	<table class='table table-bordered'>
 			<thead>
