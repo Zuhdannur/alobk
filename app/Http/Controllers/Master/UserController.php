@@ -171,7 +171,7 @@ class UserController extends Controller {
                 'avatar' => $request->avatar,
                 'sekolah_id' => $request->sekolah_id
             ];
-            Firebase::set('/users/'.$insert->id, $data);
+            Firebase::set('/users/'.$id, $data);
         //}
     }
 
