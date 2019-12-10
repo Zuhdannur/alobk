@@ -49,7 +49,7 @@
                     <?php $data = json_decode(Firebase::get('/room/messages/'.$p->id,['print'=> 'pretty']), 1); ?>
                     @if(is_array($data) || is_object($data))
                         @foreach(($data) as $key => $val) 
-                            {{ $val['message'] }} 
+                            {{!! $val['senderId'].": ".$val["message"] !!}}
                         @endforeach
                     @endif
                 </td>
