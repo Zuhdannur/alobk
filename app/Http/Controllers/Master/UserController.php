@@ -150,7 +150,7 @@ class UserController extends Controller {
         $insert->save();
 
         if($request->role == 'guru' || $request->role == 'siswa') {
-            $this->createUserInFirebase($request);
+            $this->createUserInFirebase($request, $insert->id);
         }
 
         return Response::json([
@@ -160,12 +160,12 @@ class UserController extends Controller {
         ], 200);
     }
 
-    private function createUserInFirebase(Request $request) {
+    private function createUserInFirebase(Request $request, $id) {
         // Jika role nya siswa atau guru, then create firebase account. In order todo chat....
         //if($request->role == 'siswa' || $request->role == 'guru') {
             $data = [
                 'name' => $request->name,
-                'id' => $insert->id,
+                'id' => $id,
                 'username' => $request->username,
                 'role' => $request->role, 
                 'avatar' => $request->avatar,
