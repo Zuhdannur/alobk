@@ -43,6 +43,12 @@ class ScheduleController extends Controller
         }
 
         $insert->time = $request->time;
+        
+        //For daring only
+        if(!$request->has('time')) {
+            $insert->time = Carbon::now()->format('d, M Y: H:i');
+        }
+
         $insert->save();
 
         if ($insert) {
