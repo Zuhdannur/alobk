@@ -93,7 +93,7 @@ class ScheduleController extends Controller
         return Response::json($schedule, 200);
     }
 
-    public function accept($id) {
+    public function accept($id, Request $request) {
         $schedule = $this->schedule->find($id);
 
         if ($schedule->canceled != 0) {
@@ -136,7 +136,7 @@ class ScheduleController extends Controller
             'Y2QyMTVhMzMtOGVlOC00MjFiLThmNDctMTAzNzYwNDM2YWMy',
             'YzRiYzZlNjAtYmIwNC00MzJiLTk3NTYtNzBhNmU2ZTNjNDQx');
 
-        $getObject = $this->schedule->where('id', $update->id)->with('requester')->first();
+        $getObject = $this->schedule->where('id', $update->id)->with('consultant')->first();
 
         $scheduleInfo = $this->schedule->find($id);
 
@@ -159,7 +159,7 @@ class ScheduleController extends Controller
         }
 
         $client->sendNotificationToExternalUser(
-            "Perubahan waktu konseling dengan id #$update->id disetujui oleh siswa.",
+            "Perubahan waktu konseling dengan pengajuan id #$update->id disetujui oleh siswa.",
             $schedule->consultant_id,
             $url = null,
             $data = [
@@ -176,6 +176,66 @@ class ScheduleController extends Controller
         return Response::json([
             'data' => $update,
             'message' => 'Pengajuan berhasil disetujui.'
+        ], 200);
+    }
+
+    public function cancelRequestSchedule($id) {
+        $schedule = $this->schedule->find($id);
+
+        if ($schedule->expired == 1) {
+            return Response::json([
+                'message' => 'Pengajuan telah kedaluwarsa.'
+            ], 201);
+        }
+
+        if ($schedule->canceled == 1) {
+            return Response::json([
+                'message' => 'Pengajuan ini telah dibatalkan.'
+            ], 201);
+        }
+
+        if ($schedule->active == 1) {
+            return Response::json([
+                'message' => 'Pengajuan ini telah diterima oleh guru.'
+            ], 201);
+        }
+
+        if ($schedule->start == 1) {
+            return Response::json([
+                'message' => 'Pengajuan ini telah dimulai.'
+            ], 201);
+        }
+
+        $cancel = $this->schedule->find($id)->update(['canceled' => 1]);
+
+        $client = new OneSignalClient(
+            'e90e8fc3-6a1f-47d1-a834-d5579ff2dfee',
+            'Y2QyMTVhMzMtOGVlOC00MjFiLThmNDctMTAzNzYwNDM2YWMy',
+            'YzRiYzZlNjAtYmIwNC00MzJiLTk3NTYtNzBhNmU2ZTNjNDQx');
+
+        $client->sendNotificationToExternalUser(
+            "Permintaan perubahan waktu konseling dibatalkan oleh siswa.",
+            $schedule->consultant_id,
+            $url = null,
+            $data = [
+                "id" => $update->id,
+                "data" => $getObject,
+                "type" => "schedule",
+                "detail" => "guru_receive_cancel_request"
+            ],
+            $buttons = null,
+            $schedule = null,
+            $headings = "Permintaan perubahan waktu konseling dibatalkan"
+        );
+
+        if (!$cancel) {
+            return Response::json([
+                'message' => 'Gagal membatalkan pengajuan.'
+            ], 201);
+        }
+
+        return Response::json([
+            'message' => 'Berhasil membatalkan pengajuan.'
         ], 200);
     }
 

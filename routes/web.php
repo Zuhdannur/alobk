@@ -157,6 +157,7 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
                 $router->post('schedule/cancel/{id}', 'ScheduleController@cancel');
 //                $router->get('schedule', 'ScheduleController@all');
                 $router->post('schedule/accept/{id}', 'ScheduleController@accept');
+                $router->post('schedule/request/cancel/{id}', 'ScheduleController@cancelRequestSchedule');
                 $router->put('schedule/{id}', 'ScheduleController@put');
                 $router->put('schedule/finish/{id}', 'ScheduleController@finish');
                 $router->get('riwayat', 'ScheduleController@riwayat');
