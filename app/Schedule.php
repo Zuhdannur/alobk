@@ -29,7 +29,7 @@ class Schedule extends Model
         'time'
     ];
 
-    protected $appends = ['readable_created_at', 'readable_updated_at', 'readable_time'];
+    protected $appends = ['readable_created_at', 'readable_updated_at', 'readable_time', 'readable_date', 'readable_hours'];
 
     protected $table = "schedule";
 
@@ -80,6 +80,16 @@ class Schedule extends Model
     {
        return \Carbon\Carbon::parse($this->attributes['updated_at'])
            ->diffForHumans();
-   }
+    }
+
+    public function getReadableDate() {
+        return \Carbon\Carbon::parse($this->attributes['time'])
+            ->format('d, M Y');
+    }
+
+    public function getReadableHours() {
+        return \Carbon\Carbon::parse($this->attributes['time'])
+            ->format('H:i');
+    }
 
 }

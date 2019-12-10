@@ -42,6 +42,9 @@ class ScheduleController extends Controller
             }
         }
 
+        //Jika pengajuan daring
+        //Memakai waktu dari server, diharamkan menggunakan waktu dari client
+        //thats why this statement alive
         if(!$request->has('time')) {
             $insert->time = Carbon::now();
         } else {
