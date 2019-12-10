@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Supervisor;
 
 use App\Diary;
 use App\Schedule;
+use App\User;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
