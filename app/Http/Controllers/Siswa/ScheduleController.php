@@ -235,6 +235,7 @@ class ScheduleController extends Controller
         }
 
         return Response::json([
+            'id' => $id,
             'message' => 'Berhasil membatalkan pengajuan.'
         ], 200);
     }
