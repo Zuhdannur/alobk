@@ -42,7 +42,9 @@ class ScheduleController extends Controller
             }
         }
 
-        if($request->has('time')) {
+        if(!$request->has('time')) {
+            $insert->time = Carbon::now();
+        } else {
             $insert->time = $request->time;
         }
 
