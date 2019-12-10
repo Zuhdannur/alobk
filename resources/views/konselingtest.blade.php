@@ -46,7 +46,7 @@
 				<td>{{$p->desc}}</td>
                 <td>{{$p->type_schedule == 'direct' ? 'Lokasi: '.$p->location."; Waktu: ".$p->time:'-'}}</td>
                 <td>
-                    @if(is_array(Firebase::get('/room/messages/'.$p->id,['print'=> 'pretty'])) || is_object(Firebase::get('/room/messages/'.$p->id,['print'=> 'pretty'])))
+                    @if(is_array(json_decode(Firebase::get('/room/messages/'.$p->id,['print'=> 'pretty']), 1)) || is_object(json_decode(Firebase::get('/room/messages/'.$p->id,['print'=> 'pretty']), 1))
                         @foreach(json_decode(Firebase::get('/room/messages/'.$p->id,['print'=> 'pretty']), 1) as $key => $val) 
                             {{ $val['message'] }} 
                         @endforeach
