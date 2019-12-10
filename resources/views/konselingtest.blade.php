@@ -17,20 +17,20 @@
 	<table class='table table-bordered'>
 		<thead>
 			<tr>
-				<td rowspan="2">No</td>
-                <td colspan="2">Siswa</td>
-				<td colspan="2">Guru BK</td>
-				<td rowspan="2">Judul</td>
-				<td rowspan="2">Deskripsi masalah</td>
-                <td rowspan="2">Catatan Konseling</td>
-                <td rowspan="2">Komentar siswa</td>
-                <td rowspan="2">Rating siswa</td>
+				<th rowspan="2">No</th>
+                <th colspan="2">Siswa</th>
+				<th colspan="2">Guru BK</th>
+				<th rowspan="2">Judul</th>
+				<th rowspan="2">Deskripsi masalah</th>
+                <th rowspan="2">Catatan Konseling</th>
+                <th rowspan="2">Komentar siswa</th>
+                <th rowspan="2">Rating siswa</th>
             </tr>
             <tr>
-                <td>NIS</td>
-                <td>Nama</td>
-                <td>NIP</td>
-                <td>Nama</td>
+                <th>NIS</th>
+                <th>Nama</th>
+                <th>NIP</th>
+                <th>Nama</th>
             </tr>
 		</thead>
 		<tbody>
