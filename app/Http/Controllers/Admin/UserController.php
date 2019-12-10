@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Spatie\Activitylog\Models\Activity;
+use Firebase;
 
 class UserController extends Controller {
 
@@ -72,8 +73,12 @@ class UserController extends Controller {
 //
     public function remove($id)
     {
-        $data = $this->user->find($id)->delete();
-        if(!$data) {
+        $data = $this->user->find($id);
+        $delete = $data->delete();
+        if($data->role == 'siswa' || $data->role == 'guru') {
+            $this->removeFirebaseUser($id);
+        }
+        if(!$delete) {
             return Response::json([
                 "message" => "Gagal menghapus akun.",
             ], 201);
@@ -82,6 +87,11 @@ class UserController extends Controller {
             "message" => "Berhasil menghapus akun.",
         ], 200);
     }
+
+    private function removeFirebaseUser($id) {
+        Firebase::delete('/users/'.$id);
+    }
+
 //
 //    public function getAdmin(Request $request) {
 //        $user = $this->user->where('role', 'admin')->with('sekolahOnlyName')->paginate($request->per_page);
