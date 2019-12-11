@@ -246,6 +246,7 @@ class ScheduleController extends Controller
             'updated_new_time' => $request->new,
             'updated_old_time' => $request->old
         ]);
+        return Response::json(['message' => 'Berhasil update'], 200);
     }
 
     public function insertHelper($id, Request $request) {
