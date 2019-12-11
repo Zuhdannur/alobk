@@ -378,7 +378,9 @@ class ScheduleController extends Controller
             $query->where('rating', 1);
         })->count();
 
-        $calculate = (5*$total_five + 4*$total_four + 3*$total_three + 2*$total_two + 1*$total_one) / ($total_five+$total_four+$total_three+$total_two+$total_one);
+        $divideBy = ($total_five+$total_four+$total_three+$total_two+$total_one);
+
+        $calculate = $divideBy == 0 ? 0 : (5*$total_five + 4*$total_four + 3*$total_three + 2*$total_two + 1*$total_one) / $divideBy;
 
         $total_schedule = $total_five+$total_four+$total_three+$total_two+$total_one;
 
