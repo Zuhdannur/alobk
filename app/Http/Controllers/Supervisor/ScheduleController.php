@@ -212,29 +212,4 @@ class ScheduleController extends Controller
         return $pdf->download("$fileName.pdf");
     }
 
-    public function testDownload() {
-        $schedule = Schedule::where('finish', 1)
-        ->whereHas('requester', function($query) {
-            $query->where('sekolah_id', 2);
-        })->whereHas('consultant', function($query) {
-            $query->where('sekolah_id', 2);
-        })->with('consultant', 'requester','feedback')->get();
-
-        $timeGenerated = Carbon::now()->format('d/m/Y H:i:s');
-        $timeForFileGenerate = Carbon::now()->format('dmYHs');
-        $namaSekolah = "SMAN 8 Bandung";
-
-        $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])
-        ->loadView('konselingtest', 
-            [
-                'konseling' => $schedule,
-                'time' => $timeGenerated,
-                'nama_sekolah' => $namaSekolah
-            ]
-        )->setPaper('a2','portrait');
-        $fileName = 'rekap_konseling_'.strtolower(str_replace(' ','_',$namaSekolah))."_".$timeForFileGenerate;
-        // return Response::download($file);
-        return $pdf->download("$fileName.pdf");
-    }
-
 }
