@@ -37,6 +37,7 @@
 						<th class="align-middle">Judul</th>
 						<th class="align-middle">Deskripsi masalah</th>
 						<th class="align-middle">Catatan Konseling</th>
+						<th class="align-middle">Mulai Konseling</th>
 						<th class="text-center align-middle">Komentar siswa</th>
 						<th class="text-center align-middle">Rating siswa</th>
 					</tr>
@@ -55,7 +56,7 @@
                 <td>
                     <?php $data = json_decode(Firebase::get('/room/messages/'.$p->id,['print'=> 'pretty']), 1); ?>
                     @if($p->type_schedule == 'direct')
-                        {{'Lokasi: '.$p->location."; Waktu: ".$p->time}}
+                        {{'Lokasi: '.$p->location}}
                     @else
                         @if(is_array($data) || is_object($data))
                             @foreach(($data) as $key => $val) 
@@ -63,7 +64,8 @@
                             @endforeach
                         @endif
                     @endif    
-                </td>
+				</td>
+				<td>{{ $p->readable_time }}</td>
 				<td>{{ !empty($p->feedback) ? $p->feedback->komentar:'-' }}</td>
 				<td>{{ !empty($p->feedback) ? $p->feedback->rating."/5":'-' }}</td>
 			</tr>

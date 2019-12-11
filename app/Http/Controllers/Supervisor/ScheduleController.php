@@ -190,6 +190,7 @@ class ScheduleController extends Controller
     public function generateScheduleTest() {
         $schedule = Schedule::where('finish', 1)->with('consultant', 'requester','feedback')->get();
         $timeGenerated = Carbon::now()->format('d/m/Y H:i:s');
+        $timeForFileGenerate = Carbon::now()->format('dmYHs');
         $namaSekolah = "SMAN 8 Bandung";
 
         $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])
@@ -200,7 +201,7 @@ class ScheduleController extends Controller
                 'nama_sekolah' => $namaSekolah
             ]
         )->setPaper('a2','portrait');
-        $fileName = 'rekap_konseling_';
+        $fileName = 'rekap_konseling_'.strtolower(str_replace(' ','_',$namaSekolah))."_".$timeForFileGenerate;
         // return Response::download($file);
         return $pdf->stream($fileName. '.pdf'); 
     }
