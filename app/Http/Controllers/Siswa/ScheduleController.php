@@ -533,9 +533,9 @@ class ScheduleController extends Controller
             ->orWhere('canceled', 1)
             ->orWhere('finish', 1)
             ->orderBy('updated_at', 'desc')
-            ->where('requester_id', Auth::user()->id)
             ->with('consultant')
-            ->with('feedback');
+            ->with('feedback')
+            ->where('requester_id', Auth::user()->id);
 
         $schedule = $schedule
             ->paginate($request->per_page);
