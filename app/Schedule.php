@@ -29,7 +29,7 @@ class Schedule extends Model
         'time'
     ];
 
-    // protected $appends = ['readable_created_at', 'readable_updated_at', 'readable_time', 'readable_date', 'readable_hours'];
+    protected $appends = ['readable_created_at', 'readable_updated_at', 'readable_time', 'readable_date', 'readable_hours'];
 
     protected $table = "schedule";
 
@@ -64,42 +64,42 @@ class Schedule extends Model
     //     return \Carbon\Carbon::parse($this->attributes['time'])
     //         ->format('d, M Y: H:i');
     // }updated_new_time updated_old_time
+    
+    public function getUpdatedNewTimeAttribute() {
+        return $this->attributes['updated_new_time'] == null ? null : \Carbon\Carbon::parse($this->attributes['updated_new_time'])
+        ->format('d, M Y: H:i');
+    }
 
-    // public function getUpdatedNewTimeAttribute() {
-    //     return $this->attributes['updated_new_time'] == null ? null : \Carbon\Carbon::parse($this->attributes['updated_new_time'])
-    //     ->format('d, M Y: H:i');
-    // }
+    public function getUpdatedOldTimeAttribute() {
+        return $this->attributes['updated_old_time'] == null ? null : \Carbon\Carbon::parse($this->attributes['updated_old_time'])
+        ->format('d, M Y: H:i');
+    }
 
-    // public function getUpdatedOldTimeAttribute() {
-    //     return $this->attributes['updated_old_time'] == null ? null : \Carbon\Carbon::parse($this->attributes['updated_old_time'])
-    //     ->format('d, M Y: H:i');
-    // }
+    public function getReadableCreatedAtAttribute()
+    {
+        return \Carbon\Carbon::parse($this->attributes['created_at'])
+            ->diffForHumans();
+    }
 
-    // public function getReadableCreatedAtAttribute()
-    // {
-    //     return \Carbon\Carbon::parse($this->attributes['created_at'])
-    //         ->diffForHumans();
-    // }
+    public function getReadableTimeAttribute() {
+        return \Carbon\Carbon::parse($this->attributes['time'])
+            ->format('d, M Y: H:i');
+    }
 
-    // public function getReadableTimeAttribute() {
-    //     return \Carbon\Carbon::parse($this->attributes['time'])
-    //         ->format('d, M Y: H:i');
-    // }
+    public function getReadableUpdatedAtAttribute()
+    {
+       return \Carbon\Carbon::parse($this->attributes['updated_at'])
+           ->diffForHumans();
+    }
 
-    // public function getReadableUpdatedAtAttribute()
-    // {
-    //    return \Carbon\Carbon::parse($this->attributes['updated_at'])
-    //        ->diffForHumans();
-    // }
+    public function getReadableDateAttribute() {
+        return \Carbon\Carbon::parse($this->attributes['time'])
+            ->format('d, M Y');
+    }
 
-    // public function getReadableDateAttribute() {
-    //     return \Carbon\Carbon::parse($this->attributes['time'])
-    //         ->format('d, M Y');
-    // }
-
-    // public function getReadableHoursAttribute() {
-    //     return \Carbon\Carbon::parse($this->attributes['time'])
-    //         ->format('H:i');
-    // }
+    public function getReadableHoursAttribute() {
+        return \Carbon\Carbon::parse($this->attributes['time'])
+            ->format('H:i');
+    }
 
 }
