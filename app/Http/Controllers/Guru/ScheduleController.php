@@ -357,22 +357,23 @@ class ScheduleController extends Controller
     }
 
     public function getScheduleFinished() {
-        $totalObrolan = $this->schedule->where('finish', 1)->where('consultant_id', Auth::user()->id)->where('type_schedule', '!=' , 'direct')->count();
-        $totalDirect = $this->schedule->where('finish', 1)->where('consultant_id', Auth::user()->id)->where('type_schedule', 'direct')->count();
+        $schedule = Schedule::where('finish', 1)->where('consultant_id', Auth::user()->id);
+        $totalObrolan = $$schedule->where('type_schedule', '!=' , 'direct')->count();
+        $totalDirect = $schedule->where('type_schedule', 'direct')->count();
 
-        $total_five = $this->schedule->whereHas('feedback', function($query) {
+        $total_five = $schedule->whereHas('feedback', function($query) {
             $query->where('rating', 5);
         })->count();
-        $total_four = $this->schedule->whereHas('feedback', function($query) {
+        $total_four = $schedule->whereHas('feedback', function($query) {
             $query->where('rating', 4);
         })->count();
-        $total_three = $this->schedule->whereHas('feedback', function($query) {
+        $total_three = $schedule->whereHas('feedback', function($query) {
             $query->where('rating', 3);
         })->count();
-        $total_two = $this->schedule->whereHas('feedback', function($query) {
+        $total_two = $schedule->whereHas('feedback', function($query) {
             $query->where('rating', 2);
         })->count();
-        $total_one = $this->schedule->whereHas('feedback', function($query) {
+        $total_one = $schedule->whereHas('feedback', function($query) {
             $query->where('rating', 1);
         })->count();
 
