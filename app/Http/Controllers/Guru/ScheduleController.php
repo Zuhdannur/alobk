@@ -283,13 +283,17 @@ class ScheduleController extends Controller
 
     public function riwayat(Request $request)
     {
-        $schedule = $this->schedule
-            // ->where('canceled', 1)
-            ->where('finish', 1)
+        $schedule = $this->schedule;
+        $q = $schedule->where(function($query) {
+            $query->where('consultant_id', Auth::user()->id);
+        })->where(function($query) {
+            $query->where('canceled', 1)
+                ->orWhere('finish', 1);
+        })->with('requester')
+        ->with('feedback');
+
+        $schedule = $q
             ->orderBy('updated_at', 'desc')
-            ->where('consultant_id', Auth::user()->id)
-            ->with('requester')
-            ->with('feedback')
             ->paginate($request->per_page);
 
         return Response::json($schedule, 200);
