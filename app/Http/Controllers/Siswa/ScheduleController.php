@@ -236,6 +236,11 @@ class ScheduleController extends Controller
         ], 200);
     }
 
+    public function delete($id) {
+        $delete = $this->schedule->find($id)->delete();
+        return Response::json(['message' => 'Berhasil menghapus'], 200);
+    }
+
     private function isLessThanFiveMinutes($time)
     {
         if (Carbon::parse($time)->lessThanOrEqualTo(Carbon::now())) {
