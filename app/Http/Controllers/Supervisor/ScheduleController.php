@@ -209,7 +209,7 @@ class ScheduleController extends Controller
         )->setPaper('a2','portrait');
         $fileName = 'rekap_konseling_'.strtolower(str_replace(' ','_',$namaSekolah))."_".$timeForFileGenerate;
         // return Response::download($file);
-        return $pdf->stream($fileName. '.pdf'); 
+        return $pdf->download($fileName. '.pdf'); 
     }
 
 }
