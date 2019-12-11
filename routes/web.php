@@ -40,6 +40,8 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
     $router->get('schedule/all', 'SchedulesController@generate');
     $router->post('test', 'SchedulesController@testFirebase');
 
+    $router->get('schedule/generate/test', 'Supervisor\ScheduleController@testDownload');
+
     /**
     * Routes for resource sekolah
     */

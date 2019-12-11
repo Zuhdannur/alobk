@@ -212,4 +212,8 @@ class ScheduleController extends Controller
         return $pdf->download("$fileName.pdf");
     }
 
+    public function testDownload() {
+        return response()->download(public_path()."/img/logo.png");
+    }
+
 }
