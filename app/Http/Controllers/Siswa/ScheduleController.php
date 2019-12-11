@@ -188,11 +188,6 @@ class ScheduleController extends Controller
             ], 201);
         }
 
-        if ($schedule->canceled == 1) {
-            return Response::json([
-                'message' => 'Pengajuan ini telah dibatalkan.'
-            ], 201);
-        }
 
         if ($schedule->active == 1) {
             return Response::json([
