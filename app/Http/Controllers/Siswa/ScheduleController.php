@@ -241,6 +241,13 @@ class ScheduleController extends Controller
         return Response::json(['message' => 'Berhasil menghapus'], 200);
     }
 
+    public function updateHelper($id, Request $request) {
+        $schedule = $this->schedule->find($id)->update([
+            'updated_new_time' => $request->new,
+            'updated_old_time' => $request->old
+        ]);
+    }
+
     public function insertHelper($id, Request $request) {
         $delete = $this->schedule->find($id)->insert(
             
