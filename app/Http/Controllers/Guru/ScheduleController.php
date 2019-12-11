@@ -285,7 +285,7 @@ class ScheduleController extends Controller
     {
         $schedule = $this->schedule
             ->where('canceled', 1)
-            ->where('finish', 1)
+            ->orWhere('finish', 1)
             ->orderBy('updated_at', 'desc')
             ->where('consultant_id', Auth::user()->id)
             ->with('requester')
