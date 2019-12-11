@@ -136,7 +136,7 @@ class ScheduleController extends Controller
             'Y2QyMTVhMzMtOGVlOC00MjFiLThmNDctMTAzNzYwNDM2YWMy',
             'YzRiYzZlNjAtYmIwNC00MzJiLTk3NTYtNzBhNmU2ZTNjNDQx');
 
-        $getObject = $this->schedule->where('id', $update->id)->with('consultant')->first();
+        $getObject = $this->schedule->where('id', $update->id)->with('requester')->first();
 
         $scheduleInfo = $this->schedule->find($id);
 
