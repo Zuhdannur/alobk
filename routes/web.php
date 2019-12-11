@@ -36,7 +36,6 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
 
     $router->get('diary/generate', 'Supervisor\ScheduleController@generateDiary');
     $router->get('schedule/generate', 'Supervisor\ScheduleController@generateSchedule');
-    $router->get('schedule/generate/test', 'Supervisor\ScheduleController@generateScheduleTest');
 
     $router->get('schedule/all', 'SchedulesController@generate');
     $router->post('test', 'SchedulesController@testFirebase');
@@ -113,6 +112,7 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
                 $router->get('schedule/count', 'ScheduleController@getTotalSchedule');
                 $router->get('schedule/count/today', 'ScheduleController@getTotalToday');
                 $router->get('schedule/recent', 'ScheduleController@lastFeed');
+                $router->get('schedule/generate', 'ScheduleController@generateScheduleTest');
             });
 
         });

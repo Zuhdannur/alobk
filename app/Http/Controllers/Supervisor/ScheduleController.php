@@ -188,10 +188,16 @@ class ScheduleController extends Controller
     }
 
     public function generateScheduleTest() {
-        $schedule = Schedule::where('finish', 1)->with('consultant', 'requester','feedback')->get();
+        $schedule = Schedule::where('finish', 1)
+        ->whereHas('requester', function($query) {
+            $query->where('sekolah_id', Auth::user()->sekolah_id);
+        })->whereHas('consultant', function($query) {
+            $query->where('sekolah_id', Auth::user()->sekolah_id);
+        })->with('consultant', 'requester','feedback')->get();
+
         $timeGenerated = Carbon::now()->format('d/m/Y H:i:s');
         $timeForFileGenerate = Carbon::now()->format('dmYHs');
-        $namaSekolah = "SMAN 8 Bandung";
+        $namaSekolah = Auth::user()->with('sekolah')->nama_sekolah;
 
         $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])
         ->loadView('konselingtest', 

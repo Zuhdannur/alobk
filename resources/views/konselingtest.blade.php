@@ -27,7 +27,7 @@
 						<th rowspan="2" class="align-middle">No</th>
 						<th colspan="2" class="text-center">Siswa</th>
 						<th colspan="2" class="text-center">Guru BK</th>
-						<th colspan="5" class="text-center">Konseling</th>
+						<th colspan="6" class="text-center">Konseling</th>
 					</tr>
 					<tr>
 						<th class="text-center align-middle">NIS</th>
