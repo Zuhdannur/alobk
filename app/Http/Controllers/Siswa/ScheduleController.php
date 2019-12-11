@@ -320,8 +320,11 @@ class ScheduleController extends Controller
         ], 200);
     }
 
-//    public function all(Request $request)
-//    {
+   public function all(Request $request)
+   {
+       $schedule = $this->schedule->all();
+       return Response::json($schedule, 200);
+   }
 //        $data = $this->schedule->orderBy('created_at', 'desc')->whereHas('requester', function ($query) {
 //            $query->where('role', 'siswa')->where('sekolah_id', Auth::user()->sekolah_id);
 //        })->with('consultant');
