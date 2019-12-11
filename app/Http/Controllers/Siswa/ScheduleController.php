@@ -219,7 +219,7 @@ class ScheduleController extends Controller
             $url = null,
             $data = [
                 "id" => $cancel->id,
-                "data" => $getObject,
+                "data" => $cancel,
                 "type" => "schedule",
                 "detail" => "guru_receive_cancel_request"
             ],
