@@ -202,7 +202,7 @@ class ScheduleController extends Controller
         }
 
         $cancel = tap($schedule)->update(['canceled' => 1]);
-        $getNewOne = $this->schedule->find($id)->with('requester')->first();
+        $getObject = $this->schedule->where('id', $update->id)->with('requester')->first();
 
         $client = new OneSignalClient(
             'e90e8fc3-6a1f-47d1-a834-d5579ff2dfee',
@@ -215,7 +215,7 @@ class ScheduleController extends Controller
             $url = null,
             $data = [
                 "id" => $cancel->id,
-                "data" => $getNewOne,
+                "data" => $getObject,
                 "type" => "schedule",
                 "detail" => "guru_receive_cancel_request"
             ],
