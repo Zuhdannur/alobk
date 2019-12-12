@@ -191,8 +191,8 @@ class ScheduleController extends Controller
         ->loadView('konselingtest', 
             [
                 'konseling' => $schedule,
-                'time' => $timeGenerated,
-                'nama_sekolah' => $namaSekolah
+                'time' => $timeGenerated
+                // 'nama_sekolah' => $namaSekolah
             ]
         )->setPaper('a2','portrait');
         $fileName = 'rekap_konseling_'.strtolower(str_replace(' ','_',$namaSekolah))."_".$timeForFileGenerate;
