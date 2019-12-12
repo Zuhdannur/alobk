@@ -185,18 +185,18 @@ class ScheduleController extends Controller
 
         $timeGenerated = Carbon::now()->format('d/m/Y H:i:s');
         $timeForFileGenerate = Carbon::now()->format('dmYHs');
-        // $namaSekolah = Sekolah::find(Auth::user()->sekolah_id)->first()->nama_sekolah;
+        $namaSekolah = Sekolah::find(Auth::user()->sekolah_id)->first()->nama_sekolah;
 
         $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])
         ->loadView('konselingtest', 
             [
                 'konseling' => $schedule,
-                'time' => $timeGenerated
-                // 'nama_sekolah' => $namaSekolah
+                'time' => $timeGenerated,
+                'nama_sekolah' => $namaSekolah
             ]
         )->setPaper('a2','portrait');
-        // $fileName = 'rekap_konseling_'.strtolower(sstr_replace(' ','_',$namaSekolah))."_".$timeForFileGenerate;
-        return $pdf->download("rekap.pdf");
+        $fileName = 'rekap_konseling_'.strtolower(str_replace(' ','_',$namaSekolah))."_".$timeForFileGenerate;
+        return $pdf->download("$fileName.pdf");
     }
 
 }
