@@ -17,7 +17,7 @@
 		<div class="col-md-10 align-self-center">
 			<p class="h3">Rekap Konseling</p>
 			<p class="h6 text-muted">{{ $time }}</p>
-			<p class="h6 text-muted">{{ $nama_sekolah }}</p>
+			{{-- <p class="h6 text-muted">{{ $nama_sekolah }}</p> --}}
 		</div>
 	</div>
  
