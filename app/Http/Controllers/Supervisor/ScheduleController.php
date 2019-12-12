@@ -195,7 +195,7 @@ class ScheduleController extends Controller
                 // 'nama_sekolah' => $namaSekolah
             ]
         )->setPaper('a2','portrait');
-        $fileName = 'rekap_konseling_'.strtolower(str_replace(' ','_',$namaSekolah))."_".$timeForFileGenerate;
+        // $fileName = 'rekap_konseling_'.strtolower(sstr_replace(' ','_',$namaSekolah))."_".$timeForFileGenerate;
         return $pdf->download("rekap.pdf");
     }
 
