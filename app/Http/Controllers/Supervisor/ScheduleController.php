@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Supervisor;
 use App\Diary;
 use App\Schedule;
 use App\User;
+use App\Sekolah;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -197,7 +198,7 @@ class ScheduleController extends Controller
 
         $timeGenerated = Carbon::now()->format('d/m/Y H:i:s');
         $timeForFileGenerate = Carbon::now()->format('dmYHs');
-        $namaSekolah = User::with('sekolah')->find(Auth::user()->id)->nama_sekolah;
+        $namaSekolah = Sekolah::find(Auth::user()->sekolah_id)->nama_sekolah;
 
         $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])
         ->loadView('konselingtest', 
