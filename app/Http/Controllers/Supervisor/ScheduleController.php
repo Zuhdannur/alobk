@@ -168,7 +168,9 @@ class ScheduleController extends Controller
     public function generateDiary() {
         $namaSekolah = Sekolah::find(Auth::user()->sekolah_id)->first()->nama_sekolah;
 
-        $diary = Diary::with('user')->get();
+        $diary = Diary::whereHas('user', function($query) {
+            $query->where('sekolah_id', Auth::user()->sekolah_id);
+        })->get();
         $pdf = PDF::loadView('diari_pdf', ['diari' => $diary])->setPaper('a4','portrait');
         $fileName = 'rekap_diari_'.$namaSekolah."";
         // return Response::download($file);
