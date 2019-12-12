@@ -166,26 +166,11 @@ class ScheduleController extends Controller
     }
 
     public function generateDiary() {
-        // $diary = Diary::withAndWhereHas('user', function($query) {
-        //     $query->where('sekolah_id', Auth::user()->sekolah_id);
-        // });
-
-        // $diary = Diary::withAndWhereHas('user', function($query) {
-        //     $query->where('sekolah_id', Auth::user()->sekolah_id);
-        // });
         $diary = Diary::with('user')->get();
         $pdf = PDF::loadView('diari_pdf', ['diari' => $diary])->setPaper('a4','portrait');
         $fileName = 'rekap_diari_'.$namaSekolah."";
         // return Response::download($file);
-        return $pdf->stream($fileName. '.pdf'); 
-    }
-
-    public function generateSchedule() {
-        $schedule = Schedule::where('finish', 1)->with('consultant', 'requester','feedback')->get();
-        $pdf = PDF::loadView('konseling', ['konseling' => $schedule])->setPaper('a2','portrait');
-        $fileName = 'testing2';
-        // return Response::download($file);
-        return $pdf->stream($fileName. '.pdf'); 
+        return $pdf->download($fileName. '.pdf'); 
     }
 
     public function generateScheduleTest() {
@@ -209,7 +194,6 @@ class ScheduleController extends Controller
             ]
         )->setPaper('a2','portrait');
         $fileName = 'rekap_konseling_'.strtolower(str_replace(' ','_',$namaSekolah))."_".$timeForFileGenerate;
-        // return Response::download($file);
         return $pdf->download("$fileName.pdf");
     }
 

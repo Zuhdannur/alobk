@@ -18,10 +18,12 @@
 		<thead>
 			<tr>
 				<th>No</th>
+				<th>NIS</th>
 				<th>Nama</th>
-				<th>NIP/NIS</th>
-				<th>Judul diari</th>
-				<th>Deskripsi diari</th>
+				<th>Judul</th>
+				<th>Deskripsi</th>
+				<th>Tanggal</th>
+				<th>Dibuat</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -29,10 +31,12 @@
 			@foreach($diari as $p)
 			<tr>
 				<td>{{ $i++ }}</td>
-				<td>{{$p->user->name}}</td>
 				<td>{{$p->user_id}}</td>
+				<td>{{$p->user->name}}</td>
 				<td>{{$p->title}}</td>
 				<td>{{$p->body}}</td>
+				<td>{{$p->tgl}}</td>
+				<td>{{$p->created_at}}</td>
 			</tr>
 			@endforeach
 		</tbody>
