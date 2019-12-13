@@ -40,6 +40,11 @@ class Diary extends Model
             ->diffForHumans();
     }
 
+    public function dateCreatedAt() {
+        return \Carbon\Carbon::parse($this->attributes['created_at'])
+            ->translatedFormat('l, d F Y, H:m');
+    }
+
     public function getTglAttribute()
     {
         return \Carbon\Carbon::parse($this->attributes['tgl'])->translatedFormat('l, d F Y');

@@ -37,7 +37,7 @@
 				<td>{{$p->title}}</td>
 				<td>{{$p->body}}</td>
 				<td>{{$p->tgl}}</td>
-				<td>{{ \Carbon\Carbon::parse($p->created_at)->translatedFormat('l, d F Y') }}</td>
+				<td>{{ $p->dateCreatedAt() }}</td>
 			</tr>
 			@endforeach
 		</tbody>
