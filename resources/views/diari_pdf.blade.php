@@ -11,9 +11,10 @@
 		}
 	</style>
 	<center>
-		<h5>Rekap diari</h4>
+		<p class="h3">Rekap Diari</p>
+		<p class="h6 text-muted">{{ $time }}</p>
+		<p class="h6 text-muted">{{ $nama_sekolah }}</p>
 	</center>
- 
 	<table class='table table-bordered'>
 		<thead>
 			<tr>
@@ -36,11 +37,10 @@
 				<td>{{$p->title}}</td>
 				<td>{{$p->body}}</td>
 				<td>{{$p->tgl}}</td>
-				<td>{{$p->created_at}}</td>
+				<td>{{ \Carbon\Carbon::parse($p->created_at)->translatedFormat('l, d F Y'); }}</td>
 			</tr>
 			@endforeach
 		</tbody>
 	</table>
- 
 </body>
 </html>

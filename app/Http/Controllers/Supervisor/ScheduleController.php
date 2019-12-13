@@ -166,15 +166,26 @@ class ScheduleController extends Controller
     }
 
     public function generateDiary() {
-        $namaSekolah = Sekolah::find(Auth::user()->sekolah_id)->first()->nama_sekolah;
-
         $diary = Diary::whereHas('user', function($query) {
             $query->where('sekolah_id', Auth::user()->sekolah_id);
         })->get();
-        $pdf = PDF::loadView('diari_pdf', ['diari' => $diary])->setPaper('a4','portrait');
+
+        $timeGenerated = Carbon::now()->format('d/m/Y H:i:s');
+        $timeForFileGenerate = Carbon::now()->format('dmYHs');
+        $namaSekolah = Sekolah::where('id', Auth::user()->sekolah_id)->first()->nama_sekolah;
+
+        $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])
+        ->loadView('diari_pdf', 
+            [
+                'diari' => $diary,
+                'time' => $timeGenerated,
+                'nama_sekolah' => $namaSekolah
+            ]
+        )->setPaper('a4','portrait');
+
         $fileName = 'rekap_diari_'.$namaSekolah."";
         // return Response::download($file);
-        return $pdf->download($fileName. '.pdf'); 
+        return $pdf->download("$fileName.pdf");
     }
 
     public function generateScheduleTest() {

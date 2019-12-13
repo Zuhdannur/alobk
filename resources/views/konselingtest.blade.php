@@ -10,17 +10,11 @@
 			font-size: 9pt;
 		}
 	</style>
-	<div class="row mt-2 mb-3">
-		<div class="col-md-2 text-center">
-			{{-- <img class="" src="{{ public_path()."\img\logo.png" }}" width="150px" height="150px"> --}}
-		</div>
-		<div class="col-md-10 align-self-center">
-			<p class="h3">Rekap Konseling</p>
-			<p class="h6 text-muted">{{ $time }}</p>
-			<p class="h6 text-muted">{{ $nama_sekolah }}</p>
-		</div>
-	</div>
- 
+	<center>
+		<p class="h3">Rekap Konseling</p>
+		<p class="h6 text-muted">{{ $time }}</p>
+		<p class="h6 text-muted">{{ $nama_sekolah }}</p>
+	</center>
 	<table class='table table-bordered'>
 			<thead>
 					<tr>
