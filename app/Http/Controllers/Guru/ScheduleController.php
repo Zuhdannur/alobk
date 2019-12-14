@@ -389,7 +389,7 @@ class ScheduleController extends Controller
             'total_direct' => $totalDirect,
             'calculate' => number_format($calculate, 2, '.', ''),
             'total' => $total_schedule,
-            'finish' => $data
+            'finish' => $data->count()
         ], 200);
     }
 
