@@ -359,22 +359,22 @@ class ScheduleController extends Controller
     public function getScheduleFinished() {
         $data = Schedule::where('finish', 1)->where('consultant_id', Auth::user()->id);
 
-        $totalObrolan = $data->where('type_schedule', '!=' , 'direct')->count();
-        $totalDirect = $data->where('type_schedule', 'direct')->count();
+        $totalObrolan = Schedule::where('finish', 1)->where('consultant_id', Auth::user()->id)->where('type_schedule', '!=' , 'direct')->count();
+        $totalDirect = Schedule::where('finish', 1)->where('consultant_id', Auth::user()->id)->where('type_schedule', 'direct')->count();
 
-        $total_five = $data->whereHas('feedback', function($query) {
+        $total_five = Schedule::where('finish', 1)->where('consultant_id', Auth::user()->id)->whereHas('feedback', function($query) {
             $query->where('rating', 5);
         })->count();
-        $total_four = $data->whereHas('feedback', function($query) {
+        $total_four = Schedule::where('finish', 1)->where('consultant_id', Auth::user()->id)->whereHas('feedback', function($query) {
             $query->where('rating', 4);
         })->count();
-        $total_three = $data->whereHas('feedback', function($query) {
+        $total_three = Schedule::where('finish', 1)->where('consultant_id', Auth::user()->id)->whereHas('feedback', function($query) {
             $query->where('rating', 3);
         })->count();
-        $total_two = $data->whereHas('feedback', function($query) {
+        $total_two = Schedule::where('finish', 1)->where('consultant_id', Auth::user()->id)->whereHas('feedback', function($query) {
             $query->where('rating', 2);
         })->count();
-        $total_one = $data->whereHas('feedback', function($query) {
+        $total_one = Schedule::where('finish', 1)->where('consultant_id', Auth::user()->id)->whereHas('feedback', function($query) {
             $query->where('rating', 1);
         })->count();
 
@@ -388,8 +388,7 @@ class ScheduleController extends Controller
             'total_obrolan' => $totalObrolan,
             'total_direct' => $totalDirect,
             'calculate' => number_format($calculate, 2, '.', ''),
-            'total' => $total_schedule,
-            'finish' => $data->count()
+            'total' => $total_schedule
         ], 200);
     }
 
