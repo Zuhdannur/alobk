@@ -388,7 +388,8 @@ class ScheduleController extends Controller
             'total_obrolan' => $totalObrolan,
             'total_direct' => $totalDirect,
             'calculate' => number_format($calculate, 2, '.', ''),
-            'total' => $total_schedule
+            'total' => $total_schedule,
+            'finish' => $data
         ], 200);
     }
 
