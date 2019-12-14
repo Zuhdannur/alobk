@@ -12,9 +12,9 @@
 	</style>
 	<div class="row mt-2 mb-3">
 			<center>
-					<p class="h3">Rekap Diari</p>
-					<p class="h6 text-muted">{{ $time }}</p>
-					<p class="h6 text-muted">{{ $nama_sekolah }}</p>
+				<p class="h3">Rekap Diari</p>
+				<p class="h6 text-muted">{{ $time }}</p>
+				<p class="h6 text-muted">{{ $nama_sekolah }}</p>
 			</center>
 	</div>
 	<table class='table table-bordered'>

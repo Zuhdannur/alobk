@@ -357,7 +357,7 @@ class ScheduleController extends Controller
     }
 
     public function getScheduleFinished() {
-        $data = Schedule::where('finish')->where('finish', 1)->where('consultant_id', Auth::user()->id);
+        $data = Schedule::where('finish', 1)->where('consultant_id', Auth::user()->id);
 
         $totalObrolan = $data->where('type_schedule', '!=' , 'direct')->count();
         $totalDirect = $data->where('type_schedule', 'direct')->count();
