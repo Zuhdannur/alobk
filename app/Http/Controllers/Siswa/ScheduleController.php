@@ -34,7 +34,7 @@ class ScheduleController extends Controller
         $insert->type_schedule = $request->type_schedule;
         $insert->desc = $request->desc;
         $insert->location = $request->location;
-        if ($insert->type_schedule != 'daring') {
+        if ($insert->type_schedule != 'realtime') {
             if ($this->isLessThanFiveMinutes($request->time)) {
                 return Response::json([
                     'message' => 'Waktu tidak boleh masa lampau.'
@@ -112,7 +112,7 @@ class ScheduleController extends Controller
             ], 201);
         }
 
-        if($schedule->type_schedule == 'daring') {
+        if($schedule->type_schedule == 'realtime') {
             $update = tap($schedule)->update([
                 'active' => 1,
                 'start' => 1,
@@ -305,7 +305,7 @@ class ScheduleController extends Controller
             ], 201);
         }
 
-        if ($schedule->type_schedule != 'daring') {
+        if ($schedule->type_schedule != 'realtime') {
             if ($this->isLessThanFiveMinutes($request->time)) {
                 return Response::json([
                     'message' => 'Waktu tidak boleh masa lampau.'
@@ -340,48 +340,16 @@ class ScheduleController extends Controller
        $schedule = $this->schedule->all();
        return Response::json($schedule, 200);
    }
-//        $data = $this->schedule->orderBy('created_at', 'desc')->whereHas('requester', function ($query) {
-//            $query->where('role', 'siswa')->where('sekolah_id', Auth::user()->sekolah_id);
-//        })->with('consultant');
-//
-//        if ($request->has('type_schedule')) {
-//            if ($request->type_schedule == 'online') {
-//                $data = $data
-//                    ->where('canceled', 0)
-//                    ->where('expired', 0)
-//                    ->where('pending', 1)
-//                    ->where('finish', 0)
-//                    ->where('active', 0)
-//                    ->where('start', 0)
-//                    ->where('type_schedule', 'daring')->orWhere('type_schedule', 'realtime');
-//            } else {
-//                if ($request->has('status')) {
-//                    if ($request->status == 'pending') {
-//                        $data = $data
-//                            ->where('canceled', 0)
-//                            ->where('expired', 0)
-//                            ->where('pending', 1)
-//                            ->where('finish', 0)
-//                            ->where('active', 0)
-//                            ->where('start', 0);
-//                    } else if ($request->status == 'aktif') {
-//                        $data = $data
-//                            ->where('canceled', 0)
-//                            ->where('expired', 0)
-//                            ->where('pending', 1)
-//                            ->where('finish', 0)
-//                            ->where('active', 1);
-//                    }
-//                }
-//
-//                $data = $data->where('type_schedule', $request->type_schedule);
-//            }
-//        }
-//
-//        $data = $data->paginate($request->per_page);
-//
-//        return Response::json($data, 200);
-//    }
+
+    public function update() {
+        $schedule = $this->schedule->where('type_schedule', 'daring')->update(['type_schedule', 'realtime1']);
+        $schedule2 = $this->schedule->where('type_schedule', 'realtime')->update(['type_schedule', 'daring1']);
+
+        if($schedule && $schedule2) {
+            return Response::json(['message' => 'Berhasil'], 200);
+        }
+        return Response::json(['message' => 'Gagal'], 201);
+    }
 
     public function jadwalPending(Request $request)
     {
