@@ -342,10 +342,10 @@ class ScheduleController extends Controller
    }
 
     public function update() {
-        $schedule = $this->schedule->where('type_schedule', 'daring')->update(['type_schedule', 'realtime1']);
+        $schedule1 = $this->schedule->where('type_schedule', 'daring')->update(['type_schedule', 'realtime1']);
         $schedule2 = $this->schedule->where('type_schedule', 'realtime')->update(['type_schedule', 'daring1']);
 
-        if($schedule && $schedule2) {
+        if($schedule1 && $schedule2) {
             return Response::json(['message' => 'Berhasil'], 200);
         }
         return Response::json(['message' => 'Gagal'], 201);
