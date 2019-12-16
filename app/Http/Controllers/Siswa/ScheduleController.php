@@ -343,9 +343,9 @@ class ScheduleController extends Controller
 
     public function update() {
         $schedule1 = Schedule::where('type_schedule', 'daring')->update(['type_schedule', 'realtime1']);
-        $schedule2 = Schedule::where('type_schedule', 'realtime')->update(['type_schedule', 'daring1']);
+        // $schedule2 = Schedule::where('type_schedule', 'realtime')->update(['type_schedule', 'daring1']);
 
-        if($schedule1 && $schedule2) {
+        if($schedule1) {
             return Response::json(['message' => 'Berhasil'], 200);
         }
         return Response::json(['message' => 'Gagal'], 201);
