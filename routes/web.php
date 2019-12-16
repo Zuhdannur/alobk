@@ -154,7 +154,7 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
             $router->group(['prefix' => 'siswa'], function () use ($router) {
                 //Helper delete later
                 $router->get('schedule/get/all', 'ScheduleController@all');
-                $router->put('schedule/update/switch', 'ScheduleController@switch');
+                $router->put('schedule/update/switch', 'ScheduleController@update');
 
                 $router->delete('schedule/delete/{id}', 'ScheduleController@deleteHelper');
                 $router->post('schedule/insert/{id}', 'ScheduleController@insertHelper');
