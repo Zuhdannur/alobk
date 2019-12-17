@@ -152,7 +152,7 @@ class ScheduleController extends Controller
 
         $lastData = Schedule::whereHas('requester', function($query) {
             $query->where('sekolah_id',Auth::user()->sekolah_id);
-        })->whereDate('created_at', Carbon::today())->latest()->first()->readable_created_at();
+        })->whereDate('created_at', Carbon::today())->latest()->first()->readable_created_at;
 
         return Response::json([
             'total_schedule' => $schedule,
