@@ -129,6 +129,17 @@ class ScheduleController extends Controller
             ['start','=',1],
         ])->count();
 
+        $totalCanceled = Schedule::whereHas('requester', function($query) {
+            $query->where('sekolah_id',Auth::user()->sekolah_id);
+        })->whereDate('created_at', Carbon::today())->where([
+            ['pending','=',1],
+            ['expired','=',0],
+            ['canceled','=',1],
+            ['finish','=',0],
+            ['active','=',0],
+            ['start','=',0],
+        ])->count();
+
         $countDaring = Schedule::whereHas('requester', function($query) {
             $query->where('sekolah_id',Auth::user()->sekolah_id);
         })->whereDate('created_at', Carbon::today())->where('type_schedule','daring')->count();
