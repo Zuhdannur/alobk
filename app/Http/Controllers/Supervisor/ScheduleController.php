@@ -158,7 +158,8 @@ class ScheduleController extends Controller
 
             'total_pending' => $totalPending,
             'total_aktif' => $totalActive,
-            'total_selesai' => $totalSelesai
+            'total_selesai' => $totalSelesai,
+            'total_batalkan' => $totalCanceled
         ]);
     }
 
