@@ -165,7 +165,7 @@ class ScheduleController extends Controller
             'total_selesai' => $totalSelesai,
             'total_batalkan' => $totalCanceled,
 
-            'last_data' => 
+            'last_data' => $lastData
         ]);
     }
 
