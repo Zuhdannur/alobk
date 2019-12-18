@@ -102,8 +102,8 @@ class Schedule extends Model
             ->format('H:i');
     }
 
-    public function getPurePendingAttribute() {
-        return $this->pending == 1 && $this->canceled == 0 && $this->expired == 0 && $this->finish == 0 && $this->active == 0 && $this->start == 0;
+    public function getIsPendingAttribute() {
+        return $this->pending == 1 && $this->canceled == 0 && $this->expired == 0 && $this->finish == 0 && $this->active == 0 && $this->start == 0 ? true : false;
     }
 
 }
