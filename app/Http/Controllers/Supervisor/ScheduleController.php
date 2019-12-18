@@ -110,9 +110,7 @@ class ScheduleController extends Controller
 
     public function getScheduleByAktif() {
         $direct = Schedule::requesterSameSchool()->consultantSameSchool()->createdToday()->isDirect()->isActive()->count();
-
         $realtime = Schedule::requesterSameSchool()->consultantSameSchool()->createdToday()->isRealtime()->isActive()->count();
-
         $daring = Schedule::requesterSameSchool()->consultantSameSchool()->createdToday()->isDaring()->isActive()->count();
 
         return Response::json([
@@ -123,41 +121,9 @@ class ScheduleController extends Controller
     }
 
     public function getScheduleByPending() {
-        $direct = Schedule::whereHas('requester', function($query) {
-            $query->where('sekolah_id',Auth::user()->sekolah_id);
-        })->where([
-            ['pending','=',1],
-            ['expired','=',0],
-            ['canceled','=',0],
-            ['finish','=',0],
-            ['active','=',0],
-            ['start','=',0]
-            // ['start','=',0], START CAN BE 0 OR 1
-        ])->count();
-
-        $realtime = Schedule::whereHas('requester', function($query) {
-            $query->where('sekolah_id',Auth::user()->sekolah_id);
-        })->where([
-            ['pending','=',1],
-            ['expired','=',0],
-            ['canceled','=',0],
-            ['finish','=',0],
-            ['active','=',0],
-            ['start','=',0]
-            // ['start','=',0], START CAN BE 0 OR 1
-        ])->count();
-
-        $daring = Schedule::whereHas('requester', function($query) {
-            $query->where('sekolah_id',Auth::user()->sekolah_id);
-        })->where([
-            ['pending','=',1],
-            ['expired','=',0],
-            ['canceled','=',0],
-            ['finish','=',0],
-            ['active','=',0],
-            ['start','=',0]
-            // ['start','=',0], START CAN BE 0 OR 1
-        ])->count();
+        $direct = Schedule::requesterSameSchool()->consultantSameSchool()->createdToday()->isDirect()->isPending()->count();
+        $realtime = Schedule::requesterSameSchool()->consultantSameSchool()->createdToday()->isRealtime()->isPending()->count();
+        $daring = Schedule::requesterSameSchool()->consultantSameSchool()->createdToday()->isDaring()->isPending()->count();
 
         return Response::json([
             'total_daring' => $daring,
@@ -168,93 +134,27 @@ class ScheduleController extends Controller
     }
 
     public function getScheduleByEnded() {
-        $direct = Schedule::whereHas('requester', function($query) {
-            $query->where('sekolah_id',Auth::user()->sekolah_id);
-        })->where([
-            ['pending','=',1],
-            ['expired','=',0],
-            ['canceled','=',0],
-            ['finish','=',1],
-            ['active','=',1],
-            ['start','=',1]
-            // ['start','=',0], START CAN BE 0 OR 1
-        ])->count();
-
-        $realtime = Schedule::whereHas('requester', function($query) {
-            $query->where('sekolah_id',Auth::user()->sekolah_id);
-        })->where([
-            ['pending','=',1],
-            ['expired','=',0],
-            ['canceled','=',0],
-            ['finish','=',1],
-            ['active','=',1],
-            ['start','=',1]
-            // ['start','=',0], START CAN BE 0 OR 1
-        ])->count();
-
-        $daring = Schedule::whereHas('requester', function($query) {
-            $query->where('sekolah_id',Auth::user()->sekolah_id);
-        })->where([
-            ['pending','=',1],
-            ['expired','=',0],
-            ['canceled','=',0],
-            ['finish','=',1],
-            ['active','=',1],
-            ['start','=',1]
-            // ['start','=',0], START CAN BE 0 OR 1
-        ])->count();
+        $direct = Schedule::requesterSameSchool()->consultantSameSchool()->createdToday()->isDirect()->isFinish()->count();
+        $realtime = Schedule::requesterSameSchool()->consultantSameSchool()->createdToday()->isRealtime()->isFinish()->count();
+        $daring = Schedule::requesterSameSchool()->consultantSameSchool()->createdToday()->isDaring()->isFinish()->count();
 
         return Response::json([
             'total_daring' => $daring,
             'total_realtime' => $realtime,
             'total_direct' => $direct
         ]);
-
     }
 
     public function getScheduleByCanceled() {
-        $direct = Schedule::whereHas('requester', function($query) {
-            $query->where('sekolah_id',Auth::user()->sekolah_id);
-        })->where([
-            ['pending','=',1],
-            ['expired','=',0],
-            ['canceled','=',1],
-            ['finish','=',0],
-            ['active','=',0],
-            ['start','=',0]
-            // ['start','=',0], START CAN BE 0 OR 1
-        ])->count();
-
-        $realtime = Schedule::whereHas('requester', function($query) {
-            $query->where('sekolah_id',Auth::user()->sekolah_id);
-        })->where([
-            ['pending','=',1],
-            ['expired','=',0],
-            ['canceled','=',1],
-            ['finish','=',0],
-            ['active','=',0],
-            ['start','=',0]
-            // ['start','=',0], START CAN BE 0 OR 1
-        ])->count();
-
-        $daring = Schedule::whereHas('requester', function($query) {
-            $query->where('sekolah_id',Auth::user()->sekolah_id);
-        })->where([
-            ['pending','=',1],
-            ['expired','=',0],
-            ['canceled','=',1],
-            ['finish','=',0],
-            ['active','=',0],
-            ['start','=',0]
-            // ['start','=',0], START CAN BE 0 OR 1
-        ])->count();
+        $direct = Schedule::requesterSameSchool()->consultantSameSchool()->createdToday()->isDirect()->isCanceled()->count();
+        $realtime = Schedule::requesterSameSchool()->consultantSameSchool()->createdToday()->isRealtime()->isCanceled()->count();
+        $daring = Schedule::requesterSameSchool()->consultantSameSchool()->createdToday()->isDaring()->isCanceled()->count();
 
         return Response::json([
             'total_daring' => $daring,
             'total_realtime' => $realtime,
             'total_direct' => $direct
         ]);
-
     }
 
     public function lastFeed(Request $request) {
