@@ -103,12 +103,13 @@ class Schedule extends Model
     }
 
     public function getPurePendingAttribute() {
-        return $this->attributes['pending'] == 1 &&
-        $this->attributes['canceled'] == 0 &&
-         $this->attributes['expired'] == 0 &&
-          $this->attributes['finish'] == 0 &&
-           $this->attributes['active'] == 0 &&
-            $this->attributes['start'] == 0 ? 1 : 0;
+        return $this->attributes['pending'] == 1;
+        //  &&
+        // $this->attributes['canceled'] == 0 &&
+        //  $this->attributes['expired'] == 0 &&
+        //   $this->attributes['finish'] == 0 &&
+        //    $this->attributes['active'] == 0 &&
+            // $this->attributes['start'] == 0 ? 1 : 0;
     }
 
 }
