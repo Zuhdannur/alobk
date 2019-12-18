@@ -109,15 +109,11 @@ class ScheduleController extends Controller
     }
 
     public function getScheduleByAktif() {
-        $direct = Schedule::requesterSameSchool()->isDirect()->isActive()->count();
+        $direct = Schedule::requesterSameSchool()->consultantSameSchool()->isDirect()->isActive()->count();
 
-        $realtime = Schedule::whereHas('requester', function($query) {
-            $query->sameSchool();
-        })->isRealtime()->isActive()->count();
+        $realtime = Schedule::requesterSameSchool()->consultantSameSchool()->isRealtime()->isActive()->count();
 
-        $daring = Schedule::whereHas('requester', function($query) {
-            $query->sameSchool();
-        })->isDaring()->isActive()->count();
+        $daring = Schedule::requesterSameSchool()->consultantSameSchool()->isDaring()->isActive()->count();
 
         return Response::json([
             'total_daring' => $daring,

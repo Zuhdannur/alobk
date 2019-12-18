@@ -177,5 +177,14 @@ class Schedule extends Model
         });
     }
 
+    public function scopeConsultantSameSchool($q) {
+        // Schedule::whereHas('requester', function($query) {
+        //     $query->sameSchool();
+        // })->isDirect()->isActive()->count();
+        return $q->whereHas('consultant', function($query) {
+            $query->where('sekolah_id', Auth::user()->sekolah_id);
+        });
+    }
+
 
 }
