@@ -142,4 +142,20 @@ class Schedule extends Model
         return $q->where('pending', 1)->where('expired', 0)->where('finish', 0)->where('active', 1)->where('start', 1)->where('canceled', 0);
     }
 
+    public function scopeIsDaring($q) {
+        return $q->where('type_schedule', 'daring');
+    }
+
+    public function scopeIsRealtime($q) {
+        return $q->where('type_schedule', 'realtime');
+    }
+
+    public function scopeIsDirect($q) {
+        return $q->where('type_schedule', 'direct');
+    }
+
+    public function scopeSameSchool($q) {
+        return $q->where('sekolah_id', Auth::user()->sekolah_id);
+    }
+
 }
