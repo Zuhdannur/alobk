@@ -103,19 +103,12 @@ class Schedule extends Model
             ->format('H:i');
     }
 
-    public function getPurePendingAttribute() {
-        return $this->attributes['pending'] == 1;
-        //  &&
-        // $this->attributes['canceled'] == 0 &&
-        //  $this->attributes['expired'] == 0 &&
-        //   $this->attributes['finish'] == 0 &&
-        //    $this->attributes['active'] == 0 &&
-            // $this->attributes['start'] == 0 ? 1 : 0;
-    }
-
-
     public function scopeIsPending($q) {
         return $q->where('pending', 1)->where('expired', 0)->where('finish', 0)->where('active', 0)->where('start', 0)->where('canceled', 0);
+    }
+
+    public function scopeJustPending($q) {
+        return $q->where('pending', 1);
     }
 
     public function scopeCreatedToday($q) {
@@ -126,20 +119,40 @@ class Schedule extends Model
         return $q->where('pending', 1)->where('expired', 0)->where('finish', 0)->where('active', 1)->where('canceled', 0);
     }
 
+    public function scopeJustActive($q) {
+        return $q->where('active', 1);
+    }
+
     public function scopeIsExpired($q) {
         return $q->where('pending', 1)->where('expired', 1)->where('finish', 0)->where('active', 0)->where('start', 0)->where('canceled', 0);
+    }
+
+    public function scopeJustExpired($q) {
+        return $q->where('expired', 1);
     }
 
     public function scopeIsFinish($q) {
         return $q->where('pending', 1)->where('expired', 0)->where('finish', 1)->where('active', 1)->where('start', 1)->where('canceled', 0);
     }
 
+    public function scopeJustFinish($q) {
+        return $q->where('finish', 1);
+    }
+
     public function scopeIsCanceled($q) {
         return $q->where('pending', 1)->where('expired', 0)->where('finish', 0)->where('active', 0)->where('start', 0)->where('canceled', 1);
     }
 
+    public function scopeJustCanceled($q) {
+        return $q->where('canceled', 1);
+    }
+
     public function scopeIsStart($q) {
         return $q->where('pending', 1)->where('expired', 0)->where('finish', 0)->where('active', 1)->where('start', 1)->where('canceled', 0);
+    }
+
+    public function scopeJustStart($q) {
+        return $q->where('start', 1);
     }
 
     public function scopeIsDaring($q) {
@@ -154,8 +167,14 @@ class Schedule extends Model
         return $q->where('type_schedule', 'direct');
     }
 
-    public function scopeSameSchool($q) {
-        return $q->where('sekolah_id', Auth::user()->sekolah_id);
+    public function scopeRequesterSameSchool($q) {
+        // Schedule::whereHas('requester', function($query) {
+        //     $query->sameSchool();
+        // })->isDirect()->isActive()->count();
+        return $q->whereHas('requester', function($query) {
+            $query->where('sekolah_id', Auth::user()->sekolah_id);
+        });
     }
+
 
 }

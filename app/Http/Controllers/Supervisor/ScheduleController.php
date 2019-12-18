@@ -35,14 +35,14 @@ class ScheduleController extends Controller
             $query->sameSchool();
         })->whereHas('consultant', function($query) {
             $query->sameSchool();
-        })->where('finish', 1)->count();
+        })->justFinish()->count();
 
         $countDaring = Schedule::whereHas('requester', function($query) {
             $query->sameSchool();
         })->whereHas('consultant', function($query) {
             $query->sameSchool();
         })->where(function($query){
-            $query->isDaring()->where('finish', 1);
+            $query->isDaring()->justFinish();
         })->count();
 
         $countRealtime = Schedule::whereHas('requester', function($query) {
@@ -50,7 +50,7 @@ class ScheduleController extends Controller
         })->whereHas('consultant', function($query) {
             $query->sameSchool();
         })->where(function($query){
-            $query->isRealtime()->where('finish', 1);
+            $query->isRealtime()->justFinish();
         })->count();
 
         $countDirect = Schedule::whereHas('requester', function($query) {
@@ -58,7 +58,7 @@ class ScheduleController extends Controller
         })->whereHas('consultant', function($query) {
             $query->sameSchool();
         })->where(function($query){
-            $query->isDirect()->where('finish', 1);
+            $query->isDirect()->justFinish();
         })->count();
         
         return Response::json([
@@ -109,16 +109,14 @@ class ScheduleController extends Controller
     }
 
     public function getScheduleByAktif() {
-        $direct = Schedule::whereHas('requester', function($query) {
-            $query->sameSchool();
-        })->isDirect()->isActive()->count();
+        $direct = Schedule::requesterSameSchool()->isDirect()->isActive()->count();
 
         $realtime = Schedule::whereHas('requester', function($query) {
-            $query->where('sekolah_id',Auth::user()->sekolah_id);
+            $query->sameSchool();
         })->isRealtime()->isActive()->count();
 
         $daring = Schedule::whereHas('requester', function($query) {
-            $query->where('sekolah_id',Auth::user()->sekolah_id);
+            $query->sameSchool();
         })->isDaring()->isActive()->count();
 
         return Response::json([
@@ -126,7 +124,6 @@ class ScheduleController extends Controller
             'total_realtime' => $realtime,
             'total_direct' => $direct
         ]);
-
     }
 
     public function getScheduleByPending() {
