@@ -54,7 +54,7 @@ class ScheduleController extends Controller
     }
 
     public function getSchedule() {
-        $schedule = Schedule::requesterSameSchool()->get();
+        $schedule = Schedule::requesterSameSchool()->createdToday()->get();
         return Response::json($schedule, 200);
     }
 
