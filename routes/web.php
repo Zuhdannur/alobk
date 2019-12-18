@@ -114,6 +114,14 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
                 $router->get('schedule/recent', 'ScheduleController@lastFeed');
                 $router->get('schedule/generate', 'ScheduleController@generateScheduleTest');
                 $router->get('diary/generate', 'ScheduleController@generateDiary');
+
+                $router->group(['prefix' => 'schedule/get'], function () use ($router) {
+                    $router->get('aktif', 'ScheduleController@getScheduleByAktif');
+                    $router->get('pending', 'ScheduleController@getScheduleByPending');
+                    $router->get('finish', 'ScheduleController@getScheduleByEnded');
+                    $router->get('canceled', 'ScheduleController@getScheduleByCanceled');
+                });
+
             });
 
         });
@@ -155,7 +163,6 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
                 //Helper delete later
                 $router->get('schedule/get/all', 'ScheduleController@all');
                 $router->put('schedule/update/switch', 'ScheduleController@update');
-
                 $router->delete('schedule/delete/{id}', 'ScheduleController@deleteHelper');
                 $router->post('schedule/insert/{id}', 'ScheduleController@insertHelper');
                 $router->post('schedule/update/{id}', 'ScheduleController@updateHelper');
@@ -165,7 +172,6 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
                 $router->get('schedule/get/{id}', 'ScheduleController@get');
                 $router->get('schedule/total', 'ScheduleController@getScheduleFinished');
                 $router->post('schedule/cancel/{id}', 'ScheduleController@cancel');
-//                $router->get('schedule', 'ScheduleController@all');
                 $router->post('schedule/accept/{id}', 'ScheduleController@accept');
                 $router->post('schedule/request/cancel/{id}', 'ScheduleController@cancelRequestSchedule');
                 $router->put('schedule/{id}', 'ScheduleController@put');
