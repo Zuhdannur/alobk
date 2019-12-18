@@ -112,4 +112,8 @@ class Schedule extends Model
             // $this->attributes['start'] == 0 ? 1 : 0;
     }
 
+    public function scopeIsPending($q) {
+        return $q->where('pending', 1)->where('expired', 0)->where('finish', 0)->where('active', 0)->where('start', 0);
+    }
+
 }

@@ -126,9 +126,9 @@ class ScheduleController extends Controller
             $query->where('sekolah_id',Auth::user()->sekolah_id);
         })->whereDate('created_at', Carbon::today())->count();
 
-        $totalPending = Schedule::where('pure_pending', 1)->whereHas('requester', function($query) {
+        $totalPending = Schedule::whereHas('requester', function($query) {
             $query->where('sekolah_id',Auth::user()->sekolah_id);
-        })->whereDate('created_at', Carbon::today())->count();
+        })->whereDate('created_at', Carbon::today())->isPending()->count();
 
         $totalActive = Schedule::whereHas('requester', function($query) {
             $query->where('sekolah_id',Auth::user()->sekolah_id);
