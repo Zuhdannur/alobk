@@ -307,7 +307,7 @@ class ScheduleController extends Controller
     }
 
     public function jadwalAktif(Request $request) {
-        $data = $this->schedule->orderDescCreated()->consultantSchedule()->withRequester();
+        $data = $this->schedule->orderDescCreated()->consultantSchedule()->consultantIsMe()->withRequester();
         $data = $data->isDirect()->isActive();
         $data = $data->paginate($request->per_page);
 
