@@ -116,7 +116,9 @@ class Schedule extends Model
     }
 
     public function scopeIsPending($q) {
-        return $q->where('pending', 1)->where('expired', 0)->where('finish', 0)->where('active', 0)->where('start', 0)->where('canceled', 0);
+        return $q->where(function($query){
+            $query->where('pending', 1)->where('expired', 0)->where('finish', 0)->where('active', 0)->where('start', 0)->where('canceled', 0);
+        });
     }
 
     public function scopeJustPending($q) {
@@ -128,7 +130,9 @@ class Schedule extends Model
     }
 
     public function scopeIsActive($q) {
-        return $q->where('pending', 1)->where('expired', 0)->where('finish', 0)->where('active', 1)->where('canceled', 0);
+        return $q->where(function($query){
+            $query->where('pending', 1)->where('expired', 0)->where('finish', 0)->where('active', 1)->where('canceled', 0);
+        });
     }
 
     public function scopeJustActive($q) {
@@ -136,7 +140,9 @@ class Schedule extends Model
     }
 
     public function scopeIsExpired($q) {
-        return $q->where('pending', 1)->where('expired', 1)->where('finish', 0)->where('active', 0)->where('start', 0)->where('canceled', 0);
+        return $q->where(function($query){
+            $query->where('pending', 1)->where('expired', 1)->where('finish', 0)->where('active', 0)->where('start', 0)->where('canceled', 0);
+        });
     }
 
     public function scopeJustExpired($q) {
@@ -144,7 +150,9 @@ class Schedule extends Model
     }
 
     public function scopeIsFinish($q) {
-        return $q->where('pending', 1)->where('expired', 0)->where('finish', 1)->where('active', 1)->where('start', 1)->where('canceled', 0);
+        return $q->where(function($query){
+            $query->where('pending', 1)->where('expired', 0)->where('finish', 1)->where('active', 1)->where('start', 1)->where('canceled', 0);
+        });
     }
 
     public function scopeJustFinish($q) {
@@ -152,7 +160,9 @@ class Schedule extends Model
     }
 
     public function scopeIsCanceled($q) {
-        return $q->where('pending', 1)->where('expired', 0)->where('finish', 0)->where('active', 0)->where('start', 0)->where('canceled', 1);
+        return $q->where(function($query){
+            $query->where('pending', 1)->where('expired', 0)->where('finish', 0)->where('active', 0)->where('start', 0)->where('canceled', 1);
+        });
     }
 
     public function scopeJustCanceled($q) {
@@ -160,7 +170,9 @@ class Schedule extends Model
     }
 
     public function scopeIsStart($q) {
-        return $q->where('pending', 1)->where('expired', 0)->where('finish', 0)->where('active', 1)->where('start', 1)->where('canceled', 0);
+        return $q->where(function($query){
+            $query->where('pending', 1)->where('expired', 0)->where('finish', 0)->where('active', 1)->where('start', 1)->where('canceled', 0);
+        });
     }
 
     public function scopeJustStart($q) {
