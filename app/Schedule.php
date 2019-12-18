@@ -105,9 +105,7 @@ class Schedule extends Model
     }
 
     public function scopeIsPending($q) {
-        return $q->where(function($query){
-            $query->where('pending', 1)->where('expired', 0)->where('finish', 0)->where('active', 0)->where('start', 0)->where('canceled', 0);
-        });
+        return $q->where('pending', 1)->where('expired', 0)->where('finish', 0)->where('active', 0)->where('start', 0)->where('canceled', 0);
     }
 
     public function scopeJustPending($q) {
