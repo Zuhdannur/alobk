@@ -114,6 +114,12 @@ class ScheduleController extends Controller
             $daring = Schedule::requesterSameSchool()->orConsultantSameSchool()->updatedToday()->isDaring()->isCanceled()->count();
         }
 
+        else if($request->tipe == 'kedaluwarsa') {
+            $direct = Schedule::requesterSameSchool()->orConsultantSameSchool()->updatedToday()->isDirect()->isExpired()->count();
+            $realtime = Schedule::requesterSameSchool()->orConsultantSameSchool()->updatedToday()->isRealtime()->isExpired()->count();
+            $daring = Schedule::requesterSameSchool()->orConsultantSameSchool()->updatedToday()->isDaring()->isExpired()->count();
+        }
+
         else {
             throw new \Exception('Parameter tipe harus diisi/benar.');
         }
