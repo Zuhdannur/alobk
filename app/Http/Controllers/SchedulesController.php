@@ -10,8 +10,6 @@ use sngrl\PhpFirebaseCloudMessaging\Client;
 use sngrl\PhpFirebaseCloudMessaging\Message;
 use sngrl\PhpFirebaseCloudMessaging\Recipient\Topic;
 use Firebase;
-use KreaitFirebase;
-use Kreait\Firebase\Factory;
 
 class SchedulesController extends Controller
 {

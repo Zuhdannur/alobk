@@ -16,52 +16,27 @@
 /**
  * Routes for resource user
  */
-$router->get('/key', function() {
-    return str_random(32);
-});
-
-$router->get('/tz', function() {
-    echo env('APP_TIMEZONE') . "\n";
-    dd(date_default_timezone_set(env('APP_TIMEZONE')));
-});
-$router->get('/test', 'SchedulesController@notification');
 $router->group(['prefix'=>'v1/api'], function () use ($router) {
 
     $router->post('login', 'UsersController@login');
     $router->post('register', 'UsersController@register');
 
-    $router->get('title', 'ArtikelsController@getTitle');
     $router->get('cron', 'MastersController@cronJob');
-    $router->post('artikel', 'ArtikelsController@create');
-
-    $router->get('diary/generate', 'Supervisor\ScheduleController@generateDiary');
-    $router->get('schedule/generate', 'Supervisor\ScheduleController@generateSchedule');
-
-    $router->get('schedule/all', 'SchedulesController@generate');
-    $router->post('test', 'SchedulesController@testFirebase');
 
     /**
     * Routes for resource sekolah
     */
-    $router->get('sekolah', 'SekolahsController@all');
-    $router->get('recent', 'SekolahsController@recentAct');
-    $router->post('sekolah', 'SekolahsController@add');
-    $router->get('sekolah/{id}', 'SekolahsController@get');
-    $router->put('sekolah/{id}', 'SekolahsController@put');
-    $router->delete('sekolah/{id}', 'SekolahsController@remove');
-    $router->get('sekolah/master/month', 'SekolahsController@getDataThisMonth');
-    $router->get('sekolah/master/sekolah', 'SekolahsController@getSekolahCount');
-    $router->post('sekolah/check', 'SekolahsController@checkSekolahName');
 
-    /**
-    * Routes for resource kelas
-    */
-    $router->get('kelas', 'KelasController@all');
-    $router->get('kelas/{id}', 'KelasController@get');
-    $router->post('kelas', 'KelasController@add');
-    $router->put('kelas/{id}', 'KelasController@put');
-    $router->delete('kelas/{id}', 'KelasController@remove');
-
+    $router->group(['prefix' => 'sekolah'], function () use ($router) {
+        $router->get('sekolah', 'SekolahsController@all');
+        $router->post('sekolah', 'SekolahsController@add');
+        $router->get('sekolah/{id}', 'SekolahsController@get');
+        $router->put('sekolah/{id}', 'SekolahsController@put');
+        $router->delete('sekolah/{id}', 'SekolahsController@remove');
+        $router->get('sekolah/master/month', 'SekolahsController@getDataThisMonth');
+        $router->get('sekolah/master/sekolah', 'SekolahsController@getSekolahCount');
+        $router->post('sekolah/check', 'SekolahsController@checkSekolahName');
+    });
 
     $router->group(['middleware' => 'auth'], function () use ($router) {
 
@@ -202,21 +177,6 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
         $router->post('user/update/image', 'UsersController@updateImageProfile');
         $router->post('user/password', 'UsersController@changePassword');
         $router->get('user/check', 'UsersController@checkUsername');
-        $router->get('user/master/account', 'UsersController@getTotalAccount');
-        $router->get('user/admin/account', 'UsersController@getTotalAccountBySchool');
-
-        /*Siswa dapat melihat diary*/
-        $router->get('diary/student', 'DiariesController@all');
-        /*Siswa dapat menambahkan catatan*/
-        $router->post('diary/student', 'DiariesController@add');
-        /*Siswa dapat menyunting catatan*/
-        $router->put('diary/student', 'DiariesController@put');
-        /*Siswa dapat menghapus catatan*/
-        $router->delete('diary/student/{id}', 'DiariesController@remove');
-        /*Guru dapat mendapatkan jumlah catatan siswa*/
-        $router->get('diary/student/{id}', 'DiariesController@diaryCount');
-        /*Guru dapat membaca catatan siswa*/
-        $router->get('diary/teacher', 'DiariesController@readDiary');
 
         /**
          * Routes for resource user
@@ -224,27 +184,5 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
         $router->get('user/{id}', 'UsersController@get');
         $router->put('user', 'UsersController@put');
         $router->delete('user/{id}', 'UsersController@remove');
-
-        /**
-         * Routes for resource notifikasi
-         */
-        $router->get('notifikasi', 'NotifikasisController@all');
-        $router->get('notifikasi/{id}', 'NotifikasisController@get');
-        $router->post('notifikasi', 'NotifikasisController@add');
-        $router->put('notifikasi/{id}', 'NotifikasisController@put');
-        $router->delete('notifikasi/{id}', 'NotifikasisController@remove');
-        $router->delete('notifikasi', 'NotifikasisController@removeAll');
-        $router->get('notifikasiPageCount', 'NotifikasisController@notifikasiCount');
-
-        $router->post('updateRead', 'NotifikasisController@read');
-
-//        //Favorite Artikels
-        $router->post('favorit', 'user/teacher/student/profile/3ArtikelsController@storeFavorite');
-        $router->get('favorit', 'ArtikelsController@getMyFavorite');
-        $router->get('favoritCount', 'ArtikelsController@getMyFavoriteCount');
-        $router->delete('favorit/{id}/{id_favorit}', 'ArtikelsController@removeMyFavorit');
-//
-//        $router->post('related', 'ArtikelsController@getRelatedArtikel');
-
     });
 });

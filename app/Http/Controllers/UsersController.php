@@ -9,8 +9,6 @@ use Illuminate\Support\Facades\Response;
 
 class UsersController extends Controller
 {
-    protected static $API_ACCESS_KEY = 'AAAA_vRurwA:APA91bFvUdoT1ruL0WZC3rkvQWoK76WFOgUSAFuc3aUpN0_kjiP22y3Pf_o1TthpfN6_o_0HnHJeMGZMp8MqHzm1zTCk8zuTY4UzAByzknPDlcBlNFvz60oN6fx9Kq3gkfR373aboRy0';
-
     private $userRepository;
     private $user;
 

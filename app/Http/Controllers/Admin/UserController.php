@@ -70,7 +70,7 @@ class UserController extends Controller {
         }
         return \response()->json($data->paginate($request->per_page), 200);
     }
-//
+
     public function remove($id)
     {
         $data = $this->user->find($id);
@@ -92,27 +92,5 @@ class UserController extends Controller {
         Firebase::delete('/users/'.$id);
     }
 
-//
-//    public function getAdmin(Request $request) {
-//        $user = $this->user->where('role', 'admin')->with('sekolahOnlyName')->paginate($request->per_page);
-//
-//        return Response::json($user, 200);
-//    }
-//
-//    public function all(Request $request) {
-//        $user = $this->user;
-//
-//        if($request->has('doesnt_have_school')) {
-//            $user = $user->where('role', 'admin')->whereNull('sekolah_id')->get();
-//            return Response::json($user, 200);
-//        }
-//
-//        if($request->has('has_school')) {
-//            $user = $user->where('role','admin')->whereNotNull('sekolah_id')->get();
-//            return Response::json($user, 200);
-//        }
-//
-//        return $user;
-//    }
 }
 

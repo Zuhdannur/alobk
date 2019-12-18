@@ -285,96 +285,62 @@ class ScheduleController extends Controller
     {
         $schedule = $this->schedule;
         $q = $schedule->where(function($query) {
-            $query->where('consultant_id', Auth::user()->id);
+            $query->consultantIsMe();
         })->where(function($query) {
-            $query->where('canceled', 1)
-                ->orWhere('finish', 1);
-        })->with('requester')
-        ->with('feedback');
+            $query->isHistory();
+        })->withRequester()
+        ->withFeedback();
 
         $schedule = $q
-            ->orderBy('updated_at', 'desc')
+            ->orderDescUpdated()
             ->paginate($request->per_page);
 
         return Response::json($schedule, 200);
     }
 
     public function jadwalPending(Request $request) {
-        $data = $this->schedule->orderBy('created_at', 'desc')->whereHas('requester', function ($query) {
-            $query->where('role', 'siswa')->where('sekolah_id', Auth::user()->sekolah_id);
-        })->with('requester');
-
-        $data = $data
-            ->where('type_schedule', 'direct')
-            ->where('canceled', 0)
-            ->where('expired', 0)
-            ->where('pending', 1)
-            ->where('finish', 0)
-            ->where('active', 0)
-            ->where('start', 0);
-
+        $data = $this->schedule->orderDescCreated()->consultantSchedule()->withRequester();
+        $data = $data->isDirect()->isPending();
         $data = $data->paginate($request->per_page);
 
         return Response::json($data, 200);
     }
 
     public function jadwalAktif(Request $request) {
-        $data = $this->schedule->orderBy('created_at', 'desc')->whereHas('requester', function ($query) {
-            $query->where('role', 'siswa')
-            ->where('consultant_id', Auth::user()->id)
-            ->where('sekolah_id', Auth::user()->sekolah_id);
-        })->with('requester');
-
-        $data = $data
-            ->where('type_schedule', 'direct')
-            ->where('canceled', 0)
-            ->where('expired', 0)
-            ->where('pending', 1)
-            ->where('finish', 0)
-            ->where('active', 1);
-
+        $data = $this->schedule->orderDescCreated()->consultantSchedule()->withRequester();
+        $data = $data->isDirect()->isActive();
         $data = $data->paginate($request->per_page);
 
         return Response::json($data, 200);
     }
 
     public function obrolanPending(Request $request) {
-        $data = $this->schedule->orderBy('created_at', 'desc')->whereHas('requester', function ($query) {
-            $query->where('role', 'siswa')->where('sekolah_id', Auth::user()->sekolah_id);
-        })->with('requester');
-
-        $data = $data
-            ->where('type_schedule','!=', 'direct')
-            ->where('canceled', 0)
-            ->where('expired', 0)
-            ->where('finish', 0)
-            ->where('active', 0)
-            ->where('start', 0);
-
+        $data = $this->schedule->orderDescCreated()->consultantSchedule()->withRequester();
+        $data = $data->isOnline()->isPending();
         $data = $data->paginate($request->per_page);
 
         return Response::json($data, 200);
     }
 
     public function getScheduleFinished() {
-        $data = Schedule::where('finish', 1)->where('consultant_id', Auth::user()->id);
+        $data = Schedule::justFinish()->consultantIsMe();
 
-        $totalObrolan = Schedule::where('finish', 1)->where('consultant_id', Auth::user()->id)->where('type_schedule', '!=' , 'direct')->count();
-        $totalDirect = Schedule::where('finish', 1)->where('consultant_id', Auth::user()->id)->where('type_schedule', 'direct')->count();
+        $totalObrolan = Schedule::justFinish()->consultantIsMe()->where('type_schedule', '!=' , 'direct')->count();
+        $totalDirect = Schedule::justFinish()->consultantIsMe()->where('type_schedule', 'direct')->count();
 
-        $total_five = Schedule::where('finish', 1)->where('consultant_id', Auth::user()->id)->whereHas('feedback', function($query) {
+        $total_five = Schedule::justFinish()->consultantIsMe()->whereHas('feedback', function($query) {
             $query->where('rating', 5);
         })->count();
-        $total_four = Schedule::where('finish', 1)->where('consultant_id', Auth::user()->id)->whereHas('feedback', function($query) {
+        $total_four = Schedule::justFinish()->consultantIsMe()->whereHas('feedback', function($query) {
             $query->where('rating', 4);
         })->count();
-        $total_three = Schedule::where('finish', 1)->where('consultant_id', Auth::user()->id)->whereHas('feedback', function($query) {
+        $total_three = Schedule::justFinish()->consultantIsMe()->whereHas('feedback', function($query) {
             $query->where('rating', 3);
         })->count();
-        $total_two = Schedule::where('finish', 1)->where('consultant_id', Auth::user()->id)->whereHas('feedback', function($query) {
+        $total_two = Schedule::justFinish()->consultantIsMe()->whereHas('feedback', function($query) {
             $query->where('rating', 2);
         })->count();
-        $total_one = Schedule::where('finish', 1)->where('consultant_id', Auth::user()->id)->whereHas('feedback', function($query) {
+        $total_one = Schedule::justFinish()->consultantIsMe()->whereHas('feedback', function($query) {
             $query->where('rating', 1);
         })->count();
 
@@ -396,7 +362,7 @@ class ScheduleController extends Controller
     {
         $data = $this->schedule->orderBy('created_at', 'desc')->whereHas('requester', function ($query) {
             $query->where('role', 'siswa')
-                ->where('consultant_id', Auth::user()->id)
+                ->consultantIsMe()
                 ->where('sekolah_id', Auth::user()->sekolah_id);
         })->with('requester');
 

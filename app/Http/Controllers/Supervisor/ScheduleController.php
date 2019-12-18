@@ -31,33 +31,17 @@ class ScheduleController extends Controller
 
 
     public function getTotalSchedule() {
-        $schedule = Schedule::whereHas('requester', function($query) {
-            $query->sameSchool();
-        })->whereHas('consultant', function($query) {
-            $query->sameSchool();
-        })->justFinish()->count();
+        $schedule = Schedule::requesterSameSchool()->consultantSameSchool()->justFinish()->count();
 
-        $countDaring = Schedule::whereHas('requester', function($query) {
-            $query->sameSchool();
-        })->whereHas('consultant', function($query) {
-            $query->sameSchool();
-        })->where(function($query){
+        $countDaring = Schedule::requesterSameSchool()->consultantSameSchool()->where(function($query){
             $query->isDaring()->justFinish();
         })->count();
 
-        $countRealtime = Schedule::whereHas('requester', function($query) {
-            $query->sameSchool();
-        })->whereHas('consultant', function($query) {
-            $query->sameSchool();
-        })->where(function($query){
+        $countRealtime = Schedule::requesterSameSchool()->consultantSameSchool()->where(function($query){
             $query->isRealtime()->justFinish();
         })->count();
 
-        $countDirect = Schedule::whereHas('requester', function($query) {
-            $query->sameSchool();
-        })->whereHas('consultant', function($query) {
-            $query->sameSchool();
-        })->where(function($query){
+        $countDirect = Schedule::requesterSameSchool()->consultantSameSchool()->where(function($query){
             $query->isDirect()->justFinish();
         })->count();
         

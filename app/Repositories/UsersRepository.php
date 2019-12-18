@@ -87,22 +87,6 @@ class UsersRepository
         //}
     }
 
-    public function getTotalAccountBySchool(Request $request) {
-        $idSekolah = $request->sekolah_id;
-
-        $data = $this->user->where('role', '!=','admin')->where('sekolah_id', $idSekolah);
-
-        if($request->has('role')) {
-            $data = $data->where('role', $request->role);
-        }
-
-        $data = $data->count();
-
-        return Response::json([
-            'total' => $data
-        ], 200);
-    }
-
     private function getLastID()
     {
         return $this->user->orderBy('id', 'desc')->first();
@@ -205,17 +189,6 @@ class UsersRepository
         // foreach ($query as $value) {
         //     $client->addTopicSubscription($pattern.$value['detail']['sekolah_id']."pengajuan", $value['firebase_token']);
         // }
-    }
-
-    public function getTotalAccount(Request $request)
-    {
-        $data = $this->user
-            ->where('role', $request->role)
-            ->count();
-
-        return Response::json([
-            'total' => $data
-        ], 200);
     }
 
     public function checkUsername($username)

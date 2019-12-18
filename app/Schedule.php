@@ -104,6 +104,17 @@ class Schedule extends Model
             ->format('H:i');
     }
 
+    public function scopeIsHistory($q) {
+        if(Auth::user()->role === 'siswa') {
+            return $q->where('expired', 1)
+                ->orWhere('canceled', 1)
+                ->orWhere('finish', 1);
+        } else {
+            return $q->where('canceled', 1)
+                ->orWhere('finish', 1);
+        }
+    }
+
     public function scopeIsPending($q) {
         return $q->where('pending', 1)->where('expired', 0)->where('finish', 0)->where('active', 0)->where('start', 0)->where('canceled', 0);
     }
@@ -168,6 +179,10 @@ class Schedule extends Model
         return $q->where('type_schedule', 'direct');
     }
 
+    public function scopeIsOnline($q) {
+        return $q->where('type_schedule', '!=', 'direct');
+    }
+
     public function scopeRequesterSameSchool($q) {
         // Schedule::whereHas('requester', function($query) {
         //     $query->sameSchool();
@@ -202,6 +217,59 @@ class Schedule extends Model
         return $q->orWhereHas('consultant', function($query) {
             $query->where('sekolah_id', Auth::user()->sekolah_id);
         });
+    }
+
+    public function scopeMe($q) {
+        if(Auth::user()->role == 'siswa') {
+            return $q->requesterIsMe();
+        } else if(Auth::user()->role == 'guru') {
+            return $q->consultantIsMe();
+        } else {
+            throw new \Exception('User role not found');
+        }
+    }
+
+    public function scopeRequesterSchedule($q) {
+        return $q->whereHas('requester', function ($query) {
+            $query->where('role', 'siswa')
+                ->where('requester_id', Auth::user()->id)
+                ->where('sekolah_id', Auth::user()->sekolah_id);
+        });
+    }
+
+    public function scopeConsultantSchedule($q) {
+        return $q->whereHas('requester', function ($query) {
+            $query->where('role', 'siswa')
+                ->where('sekolah_id', Auth::user()->sekolah_id);
+        });
+    }
+
+    public function scopeWithConsultant($q) {
+        return $q->with('consultant');
+    }
+
+    public function scopeWithRequester($q) {
+        return $q->with('requester');
+    }
+
+    public function scopeWithFeedback($q) {
+        return $q->with('feedback');
+    }
+
+    public function scopeOrderDescCreated($q) {
+        return $q->orderBy('created_at', 'desc');
+    }
+
+    public function scopeOrderDescUpdated($q) {
+        return $q->orderBy('updated_at', 'desc');
+    }
+
+    public function scopeRequesterIsMe($q) {
+        return $q->where('requester_id', Auth::user()->id);
+    }
+
+    public function scopeConsultantIsMe($q) {
+        return $q->where('consultant_id', Auth::user()->id);
     }
 
 }
