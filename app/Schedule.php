@@ -177,6 +177,15 @@ class Schedule extends Model
         });
     }
 
+    public function scopeOrRequesterSameSchool($q) {
+        // Schedule::whereHas('requester', function($query) {
+        //     $query->sameSchool();
+        // })->isDirect()->isActive()->count();
+        return $q->orWhereHas('requester', function($query) {
+            $query->where('sekolah_id', Auth::user()->sekolah_id);
+        });
+    }
+
     public function scopeConsultantSameSchool($q) {
         // Schedule::whereHas('requester', function($query) {
         //     $query->sameSchool();
@@ -186,5 +195,13 @@ class Schedule extends Model
         });
     }
 
+    public function scopeOrConsultantSameSchool($q) {
+        // Schedule::whereHas('requester', function($query) {
+        //     $query->sameSchool();
+        // })->isDirect()->isActive()->count();
+        return $q->orWhereHas('consultant', function($query) {
+            $query->where('sekolah_id', Auth::user()->sekolah_id);
+        });
+    }
 
 }

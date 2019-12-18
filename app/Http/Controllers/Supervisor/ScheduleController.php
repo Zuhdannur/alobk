@@ -117,9 +117,9 @@ class ScheduleController extends Controller
         }
 
         else if($request->tipe == 'canceled') {
-            $direct = Schedule::requesterSameSchool()->consultantSameSchool()->createdToday()->isDirect()->isCanceled()->count();
-            $realtime = Schedule::requesterSameSchool()->consultantSameSchool()->createdToday()->isRealtime()->isCanceled()->count();
-            $daring = Schedule::requesterSameSchool()->consultantSameSchool()->createdToday()->isDaring()->isCanceled()->count();
+            $direct = Schedule::requesterSameSchool()->orConsultantSameSchool()->createdToday()->isDirect()->isCanceled()->count();
+            $realtime = Schedule::requesterSameSchool()->orConsultantSameSchool()->createdToday()->isRealtime()->isCanceled()->count();
+            $daring = Schedule::requesterSameSchool()->orConsultantSameSchool()->createdToday()->isDaring()->isCanceled()->count();
         }
 
         else {
