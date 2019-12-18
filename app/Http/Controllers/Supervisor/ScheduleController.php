@@ -154,6 +154,8 @@ class ScheduleController extends Controller
             $query->where('sekolah_id',Auth::user()->sekolah_id);
         })->whereDate('created_at', Carbon::today())->latest()->first();
 
+        $getLastData = $lastData == null ? null : $lastData->readable_created_at;
+
         return Response::json([
             'total_schedule' => $schedule,
             'total_daring' => $countDaring,
@@ -165,7 +167,7 @@ class ScheduleController extends Controller
             'total_selesai' => $totalSelesai,
             'total_batalkan' => $totalCanceled,
 
-            'last_data' => $lastData->readable_created_at
+            'last_data' => $getLastData
         ]);
     }
 
