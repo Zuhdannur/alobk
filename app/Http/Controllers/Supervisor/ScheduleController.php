@@ -53,6 +53,11 @@ class ScheduleController extends Controller
         ]);
     }
 
+    public function getSchedule() {
+        $schedule = Schedule::requesterSameSchool()->get();
+        return Response::json($schedule, 200);
+    }
+
     public function getTotalToday() {
         $schedule = Schedule::requesterSameSchool()->createdToday()->count();
 

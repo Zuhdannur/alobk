@@ -91,6 +91,7 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
                 $router->get('diary/generate', 'ScheduleController@generateDiary');
 
                 $router->get('schedule/info', 'ScheduleController@getScheduleByAktif');
+                $router->get('schedule', 'ScheduleController@getSchedule');
                 // $router->get('schedule/pending', 'ScheduleController@getScheduleByPending');
                 // $router->get('schedule/finish', 'ScheduleController@getScheduleByEnded');
                 // $router->get('schedule/canceled', 'ScheduleController@getScheduleByCanceled');
