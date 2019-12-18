@@ -69,6 +69,8 @@ class ScheduleController extends Controller
 
         $totalCanceled = Schedule::requesterSameSchool()->updatedToday()->isCanceled()->count();
 
+        $totalOutdated = Schedule::requesterSameSchool()->updatedToday()->isExpired()->count();
+
         $lastData = Schedule::requesterSameSchool()->createdToday()->latest()->first();
 
         $getLastData = $lastData == null ? null : $lastData->readable_created_at;
@@ -80,6 +82,7 @@ class ScheduleController extends Controller
             'total_aktif' => $totalActive,
             'total_selesai' => $totalSelesai,
             'total_batalkan' => $totalCanceled,
+            'total_kedaluwarsa' => $totalOutdated,
 
             'last_data' => $getLastData
         ]);
