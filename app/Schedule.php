@@ -151,7 +151,7 @@ class Schedule extends Model
 
     public function scopeIsFinish($q) {
         return $q->where(function($query){
-            $query->where('pending', 1)->where('expired', 0)->where('finish', 1)->where('active', 1)->where('start', 1)->where('canceled', 0);
+            $query->where('pending', 1)->where('expired', 0)->where('finish', 1)->where('active', 1)->where('canceled', 0);
         });
     }
 
