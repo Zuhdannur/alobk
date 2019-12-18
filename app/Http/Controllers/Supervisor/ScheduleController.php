@@ -105,9 +105,9 @@ class ScheduleController extends Controller
         // }
 
         // else if($request->tipe == 'pending') {
-            $direct = Schedule::requesterSameSchool()->consultantSameSchool()->createdToday()->isPending()->isDirect()->count();
-            $realtime = Schedule::requesterSameSchool()->consultantSameSchool()->createdToday()->isPending()->isRealtime()->count();
-            $daring = Schedule::requesterSameSchool()->consultantSameSchool()->createdToday()->isPending()->isDaring()->count();
+            $direct = Schedule::requesterSameSchool()->consultantSameSchool()->createdToday()->isPending()->count();
+            $realtime = Schedule::requesterSameSchool()->consultantSameSchool()->createdToday()->isPending()->count();
+            $daring = Schedule::requesterSameSchool()->consultantSameSchool()->createdToday()->isPending()->count();
         // }
 
         // else if($request->tipe == 'finish') {
