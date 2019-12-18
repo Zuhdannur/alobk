@@ -72,4 +72,8 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
             ->diffForHumans();
     }
 
+    public function scopeSameSchool($q) {
+        return $q->where('sekolah_id', Auth::user()->sekolah_id);
+    }
+
 }
