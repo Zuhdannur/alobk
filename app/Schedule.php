@@ -29,7 +29,7 @@ class Schedule extends Model
         'time'
     ];
 
-    protected $appends = ['readable_created_at', 'readable_updated_at', 'readable_time', 'readable_date', 'readable_hours', 'is_pending'];
+    protected $appends = ['readable_created_at', 'readable_updated_at', 'readable_time', 'readable_date', 'readable_hours', 'pure_pending'];
 
     protected $table = "schedule";
 
@@ -102,13 +102,13 @@ class Schedule extends Model
             ->format('H:i');
     }
 
-    public function getIsPendingAttribute() {
+    public function getPurePendingAttribute() {
         return $this->attributes['pending'] == 1 &&
         $this->attributes['canceled'] == 0 &&
          $this->attributes['expired'] == 0 &&
           $this->attributes['finish'] == 0 &&
            $this->attributes['active'] == 0 &&
-            $this->attributes['start'] == 0;
+            $this->attributes['start'] == 0 ? 1 : 0;
     }
 
 }
