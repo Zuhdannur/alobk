@@ -32,52 +32,82 @@ class ScheduleController extends Controller
 
     public function getTotalSchedule() {
         $schedule = Schedule::whereHas('requester', function($query) {
-            $query->where('sekolah_id',Auth::user()->sekolah_id);
-        })->where([
-            ['pending','=',1],
-            ['expired','=',0],
-            ['canceled','=',0],
-            ['finish','=',1],
-            ['active','=',1],
-            ['start','=',1],
-        ])->where([
-            ['pending','=',1],
-            ['expired','=',0],
-            ['canceled','=',0],
-            ['finish','=',1],
-            ['active','=',1],
-            ['start','=',1],
-        ])->count();
+            $query->where('sekolah_id', Auth::user()->sekolah_id);
+        })->whereHas('consultant', function($query) {
+            $query->where('sekolah_id', Auth::user()->sekolah_id);
+        })->where('finish', 1)->count();
+
+        // $schedule = Schedule::whereHas('requester', function($query) {
+        //     $query->where('sekolah_id',Auth::user()->sekolah_id);
+        // })->where([
+        //     ['pending','=',1],
+        //     ['expired','=',0],
+        //     ['canceled','=',0],
+        //     ['finish','=',1],
+        //     ['active','=',1],
+        //     ['start','=',1],
+        // ])->where([
+        //     ['pending','=',1],
+        //     ['expired','=',0],
+        //     ['canceled','=',0],
+        //     ['finish','=',1],
+        //     ['active','=',1],
+        //     ['start','=',1],
+        // ])->count();
         $countDaring = Schedule::whereHas('requester', function($query) {
-            $query->where('sekolah_id',Auth::user()->sekolah_id);
-        })->where('type_schedule','daring')->where([
-            ['pending','=',1],
-            ['expired','=',0],
-            ['canceled','=',0],
-            ['finish','=',1],
-            ['active','=',1],
-            ['start','=',1],
-        ])->count();
-        $countDirect = Schedule::whereHas('requester', function($query) {
-            $query->where('sekolah_id',Auth::user()->sekolah_id);
-        })->where('type_schedule','direct')->where([
-            ['pending','=',1],
-            ['expired','=',0],
-            ['canceled','=',0],
-            ['finish','=',1],
-            ['active','=',1],
-            ['start','=',1],
-        ])->count();
+            $query->where('sekolah_id', Auth::user()->sekolah_id);
+        })->whereHas('consultant', function($query) {
+            $query->where('sekolah_id', Auth::user()->sekolah_id);
+        })->where(function($query){
+            $query->where('type_schedule', 'daring')->where('finish', 1);
+        })->count();
+
         $countRealtime = Schedule::whereHas('requester', function($query) {
-            $query->where('sekolah_id',Auth::user()->sekolah_id);
-        })->where('type_schedule','realtime')->where([
-            ['pending','=',1],
-            ['expired','=',0],
-            ['canceled','=',0],
-            ['finish','=',1],
-            ['active','=',1],
-            ['start','=',1],
-        ])->count();
+            $query->where('sekolah_id', Auth::user()->sekolah_id);
+        })->whereHas('consultant', function($query) {
+            $query->where('sekolah_id', Auth::user()->sekolah_id);
+        })->where(function($query){
+            $query->where('type_schedule', 'realtime')->where('finish', 1);
+        })->count();
+
+        $countDirect = Schedule::whereHas('requester', function($query) {
+            $query->where('sekolah_id', Auth::user()->sekolah_id);
+        })->whereHas('consultant', function($query) {
+            $query->where('sekolah_id', Auth::user()->sekolah_id);
+        })->where(function($query){
+            $query->where('type_schedule', 'direct')->where('finish', 1);
+        })->count();
+        
+        // $countDaring = Schedule::whereHas('requester', function($query) {
+        //     $query->where('sekolah_id',Auth::user()->sekolah_id);
+        // })->where('type_schedule','daring')->where([
+        //     ['pending','=',1],
+        //     ['expired','=',0],
+        //     ['canceled','=',0],
+        //     ['finish','=',1],
+        //     ['active','=',1],
+        //     ['start','=',1],
+        // ])->count();
+        // $countDirect = Schedule::whereHas('requester', function($query) {
+        //     $query->where('sekolah_id',Auth::user()->sekolah_id);
+        // })->where('type_schedule','direct')->where([
+        //     ['pending','=',1],
+        //     ['expired','=',0],
+        //     ['canceled','=',0],
+        //     ['finish','=',1],
+        //     ['active','=',1],
+        //     ['start','=',1],
+        // ])->count();
+        // $countRealtime = Schedule::whereHas('requester', function($query) {
+        //     $query->where('sekolah_id',Auth::user()->sekolah_id);
+        // })->where('type_schedule','realtime')->where([
+        //     ['pending','=',1],
+        //     ['expired','=',0],
+        //     ['canceled','=',0],
+        //     ['finish','=',1],
+        //     ['active','=',1],
+        //     ['start','=',1],
+        // ])->count();
 
         return Response::json([
             'total_schedule' => $schedule,
