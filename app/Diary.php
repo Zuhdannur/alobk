@@ -50,4 +50,13 @@ class Diary extends Model
         return \Carbon\Carbon::parse($this->attributes['tgl'])->translatedFormat('l, d F Y');
     }
 
+    public function scopeUserSameSchool($q) {
+        // Schedule::whereHas('requester', function($query) {
+        //     $query->sameSchool();
+        // })->isDirect()->isActive()->count();
+        return $q->whereHas('user', function($query) {
+            $query->where('sekolah_id', Auth::user()->sekolah_id);
+        });
+    }
+
 }

@@ -70,29 +70,17 @@ class ScheduleController extends Controller
     }
 
     public function getTotalToday() {
-        $schedule = Schedule::whereHas('requester', function($query) {
-            $query->where('sekolah_id',Auth::user()->sekolah_id);
-        })->createdToday()->count();
+        $schedule = Schedule::requesterSameSchool()->createdToday()->count();
 
-        $totalPending = Schedule::whereHas('requester', function($query) {
-            $query->where('sekolah_id',Auth::user()->sekolah_id);
-        })->createdToday()->isPending()->count();
+        $totalPending = Schedule::requesterSameSchool()->createdToday()->isPending()->count();
 
-        $totalActive = Schedule::whereHas('requester', function($query) {
-            $query->where('sekolah_id',Auth::user()->sekolah_id);
-        })->createdToday()->isActive()->count();
+        $totalActive = Schedule::requesterSameSchool()->createdToday()->isActive()->count();
 
-        $totalSelesai = Schedule::whereHas('requester', function($query) {
-            $query->where('sekolah_id',Auth::user()->sekolah_id);
-        })->createdToday()->isFinish()->count();
+        $totalSelesai = Schedule::requesterSameSchool()->createdToday()->isFinish()->count();
 
-        $totalCanceled = Schedule::whereHas('requester', function($query) {
-            $query->where('sekolah_id',Auth::user()->sekolah_id);
-        })->createdToday()->isCanceled()->count();
+        $totalCanceled = Schedule::requesterSameSchool()->createdToday()->isCanceled()->count();
 
-        $lastData = Schedule::whereHas('requester', function($query) {
-            $query->where('sekolah_id',Auth::user()->sekolah_id);
-        })->createdToday()->latest()->first();
+        $lastData = Schedule::requesterSameSchool()->createdToday()->latest()->first();
 
         $getLastData = $lastData == null ? null : $lastData->readable_created_at;
 
@@ -108,10 +96,35 @@ class ScheduleController extends Controller
         ]);
     }
 
-    public function getScheduleByAktif() {
-        $direct = Schedule::requesterSameSchool()->consultantSameSchool()->createdToday()->isDirect()->isActive()->count();
-        $realtime = Schedule::requesterSameSchool()->consultantSameSchool()->createdToday()->isRealtime()->isActive()->count();
-        $daring = Schedule::requesterSameSchool()->consultantSameSchool()->createdToday()->isDaring()->isActive()->count();
+    public function getScheduleByAktif(Request $request) {
+
+        if($request->tipe === 'active') {
+            $direct = Schedule::requesterSameSchool()->consultantSameSchool()->createdToday()->isDirect()->isActive()->count();
+            $realtime = Schedule::requesterSameSchool()->consultantSameSchool()->createdToday()->isRealtime()->isActive()->count();
+            $daring = Schedule::requesterSameSchool()->consultantSameSchool()->createdToday()->isDaring()->isActive()->count();
+        }
+
+        else if($request->tipe === 'pending') {
+            $direct = Schedule::requesterSameSchool()->consultantSameSchool()->createdToday()->isDirect()->isPending()->count();
+            $realtime = Schedule::requesterSameSchool()->consultantSameSchool()->createdToday()->isRealtime()->isPending()->count();
+            $daring = Schedule::requesterSameSchool()->consultantSameSchool()->createdToday()->isDaring()->isPending()->count();
+        }
+
+        else if($request->tipe === 'finish') {
+            $direct = Schedule::requesterSameSchool()->consultantSameSchool()->createdToday()->isDirect()->isFinish()->count();
+            $realtime = Schedule::requesterSameSchool()->consultantSameSchool()->createdToday()->isRealtime()->isFinish()->count();
+            $daring = Schedule::requesterSameSchool()->consultantSameSchool()->createdToday()->isDaring()->isFinish()->count();
+        }
+
+        else if($request->tipe === 'canceled') {
+            $direct = Schedule::requesterSameSchool()->consultantSameSchool()->createdToday()->isDirect()->isCanceled()->count();
+            $realtime = Schedule::requesterSameSchool()->consultantSameSchool()->createdToday()->isRealtime()->isCanceled()->count();
+            $daring = Schedule::requesterSameSchool()->consultantSameSchool()->createdToday()->isDaring()->isCanceled()->count();
+        }
+
+        else {
+            throw new \Exception('Parameter tipe harus diisi.');
+        }
 
         return Response::json([
             'total_daring' => $daring,
@@ -157,23 +170,8 @@ class ScheduleController extends Controller
         ]);
     }
 
-    public function lastFeed(Request $request) {
-        $schedule = $this->schedule->where('sekolah_id',Auth::user()->sekolah_id)->orderBy('created_at','desc');
-
-        if($request->has('take')) {
-            $schedule = $schedule->take($request->take)->get();
-            return Response::json($schedule, 200);
-        }
-
-        $schedule = $schedule->paginate($request->per_page);
-
-        return Response::json($schedule, 200);
-    }
-
     public function generateDiary() {
-        $diary = Diary::whereHas('user', function($query) {
-            $query->where('sekolah_id', Auth::user()->sekolah_id);
-        })->get();
+        $diary = Diary::userSameSchool()->get();
 
         $timeGenerated = Carbon::now()->format('d/m/Y H:i:s');
         $timeForFileGenerate = Carbon::now()->format('dmYHs');
@@ -194,12 +192,7 @@ class ScheduleController extends Controller
     }
 
     public function generateScheduleTest() {
-        $schedule = Schedule::where('finish', 1)
-        ->whereHas('requester', function($query) {
-            $query->where('sekolah_id', Auth::user()->sekolah_id);
-        })->whereHas('consultant', function($query) {
-            $query->where('sekolah_id', Auth::user()->sekolah_id);
-        })->with('consultant', 'requester','feedback')->get();
+        $schedule = Schedule::justFinish()->requesterSameSchool()->consultantSameSchool()->with('consultant', 'requester','feedback')->get();
 
         $timeGenerated = Carbon::now()->format('d/m/Y H:i:s');
         $timeForFileGenerate = Carbon::now()->format('dmYHs');
