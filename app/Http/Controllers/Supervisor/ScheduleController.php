@@ -61,13 +61,13 @@ class ScheduleController extends Controller
     public function getTotalToday() {
         $schedule = Schedule::requesterSameSchool()->createdToday()->count();
 
-        $totalPending = Schedule::requesterSameSchool()->createdToday()->justPending()->count();
+        $totalPending = Schedule::requesterSameSchool()->createdToday()->isPending()->count();
 
-        $totalActive = Schedule::requesterSameSchool()->createdToday()->justActive()->count();
+        $totalActive = Schedule::requesterSameSchool()->createdToday()->isActive()->count();
 
-        $totalSelesai = Schedule::requesterSameSchool()->createdToday()->justFinish()->count();
+        $totalSelesai = Schedule::requesterSameSchool()->createdToday()->isFinish()->count();
 
-        $totalCanceled = Schedule::requesterSameSchool()->createdToday()->justCanceled()->count();
+        $totalCanceled = Schedule::requesterSameSchool()->createdToday()->isCanceled()->count();
 
         $lastData = Schedule::requesterSameSchool()->createdToday()->latest()->first();
 
