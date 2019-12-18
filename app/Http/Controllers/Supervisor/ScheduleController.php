@@ -88,9 +88,9 @@ class ScheduleController extends Controller
     public function getScheduleByAktif(Request $request) {
 
         if($request->tipe == 'aktif') {
-            $direct = Schedule::requesterSameSchool()->consultantSameSchool()->createdToday()->isDirect()->isActive()->count();
-            $realtime = Schedule::requesterSameSchool()->consultantSameSchool()->createdToday()->isRealtime()->isActive()->count();
-            $daring = Schedule::requesterSameSchool()->consultantSameSchool()->createdToday()->isDaring()->isActive()->count();
+            $direct = Schedule::requesterSameSchool()->consultantSameSchool()->updatedToday()->isDirect()->isActive()->count();
+            $realtime = Schedule::requesterSameSchool()->consultantSameSchool()->updatedToday()->isRealtime()->isActive()->count();
+            $daring = Schedule::requesterSameSchool()->consultantSameSchool()->updatedToday()->isDaring()->isActive()->count();
         }
 
         else if($request->tipe == 'pending') {
@@ -100,15 +100,15 @@ class ScheduleController extends Controller
         }
 
         else if($request->tipe == 'selesai') {
-            $direct = Schedule::requesterSameSchool()->consultantSameSchool()->createdToday()->isDirect()->isFinish()->count();
-            $realtime = Schedule::requesterSameSchool()->consultantSameSchool()->createdToday()->isRealtime()->isFinish()->count();
-            $daring = Schedule::requesterSameSchool()->consultantSameSchool()->createdToday()->isDaring()->isFinish()->count();
+            $direct = Schedule::requesterSameSchool()->consultantSameSchool()->updatedToday()->isDirect()->isFinish()->count();
+            $realtime = Schedule::requesterSameSchool()->consultantSameSchool()->updatedToday()->isRealtime()->isFinish()->count();
+            $daring = Schedule::requesterSameSchool()->consultantSameSchool()->updatedToday()->isDaring()->isFinish()->count();
         }
 
         else if($request->tipe == 'dibatalkan') {
-            $direct = Schedule::requesterSameSchool()->orConsultantSameSchool()->createdToday()->isDirect()->isCanceled()->count();
-            $realtime = Schedule::requesterSameSchool()->orConsultantSameSchool()->createdToday()->isRealtime()->isCanceled()->count();
-            $daring = Schedule::requesterSameSchool()->orConsultantSameSchool()->createdToday()->isDaring()->isCanceled()->count();
+            $direct = Schedule::requesterSameSchool()->orConsultantSameSchool()->updatedToday()->isDirect()->isCanceled()->count();
+            $realtime = Schedule::requesterSameSchool()->orConsultantSameSchool()->updatedToday()->isRealtime()->isCanceled()->count();
+            $daring = Schedule::requesterSameSchool()->orConsultantSameSchool()->updatedToday()->isDaring()->isCanceled()->count();
         }
 
         else {
