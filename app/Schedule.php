@@ -129,6 +129,10 @@ class Schedule extends Model
         return $q->whereDate('created_at', Carbon::today());
     }
 
+    public function scopeUpdatedToday($q) {
+        return $q->whereDate('updated_at', Carbon::today());
+    }
+
     public function scopeIsActive($q) {
         return $q->where(function($query){
             $query->where('pending', 1)->where('expired', 0)->where('finish', 0)->where('active', 1)->where('canceled', 0);
