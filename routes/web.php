@@ -115,11 +115,11 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
                 $router->get('schedule/generate', 'ScheduleController@generateScheduleTest');
                 $router->get('diary/generate', 'ScheduleController@generateDiary');
 
-                $router->group(['prefix' => 'schedule/get'], function () use ($router) {
-                    $router->get('aktif', 'ScheduleController@getScheduleByAktif');
-                    $router->get('pending', 'ScheduleController@getScheduleByPending');
-                    $router->get('finish', 'ScheduleController@getScheduleByEnded');
-                    $router->get('canceled', 'ScheduleController@getScheduleByCanceled');
+                $router->group(['prefix' => 'get'], function () use ($router) {
+                    $router->get('schedule/aktif', 'ScheduleController@getScheduleByAktif');
+                    $router->get('schedule/pending', 'ScheduleController@getScheduleByPending');
+                    $router->get('schedule/finish', 'ScheduleController@getScheduleByEnded');
+                    $router->get('schedule/canceled', 'ScheduleController@getScheduleByCanceled');
                 });
 
             });
