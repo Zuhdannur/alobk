@@ -59,7 +59,7 @@ class ScheduleController extends Controller
     }
 
     public function getTotalToday() {
-        $schedule = Schedule::requesterSameSchool()->createdToday()->count();
+        $schedule = Schedule::requesterSameSchool()->updatedToday()->count();
 
         $totalPending = Schedule::requesterSameSchool()->createdToday()->isPending()->count();
 
