@@ -29,7 +29,7 @@ class Schedule extends Model
         'time'
     ];
 
-    protected $appends = ['readable_created_at', 'readable_updated_at', 'readable_time', 'readable_date', 'readable_hours', 'pure_pending'];
+    protected $appends = ['readable_created_at', 'readable_updated_at', 'readable_time', 'readable_date', 'readable_hours'];
 
     protected $table = "schedule";
 
@@ -112,8 +112,33 @@ class Schedule extends Model
             // $this->attributes['start'] == 0 ? 1 : 0;
     }
 
+
     public function scopeIsPending($q) {
-        return $q->where('pending', 1)->where('expired', 0)->where('finish', 0)->where('active', 0)->where('start', 0);
+        return $q->where('pending', 1)->where('expired', 0)->where('finish', 0)->where('active', 0)->where('start', 0)->where('canceled', 0);
+    }
+
+    public function scopeCreatedToday($q) {
+        return $q->whereDate('created_at', Carbon::today());
+    }
+
+    public function scopeIsActive($q) {
+        return $q->where('pending', 1)->where('expired', 0)->where('finish', 0)->where('active', 1)->where('canceled', 0);
+    }
+
+    public function scopeIsExpired($q) {
+        return $q->where('pending', 1)->where('expired', 1)->where('finish', 0)->where('active', 0)->where('start', 0)->where('canceled', 0);
+    }
+
+    public function scopeIsFinish($q) {
+        return $q->where('pending', 1)->where('expired', 0)->where('finish', 1)->where('active', 1)->where('start', 1)->where('canceled', 0);
+    }
+
+    public function scopeIsCanceled($q) {
+        return $q->where('pending', 1)->where('expired', 0)->where('finish', 0)->where('active', 0)->where('start', 0)->where('canceled', 1);
+    }
+
+    public function scopeIsStart($q) {
+        return $q->where('pending', 1)->where('expired', 0)->where('finish', 0)->where('active', 1)->where('start', 1)->where('canceled', 0);
     }
 
 }
