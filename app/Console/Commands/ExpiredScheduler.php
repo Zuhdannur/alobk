@@ -40,7 +40,7 @@ class ExpiredScheduler extends Command
     public function handle()
     {
         DB::table('schedule')
-            ->where('type_schedule','!=','daring')
+            ->where('type_schedule','!=','realtime')
             ->where('expired', 0)
             ->where('canceled', 0)
             ->where('pending', 1)
