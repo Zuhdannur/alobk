@@ -85,12 +85,7 @@
                   <br>
                   <span>Selamat Datang Di</span>
                   <br>
-                  <span class="bold">API Aplikasi ALOBK</span>
-                </div>
-
-                <div class="links">
-                    <p>Muhammad Syahrul Satura</p>
-                    <p>Aldi S A</p>
+                  <span class="bold">API ALOBK</span>
                 </div>
             </div>
         </div>
