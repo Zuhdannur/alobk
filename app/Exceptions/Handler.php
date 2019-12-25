@@ -47,6 +47,15 @@ class Handler extends ExceptionHandler
     {
         if ($this->isHttpException($e)) {
             switch ($e->getStatusCode()) {
+
+                case '403':
+                    return \Response::json(['message' => "Unauthorized."]);
+                    break;
+
+                // internal error
+                case '500':
+                    return \Response::view('error404',array(),500);
+                    break;
     
                 // not found
                 case '404':
