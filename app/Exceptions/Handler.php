@@ -70,12 +70,7 @@ class Handler extends ExceptionHandler
     
                 // not found
                 case '404':
-                    return response()->json([
-                        'error' => [
-                            'code' => $rendered->getStatusCode(),
-                            'message' => $exception->getMessage(),
-                        ]
-                    ], $rendered->getStatusCode());
+                    return view('error404', array());
                     break;
     
                 default:
