@@ -83,8 +83,6 @@
             <div class="content">
                 <div class="title m-b-md">
                   <br>
-                  <span>Selamat Datang Di</span>
-                  <br>
                   <span class="bold">API ALOBK</span>
                 </div>
             </div>
