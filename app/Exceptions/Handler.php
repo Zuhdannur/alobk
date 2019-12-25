@@ -48,7 +48,6 @@ class Handler extends ExceptionHandler
     {
         $rendered = parent::render($request, $exception);
 
-        if ($this->isHttpException($exception)) {
             switch ($rendered->getStatusCode()) {
                 case '403':
                     return response()->json([
@@ -88,8 +87,5 @@ class Handler extends ExceptionHandler
                     ], $rendered->getStatusCode());
                     break;
             }
-        } else {
-            return parent::render($request, $exception);
-        }
     }
 }
