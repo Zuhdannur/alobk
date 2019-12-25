@@ -50,17 +50,17 @@ class Handler extends ExceptionHandler
             switch ($exception->getStatusCode()) {
 
                 case '403':
-                    return \Response::json(['message' => "Unauthorized."]);
+                    return Response::json(['message' => "Unauthorized."]);
                     break;
 
                 // internal error
                 case '500':
-                    return \Response::json(['message' => "Unauthorized."]);
+                    return Response::json(['message' => "Unauthorized."]);
                     break;
     
                 // not found
                 case '404':
-                    return \Response::json(['message' => "Unauthorized."]);
+                    return Response::json(['message' => "Unauthorized."]);
                     break;
     
                 default:
