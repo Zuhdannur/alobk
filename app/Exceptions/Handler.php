@@ -43,31 +43,8 @@ class Handler extends ExceptionHandler
      * @param  \Exception  $exception
      * @return \Illuminate\Http\Response|\Illuminate\Http\JsonResponse
      */
-    public function render($request, Exception $e)
+    public function render($request, Exception $exception)
     {
-        if ($this->isHttpException($e)) {
-            switch ($e->getStatusCode()) {
-
-                case '403':
-                    return \Response::json(['message' => "Unauthorized."]);
-                    break;
-
-                // internal error
-                case '500':
-                    return \Response::view('error404',array(),500);
-                    break;
-    
-                // not found
-                case '404':
-                    return \Response::view('error404',array(),404);
-                    break;
-    
-                default:
-                    return $this->renderHttpException($e);
-                    break;
-            }
-        } else {
-            return parent::render($request, $e);
-        }
+        return parent::render($request, $exception);
     }
 }
