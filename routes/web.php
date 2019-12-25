@@ -17,7 +17,7 @@
  * Routes for resource user
  */
 $router->get('/', function(){
-    return view('error404', ['name' => 'James']);
+    return view('greetings', array());
 });
 
 $router->group(['prefix'=>'v1/api'], function () use ($router) {
