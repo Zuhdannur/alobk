@@ -8,6 +8,7 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Laravel\Lumen\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Illuminate\Support\Facades\Response;
 
 class Handler extends ExceptionHandler
 {
@@ -54,12 +55,12 @@ class Handler extends ExceptionHandler
 
                 // internal error
                 case '500':
-                    return \Response::view('error404',array(),500);
+                    return \Response::json(['message' => "Unauthorized."]);
                     break;
     
                 // not found
                 case '404':
-                    return \Response::view('error404',array(),404);
+                    return \Response::json(['message' => "Unauthorized."]);
                     break;
     
                 default:
