@@ -17,7 +17,7 @@
  * Routes for resource user
  */
 $router->get('/', function(){
-    return view('greetings', array());
+    return view('greeting', array());
 });
 
 $router->group(['prefix'=>'v1/api'], function () use ($router) {

@@ -50,7 +50,7 @@ class Handler extends ExceptionHandler
 
         if ($this->isHttpException($exception)) {
             switch ($rendered->getStatusCode()) {
-                case 403:
+                case '403':
                     return response()->json([
                         'error' => [
                             'code' => $rendered->getStatusCode(),
@@ -60,7 +60,7 @@ class Handler extends ExceptionHandler
                     break;
 
                 // internal error
-                case 500:
+                case '500':
                     return response()->json([
                         'error' => [
                             'code' => $rendered->getStatusCode(),
@@ -70,7 +70,7 @@ class Handler extends ExceptionHandler
                     break;
     
                 // not found
-                case 404:
+                case '404':
                     return response()->json([
                         'error' => [
                             'code' => $rendered->getStatusCode(),
