@@ -48,11 +48,48 @@ class Handler extends ExceptionHandler
     {
         $rendered = parent::render($request, $exception);
 
-        return response()->json([
-            'error' => [
-                'code' => $rendered->getStatusCode(),
-                'message' => $exception->getMessage(),
-            ]
-        ], $rendered->getStatusCode());
+        if ($this->isHttpException($exception)) {
+            switch ($rendered->getStatusCode()) {
+                case 403:
+                    return response()->json([
+                        'error' => [
+                            'code' => $rendered->getStatusCode(),
+                            'message' => $exception->getMessage(),
+                        ]
+                    ], $rendered->getStatusCode());
+                    break;
+
+                // internal error
+                case 500:
+                    return response()->json([
+                        'error' => [
+                            'code' => $rendered->getStatusCode(),
+                            'message' => $exception->getMessage(),
+                        ]
+                    ], $rendered->getStatusCode());
+                    break;
+    
+                // not found
+                case 404:
+                    return response()->json([
+                        'error' => [
+                            'code' => $rendered->getStatusCode(),
+                            'message' => $exception->getMessage(),
+                        ]
+                    ], $rendered->getStatusCode());
+                    break;
+    
+                default:
+                    return response()->json([
+                        'error' => [
+                            'code' => $rendered->getStatusCode(),
+                            'message' => $exception->getMessage(),
+                        ]
+                    ], $rendered->getStatusCode());
+                    break;
+            }
+        } else {
+            return parent::render($request, $exception);
+        }
     }
 }
