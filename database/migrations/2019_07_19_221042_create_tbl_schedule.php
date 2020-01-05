@@ -39,7 +39,7 @@ class CreateTblSchedule extends Migration
             $table->timestamps();
         });
     }
-
+    
     /**
      * Reverse the migrations.
      *
@@ -47,6 +47,6 @@ class CreateTblSchedule extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tbl_schedule');
+        Schema::dropIfExists('schedule');
     }
 }
