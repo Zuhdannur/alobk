@@ -27,11 +27,8 @@ class CreateTblSchedule extends Migration
             $table->string('updated_old_time')->nullable();
             $table->string('updated_new_time')->nullable();
 
-            /*Saat konseling tidak diterima sama sekali*/
-            $table->integer('expired')->default(0);
             /*Saat konseling diterima lalu dibatalkan oleh guru/siswa */
             $table->integer('canceled')->default(0);
-            $table->integer('pending')->default(1);
             $table->integer('finish')->default(0);
             /*3 tipe, 0 = pending, 1 = diterima, 2 = selesai*/
             $table->integer('active')->default(0);

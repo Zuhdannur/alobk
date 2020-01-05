@@ -15,13 +15,10 @@ class Schedule extends Model
         'type_schedule',
         'time',
         'location',
-        'catatan',
         'updated_old_time',
         'updated_new_time',
 
-        'expired',
         'canceled',
-        'pending',
         'finish',
         'active',
         'start'
