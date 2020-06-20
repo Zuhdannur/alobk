@@ -172,9 +172,12 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
 
                 $router->post('feedback', 'CatatanKonselingController@post');
                 $router->get('feedback/{id}', 'CatatanKonselingController@get');
+
+
             });
         });
 
+        $router->post('guru','UsersController@getAllKonselor');
         //profile
         $router->put('user', 'UsersController@put');
         $router->get('user', 'UsersController@all');

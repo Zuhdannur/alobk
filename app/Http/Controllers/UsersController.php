@@ -74,6 +74,10 @@ class UsersController extends Controller
         return $this->userRepository->updateImageProfile($request);
     }
 
+    public function getAllKonselor(Request $request){
+        return $this->userRepository->getAllGuru($request);
+    }
+
     public function changePassword(Request $request) {
         $user = $this->user->find(Auth::user()->id);
 

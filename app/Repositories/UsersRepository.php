@@ -63,7 +63,8 @@ class UsersRepository
         $insert->save();
 
         if($request->role == 'guru' || $request->role == 'siswa') {
-            createUserInFirebase($request);
+            // createUserInFirebase($request);
+            $this->createUserInFirebase($request);
         }
 
         return Response::json([
@@ -79,7 +80,7 @@ class UsersRepository
                 'name' => $request->name,
                 'id' => $insert->id,
                 'username' => $request->username,
-                'role' => $request->role, 
+                'role' => $request->role,
                 'avatar' => $request->avatar,
                 'sekolah_id' => $request->sekolah_id
             ];
@@ -251,6 +252,11 @@ class UsersRepository
         return Response::json([
             "message" => "Success to update"
         ], 200);
+    }
+
+    public function getAllGuru(Request $request){
+        $query = \App\User::where([['role','guru'],['sekolah_id',Auth::user()->sekolah_id]])->get();
+        return $query;
     }
 
 }
