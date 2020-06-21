@@ -257,18 +257,7 @@ class UsersRepository
     public function getAllGuru(Request $request){
         $query = \App\User::where([['role','guru'],['sekolah_id',Auth::user()->sekolah_id]])->get();
 
-        if(empty($query)) {
-            return \response()->json([
-                "status" => 200,
-                "result" => null,
-                "message" => "Data Tidak Ada"
-            ]);
-        }
-        return \response()->json([
-            "status" => 200,
-            "result" => $query,
-            "message" => "Success"
-        ]);
+        return \response()->json($query);
     }
 
 }
