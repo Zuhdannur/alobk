@@ -392,4 +392,17 @@ class ScheduleController extends Controller
         ], 200);
     }
 
+    public function changeKonselor(Request $request){
+        $query = \App\Schedule::find($request->id);
+
+        $query->update([
+            "consultant_id" => $request->consultant_id
+        ]);
+
+        return \response()->json([
+            "message" => "success",
+            "status" => 200
+        ]);
+    }
+
 }
