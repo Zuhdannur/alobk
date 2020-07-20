@@ -179,6 +179,7 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
         });
 
         $router->post('guru','UsersController@getAllKonselor');
+        $router->get('guru/{id}','UsersController@getDetailKonselor');
         //profile
         $router->put('user', 'UsersController@put');
         $router->get('user', 'UsersController@all');

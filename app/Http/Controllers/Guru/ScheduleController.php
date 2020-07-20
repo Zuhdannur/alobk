@@ -400,6 +400,7 @@ class ScheduleController extends Controller
         ]);
 
         return \response()->json([
+            "data" => $query,
             "message" => "success",
             "status" => 200
         ]);

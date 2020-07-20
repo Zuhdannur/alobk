@@ -260,4 +260,10 @@ class UsersRepository
         return \response()->json($query);
     }
 
+    public function getDetailGuru($id) {
+        $query = \App\User::find($id)->first();
+        
+        return \response()->json($query);
+    }
+
 }

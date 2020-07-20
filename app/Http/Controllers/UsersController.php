@@ -78,6 +78,10 @@ class UsersController extends Controller
         return $this->userRepository->getAllGuru($request);
     }
 
+    public function getDetailKonselor($id) {
+        return $this->userRepository->getDetailGuru($id);
+    }
+
     public function changePassword(Request $request) {
         $user = $this->user->find(Auth::user()->id);
 
