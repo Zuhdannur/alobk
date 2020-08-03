@@ -260,6 +260,11 @@ class UsersRepository
         return $query;
     }
 
+    public function getAllGuruWithoutPaging(Request $request) {
+        $query = \App\User::where([['role','guru'],['sekolah_id',Auth::user()->sekolah_id]])->get();
+        return response()->json($query);
+    }
+
     public function getDetailGuru($id) {
         $query = \App\User::find($id)->first();
         
