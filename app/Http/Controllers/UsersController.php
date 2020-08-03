@@ -75,7 +75,9 @@ class UsersController extends Controller
     }
 
     public function getAllKonselor(Request $request){
-        return $this->userRepository->getAllGuru($request);
+        $data = $this->userRepository->getAllGuru($request);
+        $data = $data->paginate($request->per_page);
+        return response()->json($data);
     }
 
     public function getDetailKonselor($id) {

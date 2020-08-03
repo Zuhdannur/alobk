@@ -255,9 +255,9 @@ class UsersRepository
     }
 
     public function getAllGuru(Request $request){
-        $query = \App\User::where([['role','guru'],['sekolah_id',Auth::user()->sekolah_id]])->get();
+        $query = \App\User::where([['role','guru'],['sekolah_id',Auth::user()->sekolah_id]]);
 
-        return \response()->json($query);
+        return $query;
     }
 
     public function getDetailGuru($id) {
