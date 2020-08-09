@@ -69,6 +69,9 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
                 $router->get('feed/count', 'FeedController@count');
                 $router->get('feed', 'FeedController@all');
                 $router->delete('feed', 'FeedController@deleteAll');
+                
+
+                //Get Diary 
             });
 
         });
@@ -194,5 +197,7 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
         $router->get('user/{id}', 'UsersController@get');
         $router->put('user', 'UsersController@put');
         $router->delete('user/{id}', 'UsersController@remove');
+
+        
     });
 });

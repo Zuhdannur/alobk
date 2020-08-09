@@ -26,6 +26,10 @@ class ArticleController extends Controller
 
     public function all(Request $request) {
         $data = $this->article;
+        
+        if($request->has('kategori')) {
+            $data = $data->where('kategori',$request->kategori);
+        }
 
         if($request->has('orderBy')) {
             $data = $data->orderBy($request->orderBy, 'desc');
@@ -45,6 +49,7 @@ class ArticleController extends Controller
         $insert = $this->article;
         $insert->title = $request->title;
         $insert->desc = $request->desc;
+        $insert->kategori = $request->kategori;
         $insert->save();
         if ($insert) {
             return \Illuminate\Support\Facades\Response::json([
@@ -76,10 +81,11 @@ class ArticleController extends Controller
     public function put(Request $request, $id)
     {
         $update = $this->article->find($id);
-
+        
         $update = $update->update([
             'title' => $request->title,
-            'desc' => $request->desc
+            'desc' => $request->desc,
+            'kategori' => $request->kategori
         ]);
 
         if (!$update) {

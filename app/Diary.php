@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Auth;
 class Diary extends Model
 {
     protected $fillable = [
-        'user_id','body','title','tgl'
+        'user_id','body','title','tgl','kategori'
     ];
 
     public $timestamps = true;

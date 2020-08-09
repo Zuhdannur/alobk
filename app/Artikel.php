@@ -8,7 +8,7 @@ class Artikel extends Model
     use RecordsFeed;
 
     protected $fillable = [
-        'id','img','title','desc'
+        'id','img','title','desc','kategori'
     ];
 
     protected $table = "artikel";

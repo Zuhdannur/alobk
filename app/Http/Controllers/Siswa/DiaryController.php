@@ -25,6 +25,10 @@ class DiaryController extends Controller
 
     public function all(Request $request) {
         $data = $this->diary->where('user_id', Auth::user()->id);
+        
+        if($request->has('kategori')) {
+            $diary = $diary->where('kategori',$request->kategori);
+        }
 
         if($request->has('orderBy')) {
             $data = $data->orderBy($request->orderBy, 'desc');
@@ -40,6 +44,7 @@ class DiaryController extends Controller
         $insert->body = $request->body;
         $insert->title = $request->title;
         $insert->tgl = $request->tgl;
+        $insert->kategori = $request->kategori;
         $insert->save();
 
         return Response::json([
@@ -66,7 +71,8 @@ class DiaryController extends Controller
         $update = tap($this->diary->find($request->id))->update([
             'title' => $request->title,
             'body' => $request->body,
-            'tgl' => $request->tgl
+            'tgl' => $request->tgl,
+            'kategori' => $request->kategori
         ]);
 
         if (!$update) {
