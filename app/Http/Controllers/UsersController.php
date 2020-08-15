@@ -74,6 +74,21 @@ class UsersController extends Controller
         return $this->userRepository->updateImageProfile($request);
     }
 
+    public function getAllKonselor(Request $request){
+        return $this->userRepository->getAllGuruWithoutPaging($request);
+    }
+
+    public function getAllPagingKonselor(Request $request) {
+        $data = $this->userRepository->getAllGuru($request);
+        $data = $data->paginate($request->per_page);
+
+        return response()->json($data);
+    }
+
+    public function getDetailKonselor($id) {
+        return $this->userRepository->getDetailGuru($id);
+    }
+
     public function changePassword(Request $request) {
         $user = $this->user->find(Auth::user()->id);
 

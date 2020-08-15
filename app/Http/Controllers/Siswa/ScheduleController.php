@@ -30,6 +30,9 @@ class ScheduleController extends Controller
     {
         $insert = $this->schedule;
         $insert->requester_id = Auth::user()->id;
+        if(!empty($request->consultant_id)) {
+            $insert->consultant_id = $request->consultant_id;
+        }
         $insert->title = $request->title;
         $insert->type_schedule = $request->type_schedule;
         $insert->desc = $request->desc;
@@ -51,7 +54,7 @@ class ScheduleController extends Controller
             $insert->time = $request->time;
         }
 
-        
+
         //For daring only
 
         $insert->save();
@@ -258,7 +261,7 @@ class ScheduleController extends Controller
 
     public function insertHelper($id, Request $request) {
         $delete = $this->schedule->find($id)->insert(
-            
+
         );
         return Response::json(['message' => 'Berhasil menghapus'], 200);
     }

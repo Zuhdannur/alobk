@@ -32,6 +32,10 @@ class DiaryController extends Controller
             $query->where('sekolah_id', Auth::user()->sekolah_id);
         });
 
+        if($request->has('kategori')) {
+            $diary = $diary->where('kategori',$request->kategori);
+        }
+
         if($request->has('orderBy')) {
             $diary = $diary->orderBy('id', 'desc');
         }

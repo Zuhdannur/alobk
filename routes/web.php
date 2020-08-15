@@ -69,6 +69,9 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
                 $router->get('feed/count', 'FeedController@count');
                 $router->get('feed', 'FeedController@all');
                 $router->delete('feed', 'FeedController@deleteAll');
+                
+
+                //Get Diary 
             });
 
         });
@@ -124,6 +127,7 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
                 $router->get('schedule/jadwal/aktif', 'ScheduleController@jadwalAktif');
                 $router->get('schedule/obrolan/pending', 'ScheduleController@obrolanPending');
                 $router->get('schedule/obrolan/aktif', 'ScheduleController@obrolanAktif');
+                $router->post('schedule/konselor/update','ScheduleController@changeKonselor');
             });
 
         });
@@ -172,9 +176,14 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
 
                 $router->post('feedback', 'CatatanKonselingController@post');
                 $router->get('feedback/{id}', 'CatatanKonselingController@get');
+
+
             });
         });
 
+        $router->post('guru','UsersController@getAllKonselor');
+        $router->get('guru/{id}','UsersController@getDetailKonselor');
+        $router->get('guru-list','UsersController@getAllPagingKonselor');
         //profile
         $router->put('user', 'UsersController@put');
         $router->get('user', 'UsersController@all');
@@ -188,5 +197,7 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
         $router->get('user/{id}', 'UsersController@get');
         $router->put('user', 'UsersController@put');
         $router->delete('user/{id}', 'UsersController@remove');
+
+        
     });
 });

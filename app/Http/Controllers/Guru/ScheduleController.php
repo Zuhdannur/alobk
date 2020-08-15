@@ -94,7 +94,7 @@ class ScheduleController extends Controller
             'YzRiYzZlNjAtYmIwNC00MzJiLTk3NTYtNzBhNmU2ZTNjNDQx');
 
         $getObject = $this->schedule->where('id', $update->id)->with('consultant')->first();
-        
+
         // pushInfo.put("time", millis)
         //     pushInfo.put("chatAble", false)
         //     pushInfo.put("consultantActive", "${it.consultantId}_true")
@@ -299,7 +299,9 @@ class ScheduleController extends Controller
     }
 
     public function jadwalPending(Request $request) {
-        $data = $this->schedule->orderDescCreated()->consultantSchedule()->withRequester();
+        $data = $this->schedule->where(function ($query) {
+            $query->where('consultant_id', Auth::user()->id);
+        })->orderDescCreated()->consultantSchedule()->withRequester();
         $data = $data->isDirect()->isPending();
         $data = $data->paginate($request->per_page);
 
@@ -315,7 +317,9 @@ class ScheduleController extends Controller
     }
 
     public function obrolanPending(Request $request) {
-        $data = $this->schedule->orderDescCreated()->consultantSchedule()->withRequester();
+        $data = $this->schedule->where(function ($query) {
+            $query->where('consultant_id', Auth::user()->id);
+        })->orderDescCreated()->consultantSchedule()->withRequester();
         $data = $data->isOnline()->isPending();
         $data = $data->paginate($request->per_page);
 
@@ -386,6 +390,20 @@ class ScheduleController extends Controller
         return Response::json([
             "total" => $total
         ], 200);
+    }
+
+    public function changeKonselor(Request $request){
+        $query = \App\Schedule::find($request->id);
+
+        $query->update([
+            "consultant_id" => $request->consultant_id
+        ]);
+
+        return \response()->json([
+            "data" => $query,
+            "message" => "success",
+            "status" => 200
+        ]);
     }
 
 }
