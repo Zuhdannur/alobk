@@ -26,6 +26,8 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
     $router->post('register', 'UsersController@register');
     $router->get('cron', 'MastersController@cronJob');
 
+    $router->post('import','ImportDataController@import');
+
     /**
     * Routes for resource sekolah
     */
@@ -69,9 +71,9 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
                 $router->get('feed/count', 'FeedController@count');
                 $router->get('feed', 'FeedController@all');
                 $router->delete('feed', 'FeedController@deleteAll');
-                
 
-                //Get Diary 
+
+                //Get Diary
             });
 
         });
@@ -191,6 +193,8 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
         $router->post('user/password', 'UsersController@changePassword');
         $router->get('user/check', 'UsersController@checkUsername');
 
+        //Import
+
         /**
          * Routes for resource user
          */
@@ -198,6 +202,6 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
         $router->put('user', 'UsersController@put');
         $router->delete('user/{id}', 'UsersController@remove');
 
-        
+
     });
 });

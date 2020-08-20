@@ -85,7 +85,7 @@ class_alias('Berkayk\OneSignal\OneSignalFacade', 'OneSignals');
 class_alias(SafeStudio\Firebase\Facades\FirebaseFacades::class, 'Firebase');
 class_alias(Barryvdh\DomPDF\Facade::class, 'PDF');
 $app->register(SafeStudio\Firebase\FirebaseServiceProvider::class);
-$app->register(App\Providers\AppServiceProvider::class);    
+$app->register(App\Providers\AppServiceProvider::class);
 $app->register(Berkayk\OneSignal\OneSignalServiceProvider::class);
 $app->register(App\Providers\AuthServiceProvider::class);
 $app->register(Orumad\ConfigCache\ServiceProviders\ConfigCacheServiceProvider::class);
