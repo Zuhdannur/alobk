@@ -25,9 +25,9 @@ class DiaryController extends Controller
 
     public function all(Request $request) {
         $data = $this->diary->where('user_id', Auth::user()->id);
-        
-        if($request->has('kategori')) {
-            $diary = $diary->where('kategori',$request->kategori);
+
+        if(!empty($request->kategori)) {
+            $data = $data->where('kategori',$request->kategori);
         }
 
         if($request->has('orderBy')) {
