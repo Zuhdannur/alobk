@@ -26,8 +26,8 @@ class ArticleController extends Controller
 
     public function all(Request $request) {
         $data = $this->article;
-        
-        if($request->has('kategori')) {
+
+        if(!empty($request->kategori)) {
             $data = $data->where('kategori',$request->kategori);
         }
 
@@ -81,7 +81,7 @@ class ArticleController extends Controller
     public function put(Request $request, $id)
     {
         $update = $this->article->find($id);
-        
+
         $update = $update->update([
             'title' => $request->title,
             'desc' => $request->desc,
