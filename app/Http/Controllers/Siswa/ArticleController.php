@@ -42,10 +42,12 @@ class ArticleController extends Controller
 
 
     public function all(Request $request) {
-        $data = DB::table('artikel')->leftJoin('fav_artikel', function($join) {
-            $join->on('artikel.id', '=', 'fav_artikel.artikel_id');
-            $join->on('fav_artikel.user_id', '=', DB::raw(Auth::user()->id));
-        })->select('artikel.*', DB::raw('(fav_artikel.id IS NOT NULL) as bookmarked'));
+//        $data = DB::table('artikel')->leftJoin('fav_artikel', function($join) {
+//            $join->on('artikel.id', '=', 'fav_artikel.artikel_id');
+//            $join->on('fav_artikel.user_id', '=', DB::raw(Auth::user()->id));
+//        })->select('artikel.*', DB::raw('(fav_artikel.id IS NOT NULL) as bookmarked'));
+
+        $data = new \App\Artikel;
 
         if(!empty($request->kategori)) {
             $data = $data->where('artikel.kategori','=',$request->kategori);
