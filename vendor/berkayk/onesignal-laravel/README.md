@@ -1,4 +1,9 @@
-#  OneSignal Push Notifications for Laravel 5
+# OneSignal Push Notifications for Laravel
+[![Latest Stable Version](https://poser.pugx.org/berkayk/onesignal-laravel/v/stable)](https://packagist.org/packages/berkayk/onesignal-laravel)
+[![Total Downloads](https://poser.pugx.org/berkayk/onesignal-laravel/downloads)](https://packagist.org/packages/berkayk/onesignal-laravel)
+[![License](https://poser.pugx.org/berkayk/onesignal-laravel/license)](https://packagist.org/packages/berkayk/onesignal-laravel)
+
+
 
 ## Introduction
 
@@ -183,8 +188,6 @@ You can send a custom message with
 ```php
     OneSignal::sendNotificationCustom($parameters);
 ```
-    
-### Sending a Custom Notification
 
 ### Sending a async Custom Notification
 You can send a async custom message with 
