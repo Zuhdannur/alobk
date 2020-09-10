@@ -41,7 +41,6 @@ class ExpiredScheduler extends Command
     {
         DB::table('schedule')
             ->where('type_schedule','!=','realtime')
-            ->where('expired', 0)
             ->where('canceled', 0)
             ->where('pending', 1)
             ->where('finish', 0)
