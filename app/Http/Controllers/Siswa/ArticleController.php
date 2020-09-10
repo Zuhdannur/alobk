@@ -150,4 +150,13 @@ class ArticleController extends Controller
         ], 200);
     }
 
+    public function getDetail($id) {
+        $query = $this->article->find($id);
+
+        return Response::json([
+            'message' => "Berhasil",
+            'result' => $query
+        ]);
+    }
+
 }

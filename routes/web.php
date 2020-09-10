@@ -175,6 +175,7 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
                 $router->get('article', 'ArticleController@all');
                 $router->post('article', 'ArticleController@storeFavorite');
                 $router->get('favorite', 'ArticleController@getFavorite');
+                $router->get('article/{id}','ArticleController@getDetail');
 
                 $router->post('feedback', 'CatatanKonselingController@post');
                 $router->get('feedback/{id}', 'CatatanKonselingController@get');
