@@ -467,7 +467,7 @@ class ScheduleController extends Controller
 
     public function getScheduleFinished() {
         $totalObrolan = $this->schedule->justFinish()->requesterIsMe()->isOnline()->count();
-        $totalObrolan = $this->schedule->justFinish()->requesterIsMe()->isDirect()->count();
+        $totalDirect = $this->schedule->justFinish()->requesterIsMe()->isDirect()->count();
 
         return Response::json(['total_obrolan' => $totalObrolan,'total_direct' => $totalDirect], 200);
     }
