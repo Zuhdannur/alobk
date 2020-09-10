@@ -47,7 +47,7 @@ class DaringExpiredScheduler extends Command
             ->where('finish', 0)
             ->where('active', 0)
             ->where('start', 0)
-            ->whereDate('time', '<', Carbon::today())
-            ->update(['expired' => 1]);
+            ->whereDate('time', '<', Carbon::today());
+//            ->update(['expired' => 1]);
     }
 }
