@@ -64,7 +64,7 @@ class UsersRepository
 
         if($request->role == 'guru' || $request->role == 'siswa') {
             // createUserInFirebase($request);
-            $this->createUserInFirebase($request);
+            $this->createUserInFirebase($request,$insert);
         }
 
         return Response::json([
@@ -73,18 +73,18 @@ class UsersRepository
         ], 200);
     }
 
-    private function createUserInFirebase(Request $request) {
+    private function createUserInFirebase(Request $request , $params) {
         // Jika role nya siswa atau guru, then create firebase account. In order todo chat....
         //if($request->role == 'siswa' || $request->role == 'guru') {
             $data = [
                 'name' => $request->name,
-                'id' => $insert->id,
+                'id' => $params->id,
                 'username' => $request->username,
                 'role' => $request->role,
                 'avatar' => $request->avatar,
                 'sekolah_id' => $request->sekolah_id
             ];
-            Firebase::set('/users/'.$insert->id, $data);
+            Firebase::set('/users/'.$params->id, $data);
         //}
     }
 
@@ -267,7 +267,7 @@ class UsersRepository
 
     public function getDetailGuru($id) {
         $query = \App\User::find($id)->first();
-        
+
         return \response()->json($query);
     }
 
