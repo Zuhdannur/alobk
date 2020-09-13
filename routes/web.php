@@ -130,6 +130,8 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
                 $router->get('schedule/obrolan/pending', 'ScheduleController@obrolanPending');
                 $router->get('schedule/obrolan/aktif', 'ScheduleController@obrolanAktif');
                 $router->post('schedule/konselor/update','ScheduleController@changeKonselor');
+
+                $router->get('siswa','SiswaController@getAllSiswa');
             });
 
         });
