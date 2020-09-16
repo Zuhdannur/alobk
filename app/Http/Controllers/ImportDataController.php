@@ -12,13 +12,10 @@ class ImportDataController extends Controller
     public function import(Request $request)
     {
 
-
+        dd($request->upload);
         //Move File
         $file = $request->upload->getClientOriginalExtension();
 
-        return response()->json([
-            "res" => $request->all()
-        ]);
 
         if ($file == "xlsx" || $file == "csv") {
 
