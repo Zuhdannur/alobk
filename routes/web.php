@@ -182,6 +182,8 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
                 $router->post('feedback', 'CatatanKonselingController@post');
                 $router->get('feedback/{id}', 'CatatanKonselingController@get');
 
+                $router->get('term_and_condition','TermAndConditionController@getCondition');
+                $router->post('term_and_condition/update','TermAndConditionController@update');
 
             });
         });
