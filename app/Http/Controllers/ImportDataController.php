@@ -16,6 +16,10 @@ class ImportDataController extends Controller
         //Move File
         $file = $request->upload->getClientOriginalExtension();
 
+        return response()->json([
+            "res" => $file
+        ]);
+
         if ($file == "xlsx" || $file == "csv") {
 
             $file = uniqid() . '.' . $file;
