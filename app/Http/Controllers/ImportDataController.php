@@ -15,11 +15,13 @@ class ImportDataController extends Controller
         //Move File
         $file = $request->upload->getClientOriginalExtension();
 
-
+        dd($file);
+        
         if ($file == "xlsx" || $file == "csv") {
 
             $file = uniqid() . '.' . $file;
             $path = 'uploads' . DIRECTORY_SEPARATOR . 'files' . DIRECTORY_SEPARATOR;
+
 
             $destinationPath = public_path($path);
 
