@@ -15,7 +15,6 @@ class ImportDataController extends Controller
         //Move File
         $file = $request->upload->getClientOriginalExtension();
 
-        dd($file);
         
         if ($file == "xlsx" || $file == "csv") {
 
