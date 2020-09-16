@@ -17,7 +17,7 @@ class ImportDataController extends Controller
         $file = $request->upload->getClientOriginalExtension();
 
         return response()->json([
-            "res" => $file
+            "res" => $request->all()
         ]);
 
         if ($file == "xlsx" || $file == "csv") {
