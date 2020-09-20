@@ -74,11 +74,11 @@ class SekolahRepository
     private
     function isSekolahExists($namaSekolah)
     {
-        $check = $this->sekolah->where('nama_sekolah', $namaSekolah)->first();
-        if (!$check) {
-            return null;
+        $check = $this->sekolah->where('nama_sekolah','like','%'.$namaSekolah.'%')->first();
+        if (empty($check)) {
+            return false;
         }
-        return $check;
+        return true;
     }
 
     public
@@ -99,14 +99,21 @@ class SekolahRepository
                 'message' => 'Gagal, sekolah telah terdaftar di server.'
             ], 201);
         }
-        $this->sekolah->nama_sekolah = $request->nama_sekolah;
-        $this->sekolah->alamat = $request->alamat;
-        $this->sekolah->save();
+        $create = \App\Sekolah::create($request->all());
 
-        return Response::json([
-            'message' => 'Berhasil mendaftarkan sekolah.',
-            'id' => $this->sekolah->id
-        ], 200);
+
+        if($create) {
+            return Response::json([
+                'message' => 'Berhasil mendaftarkan sekolah.',
+                'id' => $create->id
+            ], 200);
+        } else {
+            return Response::json([
+                'message' => 'Gagal Mendaftarkan'
+            ], 201);
+        }
+
+
     }
 
     public
@@ -114,7 +121,8 @@ class SekolahRepository
     {
         $update = $this->sekolah->find($id)->update([
             "nama_sekolah" => $request->nama_sekolah,
-            "alamat" => $request->alamat
+            "alamat" => $request->alamat,
+            "type" => $request->type
         ]);
         if ($update) {
             return Response::json(["message" => "berhasil menyunting."], 200);

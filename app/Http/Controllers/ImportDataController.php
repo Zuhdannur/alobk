@@ -15,12 +15,19 @@ class ImportDataController extends Controller
         //Move File
         $file = $request->upload->getClientOriginalExtension();
 
-        
+
         if ($file == "xlsx" || $file == "csv") {
 
             $file = uniqid() . '.' . $file;
             $path = 'uploads' . DIRECTORY_SEPARATOR . 'files' . DIRECTORY_SEPARATOR;
 
+            $find = \App\Sekolah::where('nama_sekolah','like','%'. $request->nama_sekolah .'%')->first();
+            if(empty($find)) {
+                return response()->json([
+                    "message" => "Nama Sekolah Tidak Ada",
+                    "status" => 201
+                ]);
+            }
 
             $destinationPath = public_path($path);
 
@@ -31,11 +38,15 @@ class ImportDataController extends Controller
             $baseUrl = getenv('URL_IMPORT_DATA');
 
             $client = new Client();
-            $request = $client->request('POST', $baseUrl . 'import', [
+            $uploadToAdonisJs = $client->request('POST', $baseUrl . 'import', [
                 'multipart' => [
                     [
                         'name' => 'upload',
                         'contents' => fopen($destinationPath . $file, 'r')
+                    ],
+                    [
+                        'name' => 'sekolah_id',
+                        'contents' => $find->id
                     ]
                 ]
             ]);
@@ -43,7 +54,7 @@ class ImportDataController extends Controller
             unlink($destinationPath . $file);
 
             $return = [
-                "code" => $request->getStatusCode(),
+                "code" => $uploadToAdonisJs->getStatusCode(),
                 "message" => "Imported"
             ];
 
