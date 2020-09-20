@@ -24,7 +24,8 @@ class Schedule extends Model
         'pending',
         'finish',
         'active',
-        'start'
+        'start',
+        'overtime'
     ];
 
     protected $dates = [
@@ -66,7 +67,7 @@ class Schedule extends Model
     //     return \Carbon\Carbon::parse($this->attributes['time'])
     //         ->format('d, M Y: H:i');
     // }updated_new_time updated_old_time
-    
+
     public function getUpdatedNewTimeAttribute() {
         return $this->attributes['updated_new_time'] == null ? null : \Carbon\Carbon::parse($this->attributes['updated_new_time'])
         ->format('d, M Y: H:i');
