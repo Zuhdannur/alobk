@@ -36,19 +36,19 @@ class Sekolah extends Model
             ->with([$relation => $constraint]);
     }
 
-//    // Relationships
-//    public function user() {
-//        return $this->hasMany('\App\User');
-//    }
-//
-//    public function firstAdmin() {
-//        return $this->hasOne('\App\User')->where('role','admin');
-//    }
-//
-//    public function getCreatedAtAttribute()
-//    {
-//        return \Carbon\Carbon::parse($this->attributes['created_at'])
-//            ->diffForHumans();
-//    }
+    // Relationships
+    public function user() {
+        return $this->hasMany('\App\User');
+    }
+
+    public function firstAdmin() {
+        return $this->hasOne('\App\User')->where('role','admin');
+    }
+
+    public function getCreatedAtAttribute()
+    {
+        return \Carbon\Carbon::parse($this->attributes['created_at'])
+            ->diffForHumans();
+    }
 
 }
