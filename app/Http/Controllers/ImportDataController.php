@@ -6,6 +6,7 @@ use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
+use Psy\Util\Json;
 
 class ImportDataController extends Controller
 {
@@ -14,7 +15,6 @@ class ImportDataController extends Controller
 
         //Move File
         $file = $request->upload->getClientOriginalExtension();
-
 
         if ($file == "xlsx" || $file == "csv") {
 
@@ -53,16 +53,17 @@ class ImportDataController extends Controller
 
             unlink($destinationPath . $file);
 
+            $message = json_decode($uploadToAdonisJs->getBody()->getContents(),true);
             $return = [
                 "code" => $uploadToAdonisJs->getStatusCode(),
-                "message" => "Imported"
+                "message" => $message['message']
             ];
 
-            return response()->json($return);
+            return response()->json($return,$uploadToAdonisJs->getStatusCode());
         }
         return response()->json([
             "message" => "extension tidak sesuai , format harus xlsx atau csv",
             "code" => 400
-        ]);
+        ],201);
     }
 }

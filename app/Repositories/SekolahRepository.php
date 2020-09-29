@@ -62,6 +62,7 @@ class SekolahRepository
 //        $data = $this->sekolah->withAndWhereHas('firstAdmin', function ($query) {
 //            $query->where('role', 'admin');
 //        })->get();
+        return \response()->json($data->get(),200);
     }
 
     public

@@ -122,6 +122,15 @@ class UsersRepository
             $this->addTopic($data);
         }
 
+        if(!empty($request->type)) {
+            if($user->role != 'admin') {
+                return Response::json([
+                    "message" => 'Akun Tidak Memiliki Otoritas Admin',
+                ], 201);
+            }
+
+        }
+
         return Response::json([
             "message" => 'success',
             "api_token" => $apiKey,
@@ -129,7 +138,6 @@ class UsersRepository
             "data" => $data
         ], 200);
     }
-
 
     public function changePassword(Request $request)
     {

@@ -40,6 +40,15 @@ class UserController extends Controller {
         return Response::json($data, 200);
     }
 
+    public function getUsersWeb(Request $request) {
+        $data = $this->user->where('sekolah_id', Auth::user()->sekolah_id)->where('role','!=','admin');
+        if($request->has('role')) {
+                $data = $data->where('role', $request->role);
+        }
+
+        return Response::json($data, 200);
+    }
+
 
     public function getAdminCount() {
 
