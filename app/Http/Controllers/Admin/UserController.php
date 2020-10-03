@@ -46,7 +46,7 @@ class UserController extends Controller {
                 $data = $data->where('role', $request->role);
         }
 
-        return Response::json($data, 200);
+        return Response::json($data->get(), 200);
     }
 
 
