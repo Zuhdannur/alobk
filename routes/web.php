@@ -188,6 +188,8 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
                 $router->get('term_and_condition','TermAndConditionController@getCondition');
                 $router->post('term_and_condition/update','TermAndConditionController@update');
 
+                $router->get('konseling/active','ScheduleController@getKonselingAktif');
+
             });
         });
 
