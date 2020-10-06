@@ -406,4 +406,9 @@ class ScheduleController extends Controller
         ]);
     }
 
+    public function getKonselingAktif() {
+        $data = $this->schedule->justActive()->consultantIsMe()->withRequester();
+        return Response::json($data->get() , 200);
+    }
+
 }

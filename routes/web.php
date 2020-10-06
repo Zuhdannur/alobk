@@ -135,6 +135,7 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
                 $router->post('schedule/konselor/update','ScheduleController@changeKonselor');
 
                 $router->get('siswa','SiswaController@getAllSiswa');
+                $router->get('konseling/active','ScheduleController@getKonselingAktif');
             });
 
         });
