@@ -25,6 +25,7 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
     $router->post('login', 'UsersController@login');
     $router->post('register', 'UsersController@register');
     $router->get('cron', 'MastersController@cronJob');
+    $router->get('list-school','UsersController@getSchool');
 
     $router->post('import','ImportDataController@import');
 

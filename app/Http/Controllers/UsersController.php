@@ -120,4 +120,19 @@ class UsersController extends Controller
         return Response::json(["message" => "Kata sandi berhasil diubah."], 200);
     }
 
+    public function getSchool(Request $request) {
+        $per_page = $request->per_page;
+
+        $data = new \App\Sekolah;
+
+        if($request->has('take')) {
+            $data = $data->orderBy('created_at', 'desc')->take($request->take)->get();
+            return Response::json($data, 200);
+        }
+
+        $data = $data->orderBy('created_at', 'desc')->paginate($per_page);
+
+        return Response::json($data, 200);
+    }
+
 }
