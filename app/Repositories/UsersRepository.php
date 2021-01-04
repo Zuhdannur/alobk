@@ -26,9 +26,12 @@ class UsersRepository
         $this->user = $user;
     }
 
-    private function isUsernameExists($username)
+    private function isUsernameExists($username , $role , $school)
     {
-        $check = $this->user->where('username', $username)->first();
+        $check = $this->user->where('username', $username)->where('role',$role)->wherehas('sekolah',function ($q) use ($school) {
+            $q->where('nama_sekolah',$school);
+        })->first();
+
         if (!$check) {
             return null;
         }
@@ -38,7 +41,7 @@ class UsersRepository
 
     public function register(Request $request)
     {
-        if ($this->isUsernameExists($request->username)) {
+        if ($this->isUsernameExists($request->username,$request->role,$request->school)) {
             return Response::json([
                 'message' => 'Username ini telah digunakan.'
             ], 201);
@@ -95,7 +98,7 @@ class UsersRepository
 
     public function login(Request $request)
     {
-        $user = $this->isUsernameExists($request->username);
+        $user = $this->isUsernameExists($request->username,$request->role,$request->school);
 
         if (!$user) {
             return Response::json([
