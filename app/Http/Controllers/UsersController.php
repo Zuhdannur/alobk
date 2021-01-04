@@ -125,12 +125,11 @@ class UsersController extends Controller
 
         $data = new \App\Sekolah;
 
-        if($request->has('take')) {
-            $data = $data->orderBy('created_at', 'desc')->take($request->take)->get();
-            return Response::json($data, 200);
+        if($request->has('nama') && !empty($request->input('nama'))) {
+            $data = $data->where('nama_sekolah','like','%'.$request->nama.'%');
         }
 
-        $data = $data->orderBy('created_at', 'desc')->paginate($per_page);
+        $data = $data->get();
 
         return Response::json($data, 200);
     }
