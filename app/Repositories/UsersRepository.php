@@ -28,8 +28,10 @@ class UsersRepository
 
     private function isUsernameExists($username , $role , $school)
     {
-        $check = $this->user->where('username', $username)->where('role',$role)->wherehas('sekolah',function ($q) use ($school) {
-            $q->where('nama_sekolah',$school);
+        $check = $this->user->where('username', $username)->where('role',$role)->wherehas('sekolah',function ($q) use ($school , $role) {
+            if($role != "master") {
+                $q->where('nama_sekolah',$school);
+            }
         })->first();
 
         if (!$check) {
