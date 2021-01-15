@@ -28,16 +28,24 @@ class UsersRepository
 
     private function isUsernameExists($username , $role , $school)
     {
-        $check = $this->user->where('username', $username)->where('role',$role)->wherehas('sekolah',function ($q) use ($school , $role) {
-            if($role != "master") {
-                $q->where('nama_sekolah',$school);
-            }
-        })->first();
-
-        if (!$check) {
-            return null;
+//        $check = $this->user->where('username', $username)->where('role',$role)
+//          ->wherehas('sekolah',function ($q) use ($school , $role) {
+//            if($role != "master") {
+//                $q->where('nama_sekolah',$school);
+//            }
+//        })
+//->first();
+        $check = $this->user->makeVisible('password')->where('username', $username)->where('role',$role);
+        if($role != "master") {
+            $check->wherehas('sekolah',function ($q) use ($school , $role) {
+                    $q->where('nama_sekolah',$school);
+            });
         }
-        return $check;
+
+//        if (empty($check)) {
+//            return null;
+//        }
+        return $check->first();
     }
 
 
@@ -127,10 +135,10 @@ class UsersRepository
             $this->addTopic($data);
         }
 
-        if(!empty($request->type)) {
-            if($user->role != 'admin') {
+        if(!empty($user->role)) {
+            if(!in_array($user->role,array("admin","master"))) {
                 return Response::json([
-                    "message" => 'Akun Tidak Memiliki Otoritas Admin',
+                    "message" => 'Akun Tidak Memiliki Otoritas Admin ',
                 ], 201);
             }
 
