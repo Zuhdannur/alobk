@@ -136,7 +136,7 @@ class UsersRepository
         }
 
         if(!empty($user->role)) {
-            if(!in_array($user->role,array("admin","master"))) {
+            if(!in_array($user->role,array("admin","master")) && $request->type="web") {
                 return Response::json([
                     "message" => 'Akun Tidak Memiliki Otoritas Admin ',
                 ], 201);
