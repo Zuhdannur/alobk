@@ -134,14 +134,14 @@ class UsersRepository
             $data = $this->user->where('api_token', $apiKey)->with('sekolah')->first();
             $this->addTopic($data);
         }
-
-        if(!empty($user->role)) {
-            if(!in_array($user->role,array("admin","master")) && $request->type="web") {
-                return Response::json([
-                    "message" => 'Akun Tidak Memiliki Otoritas Admin ',
-                ], 201);
+        if(!empty($request->type)) {
+            if(!empty($user->role)) {
+                if(!in_array($user->role,array("admin","master"))) {
+                    return Response::json([
+                        "message" => 'Akun Tidak Memiliki Otoritas Admin ',
+                    ], 201);
+                }
             }
-
         }
 
         return Response::json([
