@@ -74,13 +74,13 @@ class ImportDataController extends Controller
 //                ]
 //            ]);
 //
-//            unlink($destinationPath . $file);
 //
 //            $message = json_decode($uploadToAdonisJs->getBody()->getContents(),true);
 //            $return = [
 //                "code" => $uploadToAdonisJs->getStatusCode(),
 //                "message" => $message['message']
 //            ];
+            unlink($destinationPath . $file);
             $status = 200;
             if(!empty($errors) > 0) {
                 $message = [
