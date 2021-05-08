@@ -292,4 +292,38 @@ class UsersRepository
         return \response()->json($query);
     }
 
+    public function registerNoReturnJson(Request $request) {
+        if ($this->isUsernameExists($request->username,$request->role,$request->school)) {
+            return false;
+        }
+
+        $insert = $this->user;
+        $insert->name = $request->name;
+        $insert->username = $request->username;
+        $insert->password = Hash::make($request->password);
+        $insert->role = $request->role;
+        $insert->avatar = $request->avatar;
+
+        $insert->jenkel = $request->jenkel;
+        $insert->alamat = $request->alamat;
+        $insert->nomor_hp = $request->nomor_hp;
+        $insert->kelas = $request->kelas;
+        $insert->sekolah_id = $request->sekolah_id;
+        $insert->perguruan_tinggi = $request->perguruan_tinggi;
+        $insert->kota = $request->kota;
+        $insert->tanggal_lahir = $request->tanggal_lahir;
+        $insert->kota_lahir = $request->kota_lahir;
+        $insert->save();
+
+        if($request->role == 'guru' || $request->role == 'siswa') {
+            // createUserInFirebase($request);
+            $this->createUserInFirebase($request,$insert);
+        }
+        if($insert) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

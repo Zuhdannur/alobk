@@ -28,6 +28,7 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
     $router->get('list-school','UsersController@getSchool');
 
     $router->post('import','ImportDataController@import');
+    $router->post('download','ImportDataController@downloadExampleFile');
 
     /**
     * Routes for resource sekolah
