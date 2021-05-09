@@ -26,7 +26,7 @@ $app->withFacades();
 $app->withEloquent();
 
 
-$app->configure('cors');
+//$app->configure('cors');
 /*
 |--------------------------------------------------------------------------
 | Register Container Bindings
@@ -64,10 +64,11 @@ $app->register(Flipbox\LumenGenerator\LumenGeneratorServiceProvider::class);
 */
 $app->middleware([
 //    App\Http\Middleware\ExampleMiddleware::class,
-    \Barryvdh\Cors\HandleCors::class,
+//    \Barryvdh\Cors\HandleCors::class,
 //    App\Http\Middleware\CorsMiddleware::class,
 //    'Nord\Lumen\Cors\CorsMiddleware',
-    Nord\Lumen\Cors\CorsMiddleware::class
+//    Nord\Lumen\Cors\CorsMiddleware::class,
+    'Vluzrmos\LumenCors\CorsMiddleware'
 ]);
 
 $app->routeMiddleware([
@@ -93,7 +94,8 @@ $app->register(Berkayk\OneSignal\OneSignalServiceProvider::class);
 $app->register(App\Providers\AuthServiceProvider::class);
 $app->register(Orumad\ConfigCache\ServiceProviders\ConfigCacheServiceProvider::class);
 $app->register(App\Providers\EventServiceProvider::class);
-$app->register(Barryvdh\Cors\ServiceProvider::class);
+//$app->register(App\Providers\CatchAllOptionsRequestsProvider::class);
+//$app->register(Barryvdh\Cors\ServiceProvider::class);
 //App\Providers\BroadcastServiceProvider::class,
 $app->register(\Nord\Lumen\Cors\CorsServiceProvider::class);
 //$app->register('Nord\Lumen\Cors\CorsServiceProvider');

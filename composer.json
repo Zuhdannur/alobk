@@ -24,6 +24,7 @@
         "safestudio/firebase-laravel": "^1.0",
         "unsplash/unsplash": "^2.4",
         "vlucas/phpdotenv": "^3.3",
+        "vluzrmos/lumen-cors": "2.1.*",
         "wn/lumen-generators": "^1.3"
     },
 
