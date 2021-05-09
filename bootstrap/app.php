@@ -63,8 +63,11 @@ $app->register(Flipbox\LumenGenerator\LumenGeneratorServiceProvider::class);
 |
 */
 $app->middleware([
-    App\Http\Middleware\ExampleMiddleware::class,
+//    App\Http\Middleware\ExampleMiddleware::class,
     \Barryvdh\Cors\HandleCors::class,
+//    App\Http\Middleware\CorsMiddleware::class,
+//    'Nord\Lumen\Cors\CorsMiddleware',
+    Nord\Lumen\Cors\CorsMiddleware::class
 ]);
 
 $app->routeMiddleware([
@@ -92,6 +95,8 @@ $app->register(Orumad\ConfigCache\ServiceProviders\ConfigCacheServiceProvider::c
 $app->register(App\Providers\EventServiceProvider::class);
 $app->register(Barryvdh\Cors\ServiceProvider::class);
 //App\Providers\BroadcastServiceProvider::class,
+$app->register(\Nord\Lumen\Cors\CorsServiceProvider::class);
+//$app->register('Nord\Lumen\Cors\CorsServiceProvider');
 $app->register(\Illuminate\Broadcasting\BroadcastServiceProvider::class);
 $app->register(\Barryvdh\DomPDF\ServiceProvider::class);
 $app->configure('broadcasting');
