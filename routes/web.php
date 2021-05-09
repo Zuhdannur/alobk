@@ -27,8 +27,7 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
     $router->get('cron', 'MastersController@cronJob');
     $router->get('list-school','UsersController@getSchool');
 
-    $router->post('import','ImportDataController@import');
-    $router->post('download','ImportDataController@downloadExampleFile');
+
 
     /**
     * Routes for resource sekolah
@@ -43,6 +42,11 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
         $router->get('sekolah/master/month', 'SekolahsController@getDataThisMonth');
         $router->get('sekolah/master/sekolah', 'SekolahsController@getSekolahCount');
         $router->post('sekolah/check', 'SekolahsController@checkSekolahName');
+    });
+
+    $router->group(['prefix' => 'data'],function () use ($router) {
+        $router->post('import','ImportDataController@import');
+        $router->post('download','ImportDataController@downloadExampleFile');
     });
 
     $router->group(['middleware' => 'auth'], function () use ($router) {
