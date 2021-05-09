@@ -44,11 +44,6 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
         $router->post('sekolah/check', 'SekolahsController@checkSekolahName');
     });
 
-    $router->group(['prefix' => 'data'],function () use ($router) {
-        $router->post('import','ImportDataController@import');
-        $router->post('download','ImportDataController@downloadExampleFile');
-    });
-
     $router->group(['middleware' => 'auth'], function () use ($router) {
 
         $router->group(['namespace' => 'Master'], function () use ($router) {
@@ -218,6 +213,12 @@ $router->group(['prefix'=>'v1/api'], function () use ($router) {
         $router->get('user/{id}', 'UsersController@get');
         $router->put('user', 'UsersController@put');
         $router->delete('user/{id}', 'UsersController@remove');
+
+
+        $router->group(['prefix' => 'data'], function () use ($router) {
+            $router->post('import','ImportDataController@import');
+            $router->post('download','ImportDataController@downloadExampleFile');
+        });
 
 
     });
